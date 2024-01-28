@@ -31,25 +31,10 @@
         <height>720</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="SimpleCardWidget" name="SimpleCardWidget_2">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="spacing">
-           <number>15</number>
-          </property>
-          <property name="leftMargin">
-           <number>15</number>
-          </property>
-          <property name="topMargin">
-           <number>15</number>
-          </property>
-          <property name="rightMargin">
-           <number>15</number>
-          </property>
-          <property name="bottomMargin">
-           <number>15</number>
-          </property>
           <item>
            <widget class="IconWidget" name="IconWidget">
             <property name="sizePolicy">
@@ -117,43 +102,88 @@
            </layout>
           </item>
           <item>
-           <widget class="VerticalSeparator" name="VerticalSeparator_2"/>
+           <widget class="SubtitleLabel" name="SubtitleLabel_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>最新波次：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <item row="1" column="0">
-             <widget class="LineEdit" name="LineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>15</width>
-                <height>33</height>
-               </size>
-              </property>
-              <property name="placeholderText">
-               <string>在这里输入EAN13码</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="PushButton" name="PushButton_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>手动出库</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="2">
+           <widget class="QLCDNumber" name="lcdNumber">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+              <horstretch>51</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>130</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <property name="lineWidth">
+             <number>2</number>
+            </property>
+            <property name="midLineWidth">
+             <number>0</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="digitCount">
+             <number>3</number>
+            </property>
+            <property name="mode">
+             <enum>QLCDNumber::Dec</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+            <property name="intValue" stdset="0">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="SimpleCardWidget" name="SimpleCardWidget_3">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="spacing">
+             <number>15</number>
+            </property>
+            <property name="leftMargin">
+             <number>15</number>
+            </property>
+            <property name="topMargin">
+             <number>15</number>
+            </property>
+            <property name="rightMargin">
+             <number>15</number>
+            </property>
+            <property name="bottomMargin">
+             <number>15</number>
+            </property>
+            <item>
              <widget class="SubtitleLabel" name="SubtitleLabel_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -162,293 +192,298 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>手动出库</string>
+               <string>出库</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <property name="spacing">
-            <number>15</number>
-           </property>
-           <property name="leftMargin">
-            <number>15</number>
-           </property>
-           <property name="topMargin">
-            <number>15</number>
-           </property>
-           <property name="rightMargin">
-            <number>15</number>
-           </property>
-           <property name="bottomMargin">
-            <number>15</number>
-           </property>
-           <item>
-            <widget class="SimpleCardWidget" name="SimpleCardWidget_3">
-             <layout class="QVBoxLayout" name="verticalLayout_18">
+            <item>
+             <widget class="HorizontalSeparator" name="HorizontalSeparator_2"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <property name="spacing">
-                 <number>15</number>
+               <widget class="BodyLabel" name="BodyLabel">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;当有重复的商品被出库会覆盖上一次的出库时间和波次&lt;/p&gt;&lt;p&gt;如果您关闭该选项那么会默认跳过重复的商品&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
-                <property name="leftMargin">
-                 <number>15</number>
+                <property name="text">
+                 <string>覆盖重复出库的商品</string>
                 </property>
-                <property name="topMargin">
-                 <number>15</number>
-                </property>
-                <property name="rightMargin">
-                 <number>15</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>15</number>
-                </property>
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_17">
-                  <item>
-                   <widget class="SubtitleLabel" name="SubtitleLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>扫码枪</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="CaptionLabel" name="CaptionLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>未连接</string>
-                    </property>
-                    <property name="lightColor" stdset="0">
-                     <color>
-                      <red>96</red>
-                      <green>96</green>
-                      <blue>96</blue>
-                     </color>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <widget class="PushButton" name="PushButton">
-                  <property name="text">
-                   <string>连接扫码枪</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               </widget>
               </item>
               <item>
-               <widget class="HorizontalSeparator" name="HorizontalSeparator"/>
-              </item>
-              <item>
-               <layout class="QGridLayout" name="gridLayout" rowstretch="0">
-                <property name="leftMargin">
-                 <number>15</number>
+               <widget class="SwitchButton" name="SwitchButton">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;当有重复的商品被出库会覆盖上一次的出库时间和波次&lt;/p&gt;&lt;p&gt;如果您关闭该选项那么会默认跳过重复的商品&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
-                <property name="topMargin">
-                 <number>15</number>
+                <property name="onText">
+                 <string>开启</string>
                 </property>
-                <property name="rightMargin">
-                 <number>15</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>15</number>
-                </property>
-                <property name="spacing">
-                 <number>15</number>
-                </property>
-                <item row="0" column="1">
-                 <widget class="PushButton" name="PushButton_5">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在该模式下数据不会入库，只会显示所有的信息&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>查询模式</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="PushButton" name="PushButton_4">
-                  <property name="text">
-                   <string>出库模式</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="PlainTextEdit" name="PlainTextEdit">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="plainText">
-                 <string/>
-                </property>
-                <property name="centerOnScroll">
-                 <bool>false</bool>
-                </property>
-                <property name="placeholderText">
-                 <string>您的扫码结果显示在这里</string>
+                <property name="offText">
+                 <string>关闭</string>
                 </property>
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <widget class="BodyLabel" name="BodyLabel_3">
+                <property name="toolTip">
+                 <string>默认结果会按次导出到文件夹</string>
+                </property>
+                <property name="text">
+                 <string>自动波次</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SwitchButton" name="SwitchButton_3">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的波次,如果最新波次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该波次,否则创建新的波次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <property name="onText">
+                 <string>开启</string>
+                </property>
+                <property name="offText">
+                 <string>关闭</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="BodyLabel" name="BodyLabel_5">
+                <property name="text">
+                 <string>波次</string>
+                </property>
+                <property name="buddy">
+                 <cstring>SpinBox_2</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SpinBox" name="SpinBox_2">
+                <property name="toolTip">
+                 <string>出货波次,可以填写当月的过往波次,但是不允许波次数超过最新波次数+1</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>999</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="LineEdit" name="LineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>33</height>
+                 </size>
+                </property>
+                <property name="placeholderText">
+                 <string>在这里输入EAN13码</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="PushButton" name="PushButton_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>确认</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="PlainTextEdit" name="PlainTextEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="plainText">
+               <string/>
+              </property>
+              <property name="centerOnScroll">
+               <bool>false</bool>
+              </property>
+              <property name="placeholderText">
+               <string>您的扫码结果显示在这里(无论是否成功添加都会在这里显示值)</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="TransparentPushButton" name="TransparentPushButton_4">
+               <property name="text">
+                <string>删除当前行</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../resource.qrc">
+                 <normaloff>:/icons/images/icons/delete.svg</normaloff>:/icons/images/icons/delete.svg</iconset>
+               </property>
+               <property name="hasIcon" stdset="0">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="TransparentPushButton" name="TransparentPushButton_5">
+               <property name="text">
+                <string>清空全部</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../resource.qrc">
+                 <normaloff>:/icons/images/icons/erase.svg</normaloff>:/icons/images/icons/erase.svg</iconset>
+               </property>
+               <property name="hasIcon" stdset="0">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="TransparentPushButton" name="TransparentPushButton_6">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将数据在数据库中标记为出库并输出excel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="text">
+                <string>确认出库</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../resource.qrc">
+                 <normaloff>:/icons/images/icons/sign_out.svg</normaloff>:/icons/images/icons/sign_out.svg</iconset>
+               </property>
+               <property name="hasIcon" stdset="0">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="TableWidget" name="TableWidget">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="textElideMode">
+              <enum>Qt::ElideRight</enum>
+             </property>
+             <property name="showGrid">
+              <bool>false</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="rowCount">
+              <number>18</number>
+             </property>
+             <property name="columnCount">
+              <number>6</number>
+             </property>
+             <property name="selectRightClickedRow">
+              <bool>false</bool>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <column>
+              <property name="text">
+               <string>名称</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>品牌</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>价格</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>波次名称</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>入库时间</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>EAN13码</string>
+              </property>
+             </column>
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="TableWidget" name="TableWidget">
-           <property name="showGrid">
-            <bool>false</bool>
-           </property>
-           <property name="sortingEnabled">
-            <bool>true</bool>
-           </property>
-           <property name="selectRightClickedRow">
-            <bool>false</bool>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="horizontalHeaderStretchLastSection">
-            <bool>true</bool>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>id</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>名称</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>品牌</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>价格</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>是否售出</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>EAN13码</string>
-            </property>
-           </column>
-           <item row="0" column="0">
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item row="0" column="1">
-            <property name="text">
-             <string>a</string>
-            </property>
-           </item>
-           <item row="0" column="2">
-            <property name="text">
-             <string>a</string>
-            </property>
-           </item>
-           <item row="0" column="3">
-            <property name="text">
-             <string>a</string>
-            </property>
-           </item>
-           <item row="0" column="4">
-            <property name="text">
-             <string>a</string>
-            </property>
-           </item>
-           <item row="0" column="5">
-            <property name="text">
-             <string>a</string>
-            </property>
-           </item>
-           <item row="1" column="0">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item row="1" column="1">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item row="1" column="2">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item row="1" column="3">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item row="1" column="4">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item row="1" column="5">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-          </widget>
          </item>
         </layout>
        </item>
@@ -462,6 +497,16 @@
   <customwidget>
    <class>PushButton</class>
    <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SwitchButton</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TransparentPushButton</class>
+   <extends>PushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
@@ -498,11 +543,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CaptionLabel</class>
-   <extends>QLabel</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
    <class>BodyLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
@@ -528,13 +568,60 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
+   <class>SpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
    <class>TableWidget</class>
    <extends>QTableWidget</extends>
    <header>qfluentwidgets</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>LineEdit</tabstop>
+  <tabstop>PlainTextEdit</tabstop>
+  <tabstop>TransparentPushButton_4</tabstop>
+  <tabstop>TransparentPushButton_5</tabstop>
+  <tabstop>TransparentPushButton_6</tabstop>
+  <tabstop>TableWidget</tabstop>
+  <tabstop>SmoothScrollArea</tabstop>
+ </tabstops>
  <resources>
   <include location="../resource.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>SwitchButton_3</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_5</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>182</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>79</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_3</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>SpinBox_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>186</x>
+     <y>256</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

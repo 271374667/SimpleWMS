@@ -42,16 +42,14 @@ class MessageBaseView(QWidget):
             is_closable (bool, optional): 是否可以被关闭. Defaults to True.
             button_text: (str, optional): 按钮的文本. Defaults to None.
         """
-        w = InfoBar(
-                icon=InfoBarIcon.INFORMATION,
-                title=title,
-                content=content,
-                orient=Qt.Vertical,  # vertical layout
-                isClosable=is_closable,
-                position=position,
-                duration=duration,
-                parent=self
-                )
+        w = InfoBar(icon=InfoBarIcon.INFORMATION,
+                    title=title,
+                    content=content,
+                    orient=Qt.Vertical,  # vertical layout
+                    isClosable=is_closable,
+                    position=position,
+                    duration=duration,
+                    parent=self)
         if button_text:
             inner_button = PushButton(button_text)
             w.addWidget(inner_button)

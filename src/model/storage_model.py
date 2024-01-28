@@ -14,11 +14,11 @@ from src.config import cfg
 
 class StorageModel:
     def __init__(self):
-        self._db = StorageController()
+        self._db_controller = StorageController()
 
     def get_newest_batch_serial_number(self) -> str:
         """获取最新的批次"""
-        return self._db.get_latest_batch_serial_number()
+        return self._db_controller.get_latest_batch_serial_number()
 
     def get_newest_batch_number(self) -> int:
         """获取最新的批次序号"""
@@ -41,14 +41,13 @@ class StorageModel:
     def export_data(self, data: list[Tuple[str, str, float, str]]) -> None:
         """导出数据到Excel和数据库"""
         # 先获取最新的inventory_id
-        latest_inventory_id = self._db.get_latest_inventory_id()
+        latest_inventory_id = self._db_controller.get_latest_inventory_id()
 
         # 要先导出到数据库才能获取到id和EAN13
-        self._db.export_to_database(data)
+        self._db_controller.export_to_database(data)
 
-        new_data = self._db.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
+        new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
         print(new_data)
-
         # 将数据类对象转换为字典列表
         dict_list = [asdict(item) for item in new_data]
 
@@ -66,7 +65,7 @@ class StorageModel:
 
         # 将DataFrame导出为Excel文件
         save_dir = Path(cfg.get(cfg.backup_path))
-        EXCEL_FILE = save_dir / f'{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+        EXCEL_FILE = save_dir / f'入库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         df.to_excel(EXCEL_FILE, index=False)
         loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')
         loguru.logger.debug(f'本次导出了{len(dict_list)}条数据到Excel文件')

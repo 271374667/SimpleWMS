@@ -6,19 +6,27 @@ from qfluentwidgets import FluentWindow, InfoBadge, InfoBadgePosition, Navigatio
 from src.view import chart_view, database_view, home_view, retrieval_view, setting_view, storage_view, warn_view
 
 
-class Window(FluentWindow):
+class MainView(FluentWindow):
 
-    def __init__(self):
+    def __init__(self, home_view: home_view.HomeView,
+                 storage_view: storage_view.StorageView,
+                 retrieval_view: retrieval_view.RetrievalView,
+                 database_view: database_view.DatabaseView,
+                 warn_view: warn_view.WarnView,
+                 chart_view: chart_view.ChartView,
+                 setting_view: setting_view.SettingView
+
+                 ):
         super().__init__()
 
         # create sub interface
-        self.homeInterface = home_view.HomeView()
-        self.storageInterface = storage_view.StorageView()
-        self.retrievalInterface = retrieval_view.RetrievalView()
-        self.databaseInterface = database_view.DatabaseView()
-        self.warnInterface = warn_view.WarnView()
-        self.chartInterface = chart_view.ChartView()
-        self.settingInterface = setting_view.SettingView()
+        self.homeInterface = home_view
+        self.storageInterface = storage_view
+        self.retrievalInterface = retrieval_view
+        self.databaseInterface = database_view
+        self.warnInterface = warn_view
+        self.chartInterface = chart_view
+        self.settingInterface = setting_view
 
         self.initNavigation()
         self.initWindow()

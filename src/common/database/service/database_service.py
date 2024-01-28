@@ -1,12 +1,12 @@
 from datetime import date, datetime
-from typing import Union
+from typing import Optional, Union
 
 import loguru
 
 from src.common.database import Session
 from src.common.database.entity import dataclass_model
 from src.common.database.entity import model
-from src.common.database.utils import convert
+from src.common.database.utils import convert, serial_number
 
 
 class DatabaseService:
@@ -22,13 +22,13 @@ class DatabaseService:
     def get_all_inventory(self) -> list[model.Inventory]:
         return self._session.query(model.Inventory).all()
 
-    def get_batch_by_serial_number(self, serial_number: str) -> model.Batch:
+    def get_batch_by_serial_number(self, serial_number: str) -> Optional[model.Batch]:
         return self._session.query(model.Batch).filter(model.Batch.batch_serial_number == serial_number).first()
 
-    def get_wave_by_serial_number(self, serial_number: str) -> model.Wave:
+    def get_wave_by_serial_number(self, serial_number: str) -> Optional[model.Wave]:
         return self._session.query(model.Wave).filter(model.Wave.wave_serial_number == serial_number).first()
 
-    def get_inventory_by_ean13(self, ean13: str) -> model.Inventory:
+    def get_inventory_by_ean13(self, ean13: str) -> Optional[model.Inventory]:
         number = ean13[:12]
         return self._session.query(model.Inventory).filter(model.Inventory.id == int(number)).first()
 
@@ -53,11 +53,28 @@ class DatabaseService:
             return 0
         return inventory.id
 
-    def add_wave(self, wave_serial_number: str, wave_name: str, created_time: datetime, status: str) -> model.Wave:
+    def get_lastst_wave_serial_number(self) -> str:
+        """获取最新的批次,如果不存在会自动生成一个"""
+        today = datetime.today()
+        batchs_this_month = self.get_all_wave_serial_number_this_month()
+        if not batchs_this_month:
+            loguru.logger.debug(f'本月没有任何波次，自动生成一个波次:{today.year}{today.month:02d}001')
+            return f'{today.year}{today.month:02d}001'
+        return serial_number.sort_serial_number(batchs_this_month)[0]
+
+    def get_latest_batch_serial_number(self) -> str:
+        """获取最新的批次,如果不存在会自动生成一个"""
+        today = datetime.today()
+        batchs_this_month = self.get_all_batch_serial_number_this_month()
+        if not batchs_this_month:
+            loguru.logger.debug(f'本月没有任何批次，自动生成一个批次:{today.year}{today.month:02d}001')
+            return f'{today.year}{today.month:02d}001'
+        return serial_number.sort_serial_number(batchs_this_month)[0]
+
+    def add_wave(self, wave_serial_number: str, wave_name: str, created_time: datetime) -> model.Wave:
         wave_sqlalchemy_model = model.Wave(wave_serial_number=wave_serial_number,
                                            wave_name=wave_name,
-                                           created_time=created_time,
-                                           status=status)
+                                           created_time=created_time, )
         self._session.add(wave_sqlalchemy_model)
         self._session.commit()
         return wave_sqlalchemy_model
@@ -65,8 +82,7 @@ class DatabaseService:
     def add_wave_by_dataclasses(self, wave: dataclass_model.Wave) -> model.Wave:
         wave_sqlalchemy_model = self.add_wave(wave_serial_number=wave.wave_serial_number,
                                               wave_name=wave.wave_name,
-                                              created_time=wave.created_time,
-                                              status=wave.status)
+                                              created_time=wave.created_time, )
         return wave_sqlalchemy_model
 
     def add_batch(self, batch_serial_number: str, batch_name: str, created_time: datetime) -> model.Batch:
@@ -107,6 +123,7 @@ class DatabaseService:
         return inventory_sqlalchemy_model
 
     def set_wave_for_inventory(self, ean13: Union[str, int], wave: model.Wave) -> None:
+        # 获取 EAN13 对应的库存
         if isinstance(ean13, int):
             ean13 = convert.convert_id_to_ean13(ean13)
         elif isinstance(ean13, str) and len(ean13) == 12:
@@ -117,23 +134,20 @@ class DatabaseService:
             loguru.logger.warning(f"没有找到 EAN13 为 {ean13} 的商品")
             return
 
-        # 波次存在则获取波次，不存在则创建波次
+        # 先检查是否有这个波次，没有则创建,没有再使用传入的wave创建
         wave_sqlalchemy_model = self.get_wave_by_serial_number(wave.wave_serial_number)
         if wave_sqlalchemy_model is None:
-            wave_sqlalchemy_model = model.Wave(wave_serial_number=wave.wave_serial_number,
-                                               wave_name=wave.wave_name,
-                                               created_time=wave.created_time,
-                                               status=wave.status)
+            wave_sqlalchemy_model = wave
 
         inventory_sqlalchemy_model.wave = wave_sqlalchemy_model
+        inventory_sqlalchemy_model.is_sold = 1
         self._session.commit()
 
     def set_wave_for_inventory_by_dataclasses(self, ean13: Union[str, int],
                                               wave: dataclass_model.Wave) -> None:
         wave_sqlalchemy_model = model.Wave(wave_serial_number=wave.wave_serial_number,
                                            wave_name=wave.wave_name,
-                                           created_time=wave.created_time,
-                                           status=wave.status)
+                                           created_time=wave.created_time)
         self.set_wave_for_inventory(ean13, wave_sqlalchemy_model)
 
     def get_all_batch_this_month(self) -> list[model.Batch]:
@@ -145,6 +159,15 @@ class DatabaseService:
         batch_sqlalchemy_model = self.get_all_batch_this_month()
         return [x.batch_serial_number for x in batch_sqlalchemy_model]
 
+    def get_all_wave_this_month(self) -> list[model.Wave]:
+        """获取本月的所有波次"""
+        today = date.today()
+        return self._session.query(model.Wave).filter(model.Wave.created_time >= today.replace(day=1)).all()
+
+    def get_all_wave_serial_number_this_month(self) -> list[str]:
+        wave_sqlalchemy_model = self.get_all_wave_this_month()
+        return [x.wave_serial_number for x in wave_sqlalchemy_model]
+
     def __del__(self):
         self._session.close()
 
@@ -154,10 +177,9 @@ if __name__ == "__main__":
 
     database_service = DatabaseService()
     # 创建一件商品并为他设置波次
-    batch = dataclass_model.Batch(batch_serial_number="202301002", batch_name="test", created_time=date.today())
+    batch = dataclass_model.Batch(batch_serial_number="202301002", batch_name="test", created_time=datetime.today())
     inventory = dataclass_model.Inventory(item_name="Nike跑步鞋", price=331.0, brand="Nike", batch=batch)
-    wave = dataclass_model.Wave(wave_serial_number="202301003", wave_name="第三波", created_time=date.today(),
-                                status="test")
+    wave = dataclass_model.Wave(wave_serial_number="202301003", wave_name="第三波", created_time=datetime.today())
 
     database_service.add_inventory_by_dataclasses(inventory)
     database_service.set_wave_for_inventory_by_dataclasses(2, wave)

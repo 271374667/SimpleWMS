@@ -6,9 +6,10 @@ from src.view.storage_view import StorageView
 
 class StoragePresenter:
     def __init__(self):
-        self._data: List[Tuple[str, str, float, int]] = []
+        self._table_headers = ['名称', '品牌', '价格', '批次']
         self._view = StorageView()
         self._model = StorageModel()
+        self.get_view().get_display_lcd().display(self.get_model().get_newest_batch_number())
         self._connect_signals()
 
     def get_view(self) -> StorageView:
@@ -63,8 +64,7 @@ class StoragePresenter:
         if result:
             ui.get_table_widget().clear()
             # 重新设置表格的Header
-            ui.get_table_widget().setHorizontalHeaderLabels(['商品名称', '品牌', '价格', '批次'])
-            self._data.clear()
+            ui.get_table_widget().setHorizontalHeaderLabels(self._table_headers)
 
     def _delete_current_row(self) -> None:
         ui = self.get_view()
@@ -97,19 +97,31 @@ class StoragePresenter:
         table = ui.get_table_widget()
         row_count = table.rowCount()
         data = []
+
         for i in range(row_count):
-            # 如果某一行的数据不完整，那么就跳过这一行
-            if (not table.item(i, 0)
-                    or not table.item(i, 1)
-                    or not table.item(i, 2)
-                    or not table.item(i, 3)):
+            if self._is_row_empty(i):
                 continue
-            item_name = table.item(i, 0).text()
-            brand = table.item(i, 1).text()
-            price = table.item(i, 2).text()
-            batch = table.item(i, 3).text()
-            data.append((item_name, brand, float(price), batch))
+
+            row_data = self._get_row_values(i)
+            # 价格需要转换为float
+            data.append((row_data[0], row_data[1], float(row_data[2]), row_data[3]))
         return data
+
+    def _is_row_empty(self, row: int) -> bool:
+        """判断某一行是否为空"""
+        table = self.get_view().get_table_widget()
+        for i in range(table.columnCount()):
+            if table.item(row, i):
+                return False
+        return True
+
+    def _get_row_values(self, row: int) -> list[str]:
+        """获取某一行的值"""
+        table = self.get_view().get_table_widget()
+        values = []
+        for i in range(table.columnCount()):
+            values.append(table.item(row, i).text())
+        return values
 
     def _connect_signals(self) -> None:
         ui = self.get_view()
