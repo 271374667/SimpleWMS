@@ -21,7 +21,7 @@ class Base(DeclarativeBase):
 
 class Batch(Base):
     __tablename__ = "batch"
-    # batch_serial_number 是批次号，每个批次号对应一个批次，批次号是唯一的
+    # wave_serial_number 是批次号，每个批次号对应一个批次，批次号是唯一的
     # 比如2024年1月的第一批货物，批次号就是202401001
     # 后面的 001 是批次号的序号，每个批次号的序号都是从 001 开始递增的,最大为 999
     batch_serial_number: Mapped[str] = mapped_column(String(9), nullable=False)
@@ -41,10 +41,9 @@ class Wave(Base):
     wave_serial_number: Mapped[str] = mapped_column(String(9), nullable=False)
     wave_name: Mapped[str] = mapped_column(String(16), nullable=False)
     created_time: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    status: Mapped[str] = mapped_column(String(16), nullable=False)
 
     def __repr__(self) -> str:
-        return f"<Wave(wave_serial_number={self.wave_serial_number}, wave_name={self.wave_name}, created_time={self.created_time}, status={self.status})>"
+        return f"<Wave(wave_serial_number={self.wave_serial_number}, wave_name={self.wave_name}, created_time={self.created_time})>"
 
 
 class Inventory(Base):

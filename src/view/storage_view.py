@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QTableWidgetItem, QWidget
+from PySide6.QtWidgets import QApplication, QTableWidgetItem, QWidget, QLCDNumber
 from qfluentwidgets.components import (DoubleSpinBox, LineEdit, PrimaryPushButton, SpinBox, SwitchButton, TableWidget,
                                        ToolTipFilter, TransparentPushButton)
 
@@ -48,6 +48,9 @@ class StorageView(MessageBaseView):
     def get_table_widget(self) -> TableWidget:
         return self.ui.TableWidget_2
 
+    def get_display_lcd(self) -> QLCDNumber:
+        return self.ui.lcdNumber
+
     def set_table_data(self, data: list[list[str, str, float, int]]) -> None:
         """设置表格数据
 
@@ -91,6 +94,7 @@ class StorageView(MessageBaseView):
             table.setItem(row_count, 1, QTableWidgetItem(brand))
             table.setItem(row_count, 2, QTableWidgetItem(price))
             table.setItem(row_count, 3, QTableWidgetItem(batch))
+        # 跳转到最后一行
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):

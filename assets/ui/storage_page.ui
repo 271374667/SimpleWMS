@@ -116,6 +116,65 @@
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="SubtitleLabel" name="SubtitleLabel_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>最新批次：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLCDNumber" name="lcdNumber">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+              <horstretch>51</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>130</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <property name="lineWidth">
+             <number>2</number>
+            </property>
+            <property name="midLineWidth">
+             <number>0</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="digitCount">
+             <number>3</number>
+            </property>
+            <property name="mode">
+             <enum>QLCDNumber::Dec</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+            <property name="intValue" stdset="0">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -181,16 +240,20 @@
                 <property name="spacing">
                  <number>15</number>
                 </property>
-                <item row="4" column="1">
-                 <widget class="SpinBox" name="SpinBox_2">
-                  <property name="toolTip">
-                   <string>进货批次,可以填写当月的过往批次,但是不允许批次数超过最新批次数+1</string>
+                <item row="6" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_6">
+                  <property name="text">
+                   <string>自动批次</string>
                   </property>
-                  <property name="minimum">
-                   <number>1</number>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_5">
+                  <property name="text">
+                   <string>批次</string>
                   </property>
-                  <property name="maximum">
-                   <number>999</number>
+                  <property name="buddy">
+                   <cstring>SpinBox_2</cstring>
                   </property>
                  </widget>
                 </item>
@@ -207,16 +270,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_4">
-                  <property name="text">
-                   <string>商品数量</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>SpinBox</cstring>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="LineEdit" name="LineEdit">
                   <property name="sizePolicy">
@@ -227,56 +280,16 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_5">
-                  <property name="text">
-                   <string>批次</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>SpinBox_2</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="SwitchButton" name="SwitchButton">
+                <item row="4" column="1">
+                 <widget class="SpinBox" name="SpinBox_2">
                   <property name="toolTip">
-                   <string>开启后会将这一批货作为一批新的批次</string>
+                   <string>进货批次,可以填写当月的过往批次,但是不允许批次数超过最新批次数+1</string>
                   </property>
-                  <property name="checked">
-                   <bool>false</bool>
+                  <property name="minimum">
+                   <number>1</number>
                   </property>
-                  <property name="onText">
-                   <string>开启</string>
-                  </property>
-                  <property name="offText">
-                   <string>关闭</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="BodyLabel" name="BodyLabel">
-                  <property name="text">
-                   <string>衣服名称</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>LineEdit</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_6">
-                  <property name="text">
-                   <string>自动批次</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="LineEdit" name="LineEdit_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                  <property name="maximum">
+                   <number>999</number>
                   </property>
                  </widget>
                 </item>
@@ -290,16 +303,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_3">
-                  <property name="text">
-                   <string>价格</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>DoubleSpinBox</cstring>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="BodyLabel" name="BodyLabel_2">
                   <property name="text">
@@ -310,6 +313,42 @@
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_3">
+                  <property name="text">
+                   <string>价格</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>DoubleSpinBox</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="SwitchButton" name="SwitchButton">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的批次,如果最新批次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该批次,否则创建新的批次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                  <property name="onText">
+                   <string>开启</string>
+                  </property>
+                  <property name="offText">
+                   <string>关闭</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_4">
+                  <property name="text">
+                   <string>商品数量</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>SpinBox</cstring>
+                  </property>
+                 </widget>
+                </item>
                 <item row="2" column="1">
                  <widget class="DoubleSpinBox" name="DoubleSpinBox">
                   <property name="toolTip">
@@ -317,6 +356,26 @@
                   </property>
                   <property name="maximum">
                    <double>100000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="LineEdit" name="LineEdit_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="BodyLabel" name="BodyLabel">
+                  <property name="text">
+                   <string>衣服名称</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>LineEdit</cstring>
                   </property>
                  </widget>
                 </item>
@@ -393,6 +452,9 @@
            </item>
            <item>
             <widget class="TableWidget" name="TableWidget_2">
+             <property name="editTriggers">
+              <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+             </property>
              <property name="showGrid">
               <bool>false</bool>
              </property>
@@ -444,7 +506,7 @@
              <row/>
              <column>
               <property name="text">
-               <string>商品名称</string>
+               <string>名称</string>
               </property>
              </column>
              <column>

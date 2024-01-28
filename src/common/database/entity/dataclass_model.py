@@ -14,7 +14,6 @@ class Batch:
 class Wave:
     wave_serial_number: str
     wave_name: str
-    status: str
     created_time: datetime = field(default_factory=datetime.today)
 
 
