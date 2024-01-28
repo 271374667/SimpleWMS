@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="executionMode" value="BINARY" />
+    <option name="pathToExecutable" value="D:\Applications\Scoop\apps\anaconda3\current\App\Scripts\black.exe" />
+    <option name="sdkName" value="Python 3.10 (SimpleWMS)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="e:\load\python\Project\SimpleWMS\.conda" project-jdk-type="Python SDK" />
+</project>

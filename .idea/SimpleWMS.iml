@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.conda/DLLs" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/Lib" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/Library" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/Scripts" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/Tools" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/conda-meta" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/etc" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/include" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda/share" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="GOOGLE" />
+    <option name="myDocStringFormat" value="Google" />
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="py.test" />
+  </component>
+</module>

@@ -6,7 +6,7 @@ from src.interface.Ui_storage_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
 
 
-class StorageView(QWidget, MessageBaseView):
+class StorageView(MessageBaseView):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
@@ -64,7 +64,7 @@ class StorageView(QWidget, MessageBaseView):
             for j, item in enumerate(each):
                 table.setItem(i, j, QTableWidgetItem(item))
 
-    def add_table_row(self, name: str, brand: str, price: float, batch: int, quantity: int) -> None:
+    def add_table_row(self, name: str, brand: str, price: str, batch: str, quantity: str) -> None:
         """添加表格行
 
         Args:
@@ -75,7 +75,7 @@ class StorageView(QWidget, MessageBaseView):
             quantity: 数量
         """
         table = self.get_table_widget()
-        for _ in range(quantity):
+        for _ in range(int(quantity)):
             row_count = table.rowCount()
             # 添加的时候优先添加前面空的行
             for i in range(row_count):
@@ -89,8 +89,8 @@ class StorageView(QWidget, MessageBaseView):
             table.insertRow(row_count)
             table.setItem(row_count, 0, QTableWidgetItem(name))
             table.setItem(row_count, 1, QTableWidgetItem(brand))
-            table.setItem(row_count, 2, QTableWidgetItem(str(price)))
-            table.setItem(row_count, 3, QTableWidgetItem(str(batch)))
+            table.setItem(row_count, 2, QTableWidgetItem(price))
+            table.setItem(row_count, 3, QTableWidgetItem(batch))
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):

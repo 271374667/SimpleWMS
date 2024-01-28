@@ -17,7 +17,6 @@ CONFIG_FILE = ROOT_DIR / "config.json"
 LOG_FILE = LOG_DIR / "log.log"
 QRC_FILE = ASSETS_DIR / "resource.qrc"
 QRC_PY_FILE = ROOT_DIR / "resource_rc.py"
-EXCEL_FILE = ROOT_DIR / "export.xlsx"
 
 # FONT
 BOLD_FONT = FONT_DIR / "Alibaba-PuHuiTi-Bold.ttf"

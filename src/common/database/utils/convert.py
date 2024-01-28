@@ -1,7 +1,10 @@
+import re
 from datetime import datetime
 
+from barcode import EAN13
 
-def batch_serial_number_to_datetime(batch_serial_number: str) -> datetime:
+
+def convert_batch_serial_number_to_datetime(batch_serial_number: str) -> datetime:
     """将批次序号转换为时间"""
     year = int(batch_serial_number[:4])
     month = int(batch_serial_number[4:6])
@@ -9,10 +12,21 @@ def batch_serial_number_to_datetime(batch_serial_number: str) -> datetime:
     return datetime(year=year, month=month, day=day)
 
 
-def batch_serial_number_to_batch_name(batch_serial_number: str) -> str:
+def convert_batch_serial_number_to_batch_name(batch_serial_number: str) -> str:
     """将批次序号转换为批次名称"""
     batch_number = int(batch_serial_number[-3:])
-    return batch_serial_number_to_datetime(batch_serial_number).strftime(f'%Y年%m月第{batch_number:03d}批')
+    return convert_batch_serial_number_to_datetime(batch_serial_number).strftime(f'%Y年%m月第{batch_number:03d}批')
+
+
+def convert_batch_name_to_batch_serial_number(batch_name: str) -> str:
+    """将批次名称转换为批次序号"""
+    # 根据正则表达式匹配出年月,以及批次序号
+    pattern = re.compile(r'(\d{4})年(\d{2})月第(\d{3})批')
+    result = pattern.findall(batch_name)
+    if not result:
+        raise ValueError("The input is not a valid batch name.")
+    year, month, batch_number = result[0]
+    return f'{year}{int(month):02d}{int(batch_number):03d}'
 
 
 def convert_length12str_to_ean13(number12length: str) -> str:
@@ -36,5 +50,5 @@ def convert_id_to_ean13(number12length: int) -> str:
 
 
 if __name__ == '__main__':
-    # print(batch_serial_number_to_datetime('202401001'))
-    print(batch_serial_number_to_batch_name('202401001'))
+    # print(convert_batch_serial_number_to_datetime('202401001'))
+    print(convert_batch_name_to_batch_serial_number('2024年01月第040批'))

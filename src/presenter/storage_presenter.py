@@ -46,13 +46,16 @@ class StoragePresenter:
             if batch > latest_batch + 1:
                 ui.show_warning_infobar('批次过大!', '您的批次号不能超过当前最新的批次号+1')
                 return
-            self.get_view().add_table_row(item_name, brand, price, self.get_model().gen_batch_serial_number(batch),
-                                          quantity)
+
+            self.get_view().add_table_row(item_name, brand,
+                                          str(price),
+                                          self.get_model().gen_batch_serial_number(batch),
+                                          str(quantity))
             return
 
         # 如果是自动切换，那么就需要先获取最新的批次
         batch_serial_number = self.get_model().get_newest_batch_serial_number()
-        self.get_view().add_table_row(item_name, brand, price, batch_serial_number, quantity)
+        self.get_view().add_table_row(item_name, brand, str(price), batch_serial_number, str(quantity))
 
     def _clear_all_table(self) -> None:
         ui = self.get_view()
@@ -75,12 +78,20 @@ class StoragePresenter:
 
     def _export_data_to_excel(self) -> None:
         """导出数据到Excel"""
+        mask_title = '确认添加?'
+        mask_content = '点击确认将会清空表格并将数据添加到数据库,在还没添加之前您可以在表格里面对数据双击进行修改'
+        if not self.get_view().show_mask_dialog(title=mask_title, content=mask_content):
+            return
         data = self._get_data()
+        if not data:
+            self.get_view().show_warning_infobar(title='没有数据！', content='请先添加数据')
+            return
         self.get_model().export_data(data)
-        self.get_view().show_success_infobar(title='导出成功！', content='数据已经成功导出到Excel和数据库中!', duration=-1)
+        self.get_view().show_success_infobar(title='导出成功！', content='数据已经成功导出到Excel和数据库中!',
+                                             duration=-1)
         self.get_view().get_table_widget().clearContents()
 
-    def _get_data(self) -> List[Tuple[str, str, str, str]]:
+    def _get_data(self) -> List[Tuple[str, str, float, str]]:
         """获取表格数据"""
         ui = self.get_view()
         table = ui.get_table_widget()
@@ -97,8 +108,7 @@ class StoragePresenter:
             brand = table.item(i, 1).text()
             price = table.item(i, 2).text()
             batch = table.item(i, 3).text()
-            data.append((item_name, brand, price, batch))
-        print(data)
+            data.append((item_name, brand, float(price), batch))
         return data
 
     def _connect_signals(self) -> None:

@@ -2,8 +2,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Tuple
 
+import loguru
+
 from src.common.database.entity.dataclass_model import Batch, Inventory
 from src.common.database.service.database_service import DatabaseService
+from src.common.database.utils import convert
 
 
 @dataclass(order=True)
@@ -21,10 +24,11 @@ class StorageController:
     def __init__(self):
         self._db = DatabaseService()
 
-    def export_to_database(self, data: List[Tuple[str, str, str, str]]) -> None:
+    def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
         for item_name, brand, price, batch in data:
-            batch = Batch(batch_serial_number=batch, batch_name=batch)
+            batch_name = convert.convert_batch_serial_number_to_batch_name(batch)
+            batch = Batch(batch_serial_number=batch, batch_name=batch_name)
             inventory = Inventory(item_name=item_name, price=price, brand=brand, batch=batch)
             self._db.add_inventory_by_dataclasses(inventory)
 
@@ -33,8 +37,9 @@ class StorageController:
         today = datetime.today()
         batchs_this_month = self._db.get_all_batch_serial_number_this_month()
         if not batchs_this_month:
-            return f'{today.year}{datetime.month:02d}001'
-        return batchs_this_month[0]
+            loguru.logger.debug(f'本月没有任何批次，自动生成一个批次:{today.year}{today.month:02d}001')
+            return f'{today.year}{today.month:02d}001'
+        return self._sort_serial_number(batchs_this_month)[0]
 
     def _sort_serial_number(self, serial_number_list: list[str]) -> list[str]:
         # 使用内置的sorted函数进行排序，key参数用于指定排序的依据
@@ -66,12 +71,11 @@ class StorageController:
 
     def get_latest_inventory_id(self) -> int:
         """获取最新的库存ID"""
-        return self._db.get_batch_latest_id()
+        return self._db.get_inventory_latest_id()
 
 
 if __name__ == '__main__':
     s = StorageController()
-    # a = ['197601003', '202301001', '202301002']
-    # print(s._sort_serial_number(a))
-    print(s.get_latest_batch_serial_number())
-    print(s.get_all_inventory_and_batch())
+    a = ['202401001', '202401002', '202401001']
+    print(s._sort_serial_number(a))
+    # print(s.get_latest_batch_serial_number())

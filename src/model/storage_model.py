@@ -1,12 +1,15 @@
+import os
 from dataclasses import asdict
 from datetime import datetime
-from typing import Sequence, Tuple
+from pathlib import Path
+from typing import Tuple
 
+import loguru
 import pandas as pd
 
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
-from src.constant import EXCEL_FILE
+from src.config import cfg
 
 
 class StorageModel:
@@ -35,22 +38,22 @@ class StorageModel:
         today = datetime.today()
         return f'{today.year}{today.month:02d}{number:03d}'
 
-    def export_data(self, data: Sequence[Tuple[str, str, float, int]]) -> None:
+    def export_data(self, data: list[Tuple[str, str, float, str]]) -> None:
         """导出数据到Excel和数据库"""
-
-        # 要先导出到数据库才能获取到id和EAN13
-        # self._db.export_to_database(data)
-
         # 先获取最新的inventory_id
         latest_inventory_id = self._db.get_latest_inventory_id()
+
+        # 要先导出到数据库才能获取到id和EAN13
+        self._db.export_to_database(data)
+
         new_data = self._db.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
+        print(new_data)
 
         # 将数据类对象转换为字典列表
         dict_list = [asdict(item) for item in new_data]
 
         # 创建一个DataFrame
         df = pd.DataFrame(dict_list)
-        df.dropna(axis=0, how='any', inplace=True)
 
         # 重新排序列以匹配所需的顺序
         df = df[['item_id', 'item_name', 'brand', 'price', 'batch_name', 'batch_serial_number', 'created_time']]
@@ -59,10 +62,15 @@ class StorageModel:
         df['item_id'] = df['item_id'].apply(convert.convert_id_to_ean13)
 
         # 重命名列以匹配所需的标题
-        df.columns = ['EAN13', '商品名称', '品牌', '价格', '批次名', '批次序号', '批次创建时间']
+        df.columns = ['EAN13', '名称', '品牌', '价格', '批次名', '批次序号', '批次创建时间']
 
         # 将DataFrame导出为Excel文件
+        save_dir = Path(cfg.get(cfg.backup_path))
+        EXCEL_FILE = save_dir / f'{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         df.to_excel(EXCEL_FILE, index=False)
+        loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')
+        loguru.logger.debug(f'本次导出了{len(dict_list)}条数据到Excel文件')
+        os.startfile(save_dir)
 
 
 if __name__ == "__main__":

@@ -2,13 +2,17 @@
 这个模块负责让其他的View继承，实现一些一些常用的信息提示的功能
 """
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication
+from typing import Optional
+
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import MessageBox
-from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition
+from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition, PushButton
 
 
-class MessageBaseView:
+class MessageBaseView(QWidget):
+    info_button_clicked = Signal()
+
     def show_mask_dialog(self, title: str = 'Title', content: str = 'Content') -> bool:
         """显示一个遮罩式的对话框
 
@@ -26,7 +30,8 @@ class MessageBaseView:
                           content: str = 'Content',
                           duration: int = 5000,
                           position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-                          is_closable: bool = True) -> None:
+                          is_closable: bool = True,
+                          button_text: Optional[str] = None) -> None:
         """显示一个信息提示框
 
         Args:
@@ -35,6 +40,7 @@ class MessageBaseView:
             duration (int, optional): 持续时间. Defaults to 5000.
             position (InfoBarPosition, optional): 位置. Defaults to InfoBarPosition.TOP_RIGHT.
             is_closable (bool, optional): 是否可以被关闭. Defaults to True.
+            button_text: (str, optional): 按钮的文本. Defaults to None.
         """
         w = InfoBar(
                 icon=InfoBarIcon.INFORMATION,
@@ -46,6 +52,11 @@ class MessageBaseView:
                 duration=duration,
                 parent=self
                 )
+        if button_text:
+            inner_button = PushButton(button_text)
+            w.addWidget(inner_button)
+            inner_button.clicked.connect(self.info_button_clicked)
+
         w.show()
 
     def show_success_infobar(self, title: str = 'Title',
@@ -126,6 +137,6 @@ class MessageBaseView:
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = Demo()
+    w = MessageBaseView()
     w.show()
     app.exec()
