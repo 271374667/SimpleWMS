@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>images/icons/delete.svg</file>
+    <file>images/icons/print.svg</file>
+    <file>images/icons/upload.svg</file>
+    <file>images/icons/erase.svg</file>
+    <file>images/icons/sync.svg</file>
+    <file>images/icons/log.svg</file>
+    <file>images/icons/choose_font.svg</file>
+    <file>images/icons/save_archive.svg</file>
+    <file>images/icons/area_chart.svg</file>
+    <file>images/icons/chart_bar.svg</file>
+    <file>images/icons/database_administrator.svg</file>
+    <file>images/icons/database_export.svg</file>
+    <file>images/icons/brake_warning.svg</file>
+    <file>images/icons/sign_out.svg</file>
+    <file>images/icons/available_updates.svg</file>
+    <file>images/icons/billboard.svg</file>
+  </qresource>
+</RCC>
