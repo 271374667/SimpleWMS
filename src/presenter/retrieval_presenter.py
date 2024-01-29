@@ -36,11 +36,12 @@ class RetrievalPresenter:
             ui.get_table_widget().removeRow(current_row)
 
     def _new_retrieval(self) -> None:
+        self._count += 1
         ui = self.get_view()
         input_lineedit = ui.get_input_lineedit()
         input_text = input_lineedit.text()
-        ui.get_output_textedit().appendPlainText(f'No.{self._count}内容:{input_text}')
         input_lineedit.clear()
+        ui.get_output_textedit().appendPlainText(f'No.{self._count}内容:{input_text}')
 
         # 如果输入为空，那么就不做任何处理
         if not input_text:
@@ -54,7 +55,7 @@ class RetrievalPresenter:
         # 检测是否是真实的EAN13
         if not self.get_model().is_real_ean13(input_text):
             ui.show_warning_infobar(title='没有找到该商品',
-                                    content='请输入正确的EAN13，没有找到EAN13为{input_text}的商品')
+                                    content=f'请输入正确的EAN13，没有找到EAN13为{input_text}的商品')
             return
 
         # 检测表格中是否已经存在该商品
@@ -116,7 +117,6 @@ class RetrievalPresenter:
         ui = self.get_view()
         ui.get_confirm_input_button().clicked.connect(self._new_retrieval)
         ui.get_input_lineedit().returnPressed.connect(self._new_retrieval)
-        # ui.get_confirm_button().clicked.connect(self._on_confirm_button_clicked)
         ui.get_clear_table_button().clicked.connect(self._clear_all_table)
         ui.get_delete_current_row_button().clicked.connect(self._delete_current_row)
         ui.get_output_table_button().clicked.connect(self._export_data)

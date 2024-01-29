@@ -64,7 +64,7 @@ class StorageModel:
         df.columns = ['EAN13', '名称', '品牌', '价格', '批次名', '批次序号', '批次创建时间']
 
         # 将DataFrame导出为Excel文件
-        save_dir = Path(cfg.get(cfg.backup_path))
+        save_dir = Path(cfg.get(cfg.storage_path))
         EXCEL_FILE = save_dir / f'入库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         df.to_excel(EXCEL_FILE, index=False)
         loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')

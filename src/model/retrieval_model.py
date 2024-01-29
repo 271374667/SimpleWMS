@@ -65,7 +65,7 @@ class RetrievalModel:
                                   '入库时间': [each[4] for each in data],
                                   'EAN13': [each[5] for each in data],
                                   })
-        save_dir = Path(cfg.get(cfg.backup_path))
+        save_dir = Path(cfg.get(cfg.retrieval_path))
         EXCEL_FILE = save_dir / f'出库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         df.to_excel(EXCEL_FILE, index=False)
         loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')
