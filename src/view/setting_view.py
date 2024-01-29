@@ -15,19 +15,31 @@ class SettingView(SmoothScrollArea):
 
         self.setting_title = LargeTitleLabel("设置", self)
 
-        self.create_card_group()
-        self.create_card()
-        self.set_up_tooltip()
-        self.set_up_layout()
-        self.initialize()
+        self._create_card_group()
+        self._create_card()
+        self._set_up_tooltip()
+        self._set_up_layout()
+        self._initialize()
 
-    def create_card_group(self) -> None:
+    def scroll_to_general_group(self) -> None:
+        """滚动到一般的卡片组"""
+        self.verticalScrollBar().setValue(self.general_group.y())
+
+    def scroll_to_appearance_group(self) -> None:
+        """滚动到外观的卡片组"""
+        self.verticalScrollBar().setValue(self.appearance_group.y())
+
+    def scroll_to_storage_group(self) -> None:
+        """滚动到存储的卡片组"""
+        self.verticalScrollBar().setValue(self.storage_group.y())
+
+    def _create_card_group(self) -> None:
         """创建卡片组"""
         self.general_group = SettingCardGroup("通用", self.scroll_widget)
         self.appearance_group = SettingCardGroup("外观", self.scroll_widget)
         self.storage_group = SettingCardGroup("存储", self.scroll_widget)
 
-    def create_card(self) -> None:
+    def _create_card(self) -> None:
         """创建卡片"""
         self.log_rotation_days_card = RangeSettingCard(cfg.log_rotation_days, QIcon(":/icons/images/icons/log.svg"),
                                                        "日志归档天数", "请选择多少天进行一次日志归档(将log打包为zip)",
@@ -51,7 +63,7 @@ class SettingView(SmoothScrollArea):
                                                    "请选择一个文件夹来保存出库的excel文件", cfg.get(cfg.retrieval_path),
                                                    self.storage_group)
 
-    def set_up_tooltip(self) -> None:
+    def _set_up_tooltip(self) -> None:
         """设置卡片的提示"""
         self.log_rotation_days_card.setToolTip("日志归档天数越小,日志文件越多,但是每个日志文件的大小越小,默认为7天")
         self.log_retention_days_card.setToolTip("会删除过了指定时间的日志,默认为30天")
@@ -59,7 +71,7 @@ class SettingView(SmoothScrollArea):
         self.storage_path_card.setToolTip("入库excel文件保存路径,默认为storage文件夹,文件夹下请不要存放其他文件")
         self.retrieval_path_card.setToolTip("出库excel文件保存路径,默认为retrieve文件夹,文件夹下请不要存放其他文件")
 
-    def set_up_layout(self) -> None:
+    def _set_up_layout(self) -> None:
         """设置布局"""
         self.expand_layout.addWidget(self.general_group)
         self.expand_layout.addWidget(self.appearance_group)
@@ -79,7 +91,7 @@ class SettingView(SmoothScrollArea):
 
         self.setWidget(self.scroll_widget)
 
-    def initialize(self) -> None:
+    def _initialize(self) -> None:
         """初始化窗体"""
         self.setWindowTitle("设置")
         self.setObjectName("setting_view")
@@ -87,7 +99,8 @@ class SettingView(SmoothScrollArea):
         self.setWidgetResizable(True)
         self.setFrameShape(QFrame.Shape.NoFrame)
         self.setting_title.move(60, 65)
-        self.setViewportMargins(0, 120, 0, 20)
+        self.setViewportMargins(0, 120, 0, 0)
+        self.setStyleSheet('background-color: rgba(0, 0, 0, 0);')
 
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))
@@ -101,4 +114,5 @@ if __name__ == "__main__":
     app = QApplication([])
     retrieval_view = SettingView()
     retrieval_view.show()
+    retrieval_view.scroll_to_storage_group()
     app.exec()

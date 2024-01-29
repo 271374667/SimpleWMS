@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="SmoothScrollArea" name="SmoothScrollArea">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -30,6 +33,9 @@
         <width>959</width>
         <height>720</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
@@ -103,7 +109,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>将商品录入系统</string>
+               <string>将商品写入数据库,生成excel后使用打印机打印</string>
               </property>
               <property name="lightColor" stdset="0">
                <color>

@@ -11,6 +11,7 @@ class StorageView(MessageBaseView):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+
         self.setWindowTitle("存储")
         self.setObjectName("storage_view")
         self.initialize()

@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="SmoothScrollArea" name="SmoothScrollArea">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -30,6 +33,9 @@
         <width>957</width>
         <height>720</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -88,7 +94,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>将货物移出仓库</string>
+               <string>使用扫码枪扫码将货物标记为出库</string>
               </property>
               <property name="lightColor" stdset="0">
                <color>

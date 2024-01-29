@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_21">
    <item>
     <widget class="SmoothScrollArea" name="SmoothScrollArea">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -34,9 +37,15 @@
         <height>721</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_48">
        <item>
         <widget class="SimpleCardWidget" name="SimpleCardWidget">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
            <number>15</number>

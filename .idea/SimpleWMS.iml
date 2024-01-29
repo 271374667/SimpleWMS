@@ -14,6 +14,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.conda/share" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/backup" />
+      <excludeFolder url="file://$MODULE_DIR$/自我小测试" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

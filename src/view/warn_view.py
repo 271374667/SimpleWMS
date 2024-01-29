@@ -8,8 +8,10 @@ class WarnView(QWidget):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+
         self.setWindowTitle("预警")
         self.setObjectName("warn_view")
+
         self.initialize()
 
     def initialize(self) -> None:

@@ -11,6 +11,7 @@ from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition, Pus
 
 
 class MessageBaseView(QWidget):
+    """这个类负责让其他的View继承，实现一些一些常用的信息提示的功能"""
     info_button_clicked = Signal()
 
     def show_mask_dialog(self, title: str = 'Title', content: str = 'Content') -> bool:

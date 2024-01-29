@@ -19,10 +19,10 @@ class RetrievalData:
 
 class RetrievalController:
     def __init__(self):
-        self._db = DatabaseService()
+        self._db_session = DatabaseService()
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
-        result = self._db.get_inventory_by_ean13(ean13)
+        result = self._db_session.get_inventory_by_ean13(ean13)
         if result is None:
             return None
 
@@ -43,24 +43,24 @@ class RetrievalController:
         return True
 
     def get_lastest_wave_serial_number(self) -> str:
-        return self._db.get_lastst_wave_serial_number()
+        return self._db_session.get_latest_wave_serial_number()
 
     def is_inventory_sold(self, ean13: str) -> bool:
-        result = self._db.get_inventory_by_ean13(ean13)
+        result = self._db_session.get_inventory_by_ean13(ean13)
         if result is None:
             return False
         return bool(result.is_sold)
 
     def set_inventory_sold(self, ean13: str, wave_serial_number: str) -> None:
-        result = self._db.get_inventory_by_ean13(ean13)
+        result = self._db_session.get_inventory_by_ean13(ean13)
         if result is None:
             return
 
-        self._db.set_wave_for_inventory_by_dataclasses(ean13=ean13,
-                                                       wave=Wave(wave_serial_number=wave_serial_number,
-                                                                 wave_name=convert.convert_wave_serial_number_to_wave_name(
-                                                                         wave_serial_number),
-                                                                 created_time=datetime.now()))
+        self._db_session.set_wave_for_inventory_by_dataclasses(ean13=ean13,
+                                                               wave=Wave(wave_serial_number=wave_serial_number,
+                                                                         wave_name=convert.convert_wave_serial_number_to_wave_name(
+                                                                                 wave_serial_number),
+                                                                         created_time=datetime.now()))
 
     def convert_wave_serial_number_to_wave_name(self, wave_serial_number: str) -> str:
         return convert.convert_wave_serial_number_to_wave_name(wave_serial_number)

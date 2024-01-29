@@ -20,7 +20,7 @@ class StorageData:
 
 class StorageController:
     def __init__(self):
-        self._db = DatabaseService()
+        self._db_session = DatabaseService()
 
     def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
@@ -28,11 +28,11 @@ class StorageController:
             batch_name = convert.convert_batch_serial_number_to_batch_name(batch)
             batch = Batch(batch_serial_number=batch, batch_name=batch_name)
             inventory = Inventory(item_name=item_name, price=price, brand=brand, batch=batch)
-            self._db.add_inventory_by_dataclasses(inventory)
+            self._db_session.add_inventory_by_dataclasses(inventory)
 
     def get_latest_batch_serial_number(self) -> str:
         """获取最新的批次,如果不存在会自动生成一个"""
-        return self._db.get_latest_batch_serial_number()
+        return self._db_session.get_latest_batch_serial_number()
 
     def get_all_inventory_and_batch_greater_than_id(self, id: int) -> List[StorageData]:
         """获取所有的库存信息
@@ -41,7 +41,7 @@ class StorageController:
         返回的数据格式为一个InventoryAndBatchInfo内容如下：
             [名称，品牌，价格，批次名称，批次序号，批次创建时间]
         """
-        inventory_list = self._db.get_inventory_greater_than_id(id)
+        inventory_list = self._db_session.get_inventory_greater_than_id(id)
         result = []
         for inventory in inventory_list:
             result.append(StorageData(item_id=inventory.id,
@@ -57,7 +57,7 @@ class StorageController:
 
     def get_latest_inventory_id(self) -> int:
         """获取最新的库存ID"""
-        return self._db.get_inventory_latest_id()
+        return self._db_session.get_inventory_latest_id()
 
 
 if __name__ == '__main__':

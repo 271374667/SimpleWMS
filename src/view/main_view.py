@@ -49,13 +49,13 @@ class MainView(FluentWindow):
         self.addSubInterface(self.settingInterface, FIF.SETTING, '设置', NavigationItemPosition.BOTTOM)
 
         # add badge to navigation item
-        item = self.navigationInterface.widget(self.homeInterface.objectName())
-        InfoBadge.attension(
-                text=9,
-                parent=item.parent(),
-                target=item,
-                position=InfoBadgePosition.NAVIGATION_ITEM
-                )
+        # item = self.navigationInterface.widget(self.homeInterface.objectName())
+        # InfoBadge.attension(
+        #         text=9,
+        #         parent=item.parent(),
+        #         target=item,
+        #         position=InfoBadgePosition.NAVIGATION_ITEM
+        #         )
 
         # NOTE: enable acrylic effect
         # self.navigationInterface.setAcrylicEnabled(True)
@@ -76,6 +76,6 @@ class MainView(FluentWindow):
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = Window()
+    w = MainView()
     w.show()
     app.exec()
