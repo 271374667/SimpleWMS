@@ -4,10 +4,11 @@ from qfluentwidgets import (OptionsSettingCard, PushSettingCard, RangeSettingCar
 from qfluentwidgets.components import ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter
 
 from src.config import cfg
+from src.view.message_base_view import MessageBaseView
 
 
 # noinspection PyAttributeOutsideInit,PyTypeChecker
-class SettingView(SmoothScrollArea):
+class SettingView(SmoothScrollArea, MessageBaseView):
     def __init__(self):
         super().__init__()
         self.scroll_widget = QWidget()
