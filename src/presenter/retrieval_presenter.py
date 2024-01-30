@@ -49,13 +49,13 @@ class RetrievalPresenter:
 
         # 如果输入的是数字，那么就根据EAN13查询
         if not input_text.isdigit():
-            self.get_view().show_warning_infobar(title='没有找到该商品', content='请输入正确的EAN13,输入必须为数字')
+            self.get_view().show_warning_infobar(title='必须是数字!', content='请输入正确的EAN13,输入必须为数字')
             return
 
         # 检测是否是真实的EAN13
         if not self.get_model().is_real_ean13(input_text):
-            ui.show_warning_infobar(title='没有找到该商品',
-                                    content=f'请输入正确的EAN13，没有找到EAN13为{input_text}的商品')
+            ui.show_warning_infobar(title='不是正确的EAN13',
+                                    content=f'请输入正确的EAN13，检查您的输入:{input_text}')
             return
 
         # 检测表格中是否已经存在该商品

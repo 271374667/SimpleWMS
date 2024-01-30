@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
-from src.common.database.entity.dataclass_model import Wave
-from src.common.database.service.database_service import DatabaseService
+from src.common.database.entity import model
+from src.common.database.service.get_attribute_service import GetAttributeService
+from src.common.database.service.get_model_service import GetModelService
+from src.common.database.service.set_model_service import SetModelService
 from src.common.database.utils import convert
 
 
@@ -19,10 +21,12 @@ class RetrievalData:
 
 class RetrievalController:
     def __init__(self):
-        self._db_session = DatabaseService()
+        self._set_model_service = SetModelService()
+        self._get_attribute_service = GetAttributeService()
+        self._get_model_service = GetModelService()
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
-        result = self._db_session.get_inventory_by_ean13(ean13)
+        result = self._get_model_service.get_inventory_by_ean13(ean13)
         if result is None:
             return None
 
@@ -43,24 +47,25 @@ class RetrievalController:
         return True
 
     def get_lastest_wave_serial_number(self) -> str:
-        return self._db_session.get_latest_wave_serial_number()
+        return self._get_attribute_service.get_latest_wave_serial_number()
 
     def is_inventory_sold(self, ean13: str) -> bool:
-        result = self._db_session.get_inventory_by_ean13(ean13)
+        result = self._get_model_service.get_inventory_by_ean13(ean13)
         if result is None:
             return False
         return bool(result.is_sold)
 
     def set_inventory_sold(self, ean13: str, wave_serial_number: str) -> None:
-        result = self._db_session.get_inventory_by_ean13(ean13)
+        result = self._get_model_service.get_inventory_by_ean13(ean13)
         if result is None:
             return
 
-        self._db_session.set_wave_for_inventory_by_dataclasses(ean13=ean13,
-                                                               wave=Wave(wave_serial_number=wave_serial_number,
-                                                                         wave_name=convert.convert_wave_serial_number_to_wave_name(
-                                                                                 wave_serial_number),
-                                                                         created_time=datetime.now()))
+        self._set_model_service.set_wave_for_inventory(ean13=ean13,
+                                                       wave=model.Wave(wave_serial_number=wave_serial_number,
+                                                                       wave_name=convert.convert_wave_serial_number_to_wave_name(
+                                                                               wave_serial_number)
+                                                                       )
+                                                       )
 
     def convert_wave_serial_number_to_wave_name(self, wave_serial_number: str) -> str:
         return convert.convert_wave_serial_number_to_wave_name(wave_serial_number)
