@@ -17,17 +17,24 @@ class Font(Enum):
 
 class Config(QConfig):
     # General
-    font = OptionsConfigItem("Appearance", "打印字体", Font.REGULAR, OptionsValidator(Font), EnumSerializer(Font))
-    # Backup
-    backup_path = ConfigItem("General", "备份路径", str(BACKUP_DIR), FolderValidator())
+    email_account = ConfigItem("General", "邮箱", '', None)
+    email_secret_key = ConfigItem("General", "密码", '', None)
+
+    # 存储
     log_rotation_days = RangeConfigItem("General", "日志归档天数", 7, RangeValidator(1, 30))
     log_retention_days = RangeConfigItem("General", "日志保留天数", 30, RangeValidator(1, 90))
 
     # 存储
-    storage_path = ConfigItem("General", "入库文件保存路径", str(STORAGE_DIR), FolderValidator())
-    retrieval_path = ConfigItem("General", "出库文件保存路径", str(RETRIEVE_DIR), FolderValidator())
+    backup_path = ConfigItem("Storage", "备份路径", str(BACKUP_DIR), FolderValidator())
+    storage_path = ConfigItem("Storage", "入库文件保存路径", str(STORAGE_DIR), FolderValidator())
+    retrieval_path = ConfigItem("Storage", "出库文件保存路径", str(RETRIEVE_DIR), FolderValidator())
+
+    # 外观
+    font = OptionsConfigItem("Appearance", "打印字体", Font.REGULAR, OptionsValidator(Font), EnumSerializer(Font))
 
 
 cfg = Config()
 cfg.file = CONFIG_FILE
+if not CONFIG_FILE.exists():
+    cfg.save()
 qconfig.load(CONFIG_FILE, cfg)

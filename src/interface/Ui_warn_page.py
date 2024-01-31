@@ -19,8 +19,9 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
     QSizePolicy, QTableWidgetItem, QVBoxLayout, QWidget)
 
 from qfluentwidgets import (BodyLabel, CardWidget, HorizontalSeparator, IconWidget,
-    LargeTitleLabel, SimpleCardWidget, SmoothScrollArea, StrongBodyLabel,
-    SubtitleLabel, TableWidget, VerticalSeparator)
+    LargeTitleLabel, OpacityAniStackedWidget, Pivot, SegmentedWidget,
+    SimpleCardWidget, SmoothScrollArea, StrongBodyLabel, SubtitleLabel,
+    TableWidget, VerticalSeparator)
 import resource_rc
 
 class Ui_Form(object):
@@ -39,10 +40,8 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 961, 720))
         self.scrollAreaWidgetContents.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);")
-        self.verticalLayout_4 = QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_4.setSpacing(15)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(15, 15, 15, 15)
+        self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.SimpleCardWidget = SimpleCardWidget(self.scrollAreaWidgetContents)
         self.SimpleCardWidget.setObjectName(u"SimpleCardWidget")
         self.horizontalLayout_3 = QHBoxLayout(self.SimpleCardWidget)
@@ -93,26 +92,35 @@ class Ui_Form(object):
         self.horizontalLayout_3.addLayout(self.verticalLayout_14)
 
 
-        self.verticalLayout_4.addWidget(self.SimpleCardWidget)
+        self.verticalLayout_6.addWidget(self.SimpleCardWidget)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.CardWidget = CardWidget(self.scrollAreaWidgetContents)
-        self.CardWidget.setObjectName(u"CardWidget")
-        self.verticalLayout_2 = QVBoxLayout(self.CardWidget)
-        self.verticalLayout_2.setSpacing(15)
+        self.SegmentedWidget = SegmentedWidget(self.scrollAreaWidgetContents)
+        self.SegmentedWidget.setObjectName(u"SegmentedWidget")
+
+        self.verticalLayout_6.addWidget(self.SegmentedWidget)
+
+        self.OpacityAniStackedWidget = OpacityAniStackedWidget(self.scrollAreaWidgetContents)
+        self.OpacityAniStackedWidget.setObjectName(u"OpacityAniStackedWidget")
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.verticalLayout_2 = QVBoxLayout(self.page)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(15, 15, 15, 15)
+        self.CardWidget = CardWidget(self.page)
+        self.CardWidget.setObjectName(u"CardWidget")
+        self.verticalLayout_5 = QVBoxLayout(self.CardWidget)
+        self.verticalLayout_5.setSpacing(15)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(15, 15, 15, 15)
         self.SubtitleLabel = SubtitleLabel(self.CardWidget)
         self.SubtitleLabel.setObjectName(u"SubtitleLabel")
         self.SubtitleLabel.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.SubtitleLabel)
+        self.verticalLayout_5.addWidget(self.SubtitleLabel)
 
         self.HorizontalSeparator = HorizontalSeparator(self.CardWidget)
         self.HorizontalSeparator.setObjectName(u"HorizontalSeparator")
 
-        self.verticalLayout_2.addWidget(self.HorizontalSeparator)
+        self.verticalLayout_5.addWidget(self.HorizontalSeparator)
 
         self.TableWidget = TableWidget(self.CardWidget)
         if (self.TableWidget.columnCount() < 5):
@@ -139,17 +147,22 @@ class Ui_Form(object):
         self.TableWidget.horizontalHeader().setProperty("showSortIndicator", True)
         self.TableWidget.horizontalHeader().setStretchLastSection(True)
 
-        self.verticalLayout_2.addWidget(self.TableWidget)
+        self.verticalLayout_5.addWidget(self.TableWidget)
 
         self.StrongBodyLabel = StrongBodyLabel(self.CardWidget)
         self.StrongBodyLabel.setObjectName(u"StrongBodyLabel")
 
-        self.verticalLayout_2.addWidget(self.StrongBodyLabel)
+        self.verticalLayout_5.addWidget(self.StrongBodyLabel)
 
 
-        self.horizontalLayout.addWidget(self.CardWidget)
+        self.verticalLayout_2.addWidget(self.CardWidget)
 
-        self.CardWidget_2 = CardWidget(self.scrollAreaWidgetContents)
+        self.OpacityAniStackedWidget.addWidget(self.page)
+        self.page_2 = QWidget()
+        self.page_2.setObjectName(u"page_2")
+        self.verticalLayout_4 = QVBoxLayout(self.page_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.CardWidget_2 = CardWidget(self.page_2)
         self.CardWidget_2.setObjectName(u"CardWidget_2")
         self.verticalLayout_3 = QVBoxLayout(self.CardWidget_2)
         self.verticalLayout_3.setSpacing(15)
@@ -194,10 +207,11 @@ class Ui_Form(object):
         self.verticalLayout_3.addWidget(self.StrongBodyLabel_2)
 
 
-        self.horizontalLayout.addWidget(self.CardWidget_2)
+        self.verticalLayout_4.addWidget(self.CardWidget_2)
 
+        self.OpacityAniStackedWidget.addWidget(self.page_2)
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout)
+        self.verticalLayout_6.addWidget(self.OpacityAniStackedWidget)
 
         self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -205,6 +219,9 @@ class Ui_Form(object):
 
 
         self.retranslateUi(Form)
+
+        self.OpacityAniStackedWidget.setCurrentIndex(1)
+
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi

@@ -1,3 +1,5 @@
+import loguru
+
 from src.model.retrieval_model import RetrievalModel
 from src.view.retrieval_view import RetrievalView
 
@@ -86,6 +88,7 @@ class RetrievalPresenter:
                                       wave_serial_number,
                                       inventory.storage_time,
                                       inventory.ean13)
+        loguru.logger.debug(f'添加了一行数据:{inventory}')
 
     def _export_data(self) -> None:
         mask_title = '确认出库?'

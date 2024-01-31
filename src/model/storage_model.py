@@ -47,7 +47,6 @@ class StorageModel:
         self._db_controller.export_to_database(data)
 
         new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
-        print(new_data)
         # 将数据类对象转换为字典列表
         dict_list = [asdict(item) for item in new_data]
 

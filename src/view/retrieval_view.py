@@ -115,6 +115,9 @@ class RetrievalView(MessageBaseView):
         return values
 
     def initialize(self) -> None:
+        # 将输入框设置可以直接删除
+        self.get_input_lineedit().setClearButtonEnabled(True)
+
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))
 

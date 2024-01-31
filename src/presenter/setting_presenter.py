@@ -1,5 +1,7 @@
+import loguru
 from PySide6.QtWidgets import QFileDialog
 
+from src.component.email_setting_component import EmailSettingComponent
 from src.model.setting_model import SettingModel
 from src.view.setting_view import SettingView
 
@@ -43,11 +45,22 @@ class SettingPresenter:
 
     def _log_rotation_days_card_value_changed(self, value: int) -> None:
         self.get_model().set_log_rotation_days(value)
-        self.get_view().show_success_infobar("设置成功", f'日志归档天数已经设置为{value}', duration=5000)
 
     def _log_retention_days_card_value_changed(self, value: int) -> None:
         self.get_model().set_log_retention_days(value)
-        self.get_view().show_success_infobar("设置成功", f'日志保留天数已经设置为{value}', duration=5000)
+
+    def _email_setting_component_clicked(self) -> None:
+        email_setting_window = EmailSettingComponent(self.get_view())
+        if not email_setting_window.exec():
+            return
+
+        account = email_setting_window.email_account.text()
+        secret_key = email_setting_window.email_secret_key.text()
+        self.get_model().set_email_account(account)
+        self.get_model().set_email_secret_key(secret_key)
+        loguru.logger.info(f'设置邮箱账号为{account}')
+
+        self.get_view().show_success_infobar("设置成功", f'邮箱设置成功', duration=5000)
 
     def _connect_singal(self) -> None:
         ui = self.get_view()
@@ -57,3 +70,13 @@ class SettingPresenter:
         ui.font_card.optionChanged.connect(self._font_card_value_changed)
         ui.log_rotation_days_card.valueChanged.connect(self._log_rotation_days_card_value_changed)
         ui.log_retention_days_card.valueChanged.connect(self._log_retention_days_card_value_changed)
+        ui.email_account_card.clicked.connect(lambda: self._email_setting_component_clicked())
+
+
+if __name__ == '__main__':
+    from PySide6.QtWidgets import QApplication
+
+    app = QApplication([])
+    w = SettingPresenter().get_view()
+    w.show()
+    app.exec()

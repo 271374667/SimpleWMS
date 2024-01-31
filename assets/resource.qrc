@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>images/icons/email.svg</file>
     <file>images/icons/save.svg</file>
     <file>images/icons/delete.svg</file>
     <file>images/icons/print.svg</file>

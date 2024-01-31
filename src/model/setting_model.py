@@ -22,3 +22,9 @@ class SettingModel:
 
     def set_log_retention_days(self, days: int) -> None:
         self._cfg.set(cfg.log_retention_days, days)
+
+    def set_email_account(self, account: str) -> None:
+        self._cfg.set(cfg.email_account, account)
+
+    def set_email_secret_key(self, secret_key: str) -> None:
+        self._cfg.set(cfg.email_secret_key, secret_key)

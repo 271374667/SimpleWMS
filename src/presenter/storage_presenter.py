@@ -1,5 +1,7 @@
 from typing import List, Tuple
 
+import loguru
+
 from src.model.storage_model import StorageModel
 from src.view.storage_view import StorageView
 
@@ -57,6 +59,7 @@ class StoragePresenter:
         # 如果是自动切换，那么就需要先获取最新的批次
         batch_serial_number = self.get_model().get_newest_batch_serial_number()
         self.get_view().add_table_row(item_name, brand, str(price), batch_serial_number, str(quantity))
+        loguru.logger.debug(f'添加了一行数据:{item_name} {brand} {price} {batch_serial_number} {quantity}')
 
     def _clear_all_table(self) -> None:
         ui = self.get_view()

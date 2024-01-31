@@ -1,18 +1,18 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QFrame, QWidget
-from qfluentwidgets import (OptionsSettingCard, PushSettingCard, RangeSettingCard, SettingCardGroup)
-from qfluentwidgets.components import ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter
+from qfluentwidgets import (OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard, RangeSettingCard,
+                            SettingCardGroup)
+from qfluentwidgets.components import ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter, OpacityAniStackedWidget
 
 from src.config import cfg
 from src.view.message_base_view import MessageBaseView
 
 
-# noinspection PyAttributeOutsideInit,PyTypeChecker
 class SettingView(SmoothScrollArea, MessageBaseView):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
         self.scroll_widget = QWidget()
-        self.expand_layout = ExpandLayout()
+        self.expand_layout = ExpandLayout(self.scroll_widget)
 
         self.setting_title = LargeTitleLabel("设置", self)
 
@@ -42,27 +42,45 @@ class SettingView(SmoothScrollArea, MessageBaseView):
 
     def _create_card(self) -> None:
         """创建卡片"""
-        self.log_rotation_days_card = RangeSettingCard(cfg.log_rotation_days, QIcon(":/icons/images/icons/log.svg"),
-                                                       "日志归档天数", "请选择多少天进行一次日志归档(将log打包为zip)",
+        self.log_rotation_days_card = RangeSettingCard(cfg.log_rotation_days,
+                                                       QIcon(":/icons/images/icons/log.svg"),
+                                                       "日志归档天数",
+                                                       "请选择多少天进行一次日志归档(将log打包为zip)",
                                                        self.general_group)
         self.log_retention_days_card = RangeSettingCard(cfg.log_retention_days,
                                                         QIcon(":/icons/images/icons/log.svg"),
-                                                        "日志保留天数", "请选择日志最多保留多少天",
+                                                        "日志保留天数",
+                                                        "请选择日志最多保留多少天",
                                                         self.general_group)
-        self.font_card = OptionsSettingCard(cfg.font, QIcon(":/icons/images/icons/choose_font.svg"), "字体",
-                                            "请选择打印机字体粗细", [
+        self.font_card = OptionsSettingCard(cfg.font, QIcon(":/icons/images/icons/choose_font.svg"),
+                                            "字体",
+                                            "请选择打印机字体粗细",
+                                            [
                                                     '细', '常规', '中等', '粗', '加粗'
-                                                    ], self.appearance_group)
-        self.backup_path_card = PushSettingCard("备份路径", QIcon(":/icons/images/icons/save_archive.svg"),
-                                                "请选择一个地址来进行备份", cfg.get(cfg.backup_path),
+                                                    ],
+                                            self.appearance_group)
+        self.backup_path_card = PushSettingCard("备份路径",
+                                                QIcon(":/icons/images/icons/save_archive.svg"),
+                                                "请选择一个地址来进行备份",
+                                                cfg.get(cfg.backup_path),
                                                 self.storage_group)
-        self.storage_path_card = PushSettingCard("入库文件保存路径", QIcon(":/icons/images/icons/save.svg"),
-                                                 "请选择一个文件夹来保存入库的excel文件", cfg.get(cfg.storage_path),
+        self.storage_path_card = PushSettingCard("入库文件保存路径",
+                                                 QIcon(":/icons/images/icons/save.svg"),
+                                                 "请选择一个文件夹来保存入库的excel文件",
+                                                 cfg.get(cfg.storage_path),
                                                  self.storage_group)
 
-        self.retrieval_path_card = PushSettingCard("出库文件保存路径", QIcon(":/icons/images/icons/save.svg"),
-                                                   "请选择一个文件夹来保存出库的excel文件", cfg.get(cfg.retrieval_path),
+        self.retrieval_path_card = PushSettingCard("出库文件保存路径",
+                                                   QIcon(":/icons/images/icons/save.svg"),
+                                                   "请选择一个文件夹来保存出库的excel文件",
+                                                   cfg.get(cfg.retrieval_path),
                                                    self.storage_group)
+
+        self.email_account_card = PrimaryPushSettingCard("邮箱设置",
+                                                         QIcon(":/icons/images/icons/email.svg"),
+                                                         "设置您的邮箱",
+                                                         "设置您的邮箱账号和密钥,用于发送邮件,如果您不需要发送邮件,可以不设置",
+                                                         self.general_group)
 
     def _set_up_tooltip(self) -> None:
         """设置卡片的提示"""
@@ -71,9 +89,12 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.font_card.setToolTip("字体越粗,打印机打印的字体越粗,默认为常规")
         self.storage_path_card.setToolTip("入库excel文件保存路径,默认为storage文件夹,文件夹下请不要存放其他文件")
         self.retrieval_path_card.setToolTip("出库excel文件保存路径,默认为retrieve文件夹,文件夹下请不要存放其他文件")
+        self.email_account_card.setToolTip("您需要设置您邮箱的账号和密钥(注意这里密钥不等于密码)")
 
     def _set_up_layout(self) -> None:
         """设置布局"""
+        self.setWidget(self.scroll_widget)
+
         self.expand_layout.addWidget(self.general_group)
         self.expand_layout.addWidget(self.appearance_group)
         self.expand_layout.addWidget(self.storage_group)
@@ -82,15 +103,15 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.expand_layout.setContentsMargins(60, 10, 60, 0)
 
         # 给卡片组添加卡片
-        self.general_group.addSettingCards(
-                [self.log_rotation_days_card,
-                        self.log_retention_days_card,
-                        ])
+        self.general_group.addSettingCard(self.email_account_card)
+        self.general_group.addSettingCard(self.log_rotation_days_card)
+        self.general_group.addSettingCard(self.log_retention_days_card)
 
-        self.appearance_group.addSettingCards([self.font_card])
-        self.storage_group.addSettingCards([self.backup_path_card, self.storage_path_card, self.retrieval_path_card])
+        self.appearance_group.addSettingCard(self.font_card)
 
-        self.setWidget(self.scroll_widget)
+        self.storage_group.addSettingCard(self.backup_path_card)
+        self.storage_group.addSettingCard(self.storage_path_card)
+        self.storage_group.addSettingCard(self.retrieval_path_card)
 
     def _initialize(self) -> None:
         """初始化窗体"""
@@ -101,7 +122,9 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.setFrameShape(QFrame.Shape.NoFrame)
         self.setting_title.move(60, 65)
         self.setViewportMargins(0, 120, 0, 0)
-        self.setStyleSheet('background-color: rgba(0, 0, 0, 0);')
+
+        # 这里因为背景色不一样,我手动打个补丁
+        self.setStyleSheet('background-color: #fcfcfc')
 
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))

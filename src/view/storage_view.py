@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QTableWidgetItem, QWidget, QLCDNumber
+from PySide6.QtWidgets import QApplication, QLCDNumber, QTableWidgetItem, QWidget
 from qfluentwidgets.components import (DoubleSpinBox, LineEdit, PrimaryPushButton, SpinBox, SwitchButton, TableWidget,
                                        ToolTipFilter, TransparentPushButton)
 
@@ -98,6 +98,10 @@ class StorageView(MessageBaseView):
         # 跳转到最后一行
 
     def initialize(self) -> None:
+        # 设置输入框可以直接删除
+        self.get_clothes_name_lineedit().setClearButtonEnabled(True)
+        self.get_brand_lineedit().setClearButtonEnabled(True)
+
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))
 
