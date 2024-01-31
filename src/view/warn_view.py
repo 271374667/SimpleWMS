@@ -1,6 +1,7 @@
+from PySide6.QtWidgets import QApplication, QWidget
+from qfluentwidgets.components import SegmentedWidget, StrongBodyLabel, TableWidget, ToolTipFilter
+
 from src.interface.Ui_warn_page import Ui_Form
-from PySide6.QtWidgets import QWidget, QApplication
-from qfluentwidgets.components import ToolTipFilter
 
 
 class WarnView(QWidget):
@@ -12,7 +13,34 @@ class WarnView(QWidget):
         self.setWindowTitle("预警")
         self.setObjectName("warn_view")
 
-        self.initialize()
+        self._create_widgets()
+
+    def get_segment_widget(self) -> SegmentedWidget:
+        return self.ui.SegmentedWidget
+
+    def get_outofstock_table(self) -> TableWidget:
+        return self.ui.TableWidget
+
+    def get_outofstock_lable(self) -> StrongBodyLabel:
+        return self.ui.StrongBodyLabel
+
+    def get_unsalable_table(self) -> TableWidget:
+        return self.ui.TableWidget_2
+
+    def get_unsalable_lable(self) -> StrongBodyLabel:
+        return self.ui.StrongBodyLabel_2
+
+    def _create_widgets(self):
+        self.ui.SegmentedWidget.addItem("outofstock",
+                                        "缺货预警",
+                                        onClick=lambda: self.ui.stackedWidget.setCurrentIndex(0)
+                                        )
+
+        self.ui.SegmentedWidget.addItem('unsalable',
+                                        '滞销预警',
+                                        onClick=lambda: self.ui.stackedWidget.setCurrentIndex(1)
+                                        )
+        self.ui.SegmentedWidget.setCurrentItem('outofstock')
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):

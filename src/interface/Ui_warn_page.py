@@ -16,12 +16,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
-    QSizePolicy, QTableWidgetItem, QVBoxLayout, QWidget)
+    QSizePolicy, QStackedWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 from qfluentwidgets import (BodyLabel, CardWidget, HorizontalSeparator, IconWidget,
-    LargeTitleLabel, OpacityAniStackedWidget, Pivot, SegmentedWidget,
-    SimpleCardWidget, SmoothScrollArea, StrongBodyLabel, SubtitleLabel,
-    TableWidget, VerticalSeparator)
+    LargeTitleLabel, Pivot, SegmentedWidget, SimpleCardWidget,
+    SmoothScrollArea, StrongBodyLabel, SubtitleLabel, TableWidget,
+    VerticalSeparator)
 import resource_rc
 
 class Ui_Form(object):
@@ -99,13 +100,68 @@ class Ui_Form(object):
 
         self.verticalLayout_6.addWidget(self.SegmentedWidget)
 
-        self.OpacityAniStackedWidget = OpacityAniStackedWidget(self.scrollAreaWidgetContents)
-        self.OpacityAniStackedWidget.setObjectName(u"OpacityAniStackedWidget")
+        self.stackedWidget = QStackedWidget(self.scrollAreaWidgetContents)
+        self.stackedWidget.setObjectName(u"stackedWidget")
         self.page = QWidget()
         self.page.setObjectName(u"page")
         self.verticalLayout_2 = QVBoxLayout(self.page)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.CardWidget = CardWidget(self.page)
+        self.CardWidget_2 = CardWidget(self.page)
+        self.CardWidget_2.setObjectName(u"CardWidget_2")
+        self.verticalLayout_4 = QVBoxLayout(self.CardWidget_2)
+        self.verticalLayout_4.setSpacing(15)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(15, 15, 15, 15)
+        self.SubtitleLabel_2 = SubtitleLabel(self.CardWidget_2)
+        self.SubtitleLabel_2.setObjectName(u"SubtitleLabel_2")
+        self.SubtitleLabel_2.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_4.addWidget(self.SubtitleLabel_2)
+
+        self.HorizontalSeparator_2 = HorizontalSeparator(self.CardWidget_2)
+        self.HorizontalSeparator_2.setObjectName(u"HorizontalSeparator_2")
+
+        self.verticalLayout_4.addWidget(self.HorizontalSeparator_2)
+
+        self.TableWidget_2 = TableWidget(self.CardWidget_2)
+        if (self.TableWidget_2.columnCount() < 4):
+            self.TableWidget_2.setColumnCount(4)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.TableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.TableWidget_2.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.TableWidget_2.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.TableWidget_2.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        if (self.TableWidget_2.rowCount() < 100):
+            self.TableWidget_2.setRowCount(100)
+        self.TableWidget_2.setObjectName(u"TableWidget_2")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.TableWidget_2.sizePolicy().hasHeightForWidth())
+        self.TableWidget_2.setSizePolicy(sizePolicy2)
+        self.TableWidget_2.setRowCount(100)
+        self.TableWidget_2.horizontalHeader().setProperty("showSortIndicator", True)
+        self.TableWidget_2.horizontalHeader().setStretchLastSection(True)
+
+        self.verticalLayout_4.addWidget(self.TableWidget_2)
+
+        self.StrongBodyLabel_2 = StrongBodyLabel(self.CardWidget_2)
+        self.StrongBodyLabel_2.setObjectName(u"StrongBodyLabel_2")
+
+        self.verticalLayout_4.addWidget(self.StrongBodyLabel_2)
+
+
+        self.verticalLayout_2.addWidget(self.CardWidget_2)
+
+        self.stackedWidget.addWidget(self.page)
+        self.page_2 = QWidget()
+        self.page_2.setObjectName(u"page_2")
+        self.verticalLayout_3 = QVBoxLayout(self.page_2)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.CardWidget = CardWidget(self.page_2)
         self.CardWidget.setObjectName(u"CardWidget")
         self.verticalLayout_5 = QVBoxLayout(self.CardWidget)
         self.verticalLayout_5.setSpacing(15)
@@ -125,22 +181,19 @@ class Ui_Form(object):
         self.TableWidget = TableWidget(self.CardWidget)
         if (self.TableWidget.columnCount() < 5):
             self.TableWidget.setColumnCount(5)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         __qtablewidgetitem4 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.TableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem7)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem8)
         if (self.TableWidget.rowCount() < 100):
             self.TableWidget.setRowCount(100)
         self.TableWidget.setObjectName(u"TableWidget")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.TableWidget.sizePolicy().hasHeightForWidth())
         self.TableWidget.setSizePolicy(sizePolicy2)
         self.TableWidget.setRowCount(100)
@@ -155,63 +208,11 @@ class Ui_Form(object):
         self.verticalLayout_5.addWidget(self.StrongBodyLabel)
 
 
-        self.verticalLayout_2.addWidget(self.CardWidget)
+        self.verticalLayout_3.addWidget(self.CardWidget)
 
-        self.OpacityAniStackedWidget.addWidget(self.page)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.verticalLayout_4 = QVBoxLayout(self.page_2)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.CardWidget_2 = CardWidget(self.page_2)
-        self.CardWidget_2.setObjectName(u"CardWidget_2")
-        self.verticalLayout_3 = QVBoxLayout(self.CardWidget_2)
-        self.verticalLayout_3.setSpacing(15)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(15, 15, 15, 15)
-        self.SubtitleLabel_2 = SubtitleLabel(self.CardWidget_2)
-        self.SubtitleLabel_2.setObjectName(u"SubtitleLabel_2")
-        self.SubtitleLabel_2.setAlignment(Qt.AlignCenter)
+        self.stackedWidget.addWidget(self.page_2)
 
-        self.verticalLayout_3.addWidget(self.SubtitleLabel_2)
-
-        self.HorizontalSeparator_2 = HorizontalSeparator(self.CardWidget_2)
-        self.HorizontalSeparator_2.setObjectName(u"HorizontalSeparator_2")
-
-        self.verticalLayout_3.addWidget(self.HorizontalSeparator_2)
-
-        self.TableWidget_2 = TableWidget(self.CardWidget_2)
-        if (self.TableWidget_2.columnCount() < 4):
-            self.TableWidget_2.setColumnCount(4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.TableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.TableWidget_2.setHorizontalHeaderItem(1, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.TableWidget_2.setHorizontalHeaderItem(2, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.TableWidget_2.setHorizontalHeaderItem(3, __qtablewidgetitem8)
-        if (self.TableWidget_2.rowCount() < 100):
-            self.TableWidget_2.setRowCount(100)
-        self.TableWidget_2.setObjectName(u"TableWidget_2")
-        sizePolicy2.setHeightForWidth(self.TableWidget_2.sizePolicy().hasHeightForWidth())
-        self.TableWidget_2.setSizePolicy(sizePolicy2)
-        self.TableWidget_2.setRowCount(100)
-        self.TableWidget_2.horizontalHeader().setProperty("showSortIndicator", True)
-        self.TableWidget_2.horizontalHeader().setStretchLastSection(True)
-
-        self.verticalLayout_3.addWidget(self.TableWidget_2)
-
-        self.StrongBodyLabel_2 = StrongBodyLabel(self.CardWidget_2)
-        self.StrongBodyLabel_2.setObjectName(u"StrongBodyLabel_2")
-
-        self.verticalLayout_3.addWidget(self.StrongBodyLabel_2)
-
-
-        self.verticalLayout_4.addWidget(self.CardWidget_2)
-
-        self.OpacityAniStackedWidget.addWidget(self.page_2)
-
-        self.verticalLayout_6.addWidget(self.OpacityAniStackedWidget)
+        self.verticalLayout_6.addWidget(self.stackedWidget)
 
         self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -220,7 +221,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
 
-        self.OpacityAniStackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -230,27 +231,27 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.LargeTitleLabel.setText(QCoreApplication.translate("Form", u"\u9884\u8b66", None))
         self.BodyLabel_7.setText(QCoreApplication.translate("Form", u"\u67e5\u770b\u6ede\u9500,\u7f3a\u8d27\u7b49\u901a\u77e5", None))
-        self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"\u6ede\u9500", None))
-        ___qtablewidgetitem = self.TableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"\u540d\u79f0", None));
-        ___qtablewidgetitem1 = self.TableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None));
-        ___qtablewidgetitem2 = self.TableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"\u6570\u91cf", None));
-        ___qtablewidgetitem3 = self.TableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"\u6279\u6b21", None));
-        ___qtablewidgetitem4 = self.TableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"\u8fdb\u8d27\u65f6\u95f4", None));
-        self.StrongBodyLabel.setText(QCoreApplication.translate("Form", u"\u5171\u8ba1\u6570\u636e\u6761\u6570: 0", None))
         self.SubtitleLabel_2.setText(QCoreApplication.translate("Form", u"\u7f3a\u8d27", None))
-        ___qtablewidgetitem5 = self.TableWidget_2.horizontalHeaderItem(0)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"\u540d\u79f0", None));
-        ___qtablewidgetitem6 = self.TableWidget_2.horizontalHeaderItem(1)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None));
-        ___qtablewidgetitem7 = self.TableWidget_2.horizontalHeaderItem(2)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"\u6570\u91cf", None));
-        ___qtablewidgetitem8 = self.TableWidget_2.horizontalHeaderItem(3)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("Form", u"\u4e0a\u6b21\u8fdb\u8d27\u65f6\u95f4", None));
+        ___qtablewidgetitem = self.TableWidget_2.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"\u540d\u79f0", None));
+        ___qtablewidgetitem1 = self.TableWidget_2.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None));
+        ___qtablewidgetitem2 = self.TableWidget_2.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"\u6570\u91cf", None));
+        ___qtablewidgetitem3 = self.TableWidget_2.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"\u4e0a\u6b21\u8fdb\u8d27\u65f6\u95f4", None));
         self.StrongBodyLabel_2.setText(QCoreApplication.translate("Form", u"\u5171\u8ba1\u6570\u636e\u6761\u6570: 0", None))
+        self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"\u6ede\u9500", None))
+        ___qtablewidgetitem4 = self.TableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"\u540d\u79f0", None));
+        ___qtablewidgetitem5 = self.TableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None));
+        ___qtablewidgetitem6 = self.TableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"\u6570\u91cf", None));
+        ___qtablewidgetitem7 = self.TableWidget.horizontalHeaderItem(3)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"\u6279\u6b21", None));
+        ___qtablewidgetitem8 = self.TableWidget.horizontalHeaderItem(4)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("Form", u"\u8fdb\u8d27\u65f6\u95f4", None));
+        self.StrongBodyLabel.setText(QCoreApplication.translate("Form", u"\u5171\u8ba1\u6570\u636e\u6761\u6570: 0", None))
     # retranslateUi
 
