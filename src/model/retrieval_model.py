@@ -8,6 +8,7 @@ import pandas as pd
 
 from src.common.database.controller.retrieval_controller import RetrievalController, RetrievalData
 from src.config import cfg
+from src.dict_typing import RetrievalDict
 
 
 class RetrievalModel:
@@ -45,11 +46,11 @@ class RetrievalModel:
             self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
         return self._db_controller.get_lastest_wave_serial_number()
 
-    def export_data(self, data: List[Tuple[str, str, float, str, str, str]]) -> None:
+    def export_data(self, data: List[RetrievalDict]) -> None:
         # 将原本的inventory里面的is_sold设置为1,然后新增一个Wave
         for each in data:
             # each = ['名称', '品牌', '价格', '波次名称', '入库时间', 'EAN13']
-            self._db_controller.set_inventory_sold(each[-1], each[3])
+            self._db_controller.set_inventory_sold(each["ean13"], each["wave_serial_number"])
 
         # 更新缓存
         self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
@@ -57,13 +58,13 @@ class RetrievalModel:
         # 将数据导出到xlsx文件
         # 将DataFrame导出为Excel文件
 
-        df = pd.DataFrame({'名称': [each[0] for each in data],
-                                  '品牌': [each[1] for each in data],
-                                  '价格': [each[2] for each in data],
-                                  '波次名称': [self._db_controller.convert_wave_serial_number_to_wave_name(each[3]) for
+        df = pd.DataFrame({'名称': [each['name'] for each in data],
+                                  '品牌': [each['brand'] for each in data],
+                                  '价格': [each['price'] for each in data],
+                                  '波次名称': [self._db_controller.convert_wave_serial_number_to_wave_name(each['wave_serial_number']) for
                                           each in data],
-                                  '入库时间': [each[4] for each in data],
-                                  'EAN13': [each[5] for each in data],
+                                  '入库时间': [each['storage_time'] for each in data],
+                                  'EAN13': [each['ean13'] for each in data],
                                   })
         save_dir = Path(cfg.get(cfg.retrieval_path))
         EXCEL_FILE = save_dir / f'出库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'

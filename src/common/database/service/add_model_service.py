@@ -7,7 +7,7 @@ from src.common.database.service.get_model_service import GetModelService
 
 class AddModelService:
     def __init__(self):
-        self._session = Session()
+        self._session = Session
         self._get_model_service = GetModelService()
 
     def add_inventory(self, item_name: str, price: float, brand: str, batch: model.Batch) -> model.Inventory:

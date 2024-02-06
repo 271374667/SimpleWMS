@@ -2,7 +2,6 @@ import os
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
-from typing import Tuple
 
 import loguru
 import pandas as pd
@@ -10,6 +9,7 @@ import pandas as pd
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
 from src.config import cfg
+from src.dict_typing import StorageDict
 
 
 class StorageModel:
@@ -38,13 +38,16 @@ class StorageModel:
         today = datetime.today()
         return f'{today.year}{today.month:02d}{number:03d}'
 
-    def export_data(self, data: list[Tuple[str, str, float, str]]) -> None:
+    def export_data(self, data: list[StorageDict]) -> None:
         """导出数据到Excel和数据库"""
         # 先获取最新的inventory_id
         latest_inventory_id = self._db_controller.get_latest_inventory_id()
 
         # 要先导出到数据库才能获取到id和EAN13
-        self._db_controller.export_to_database(data)
+        data_list = []
+        for each in data:
+            data_list.append((each['name'], each['brand'], float(each['price']), each['batch_serial_number']))
+        self._db_controller.export_to_database(data_list)
 
         new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
         # 将数据类对象转换为字典列表
@@ -57,7 +60,7 @@ class StorageModel:
         df = df[['item_id', 'item_name', 'brand', 'price', 'batch_name', 'batch_serial_number', 'created_time']]
 
         # 对其中的item_id列全部调用函数转换成EAN13
-        df['item_id'] = df['item_id'].apply(convert.convert_id_to_ean13)
+        df['item_id'] = df['item_id'].apply(convert.EAN13Converter.convert_id_to_ean13)
 
         # 重命名列以匹配所需的标题
         df.columns = ['EAN13', '名称', '品牌', '价格', '批次名', '批次序号', '批次创建时间']

@@ -10,7 +10,7 @@ from src.common.database.entity import model
 # TODO: 之后所有的查询都会使用 select() 方法进行重写,然后再 controller 中再进行调用以此来提高性能
 class GetModelService:
     def __init__(self):
-        self._session = Session()
+        self._session = Session
 
     # 基础查询
     def get_all_inventory(self) -> list[model.Inventory]:

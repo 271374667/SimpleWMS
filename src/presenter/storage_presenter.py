@@ -2,15 +2,18 @@ from typing import List, Tuple
 
 import loguru
 
+from src.dict_typing import StorageDict
 from src.model.storage_model import StorageModel
+from src.table_handler import TableHandler
 from src.view.storage_view import StorageView
 
 
 class StoragePresenter:
     def __init__(self):
-        self._table_headers = ['名称', '品牌', '价格', '批次']
         self._view = StorageView()
         self._model = StorageModel()
+        self._table_handler = TableHandler(self.get_view().get_table_widget(),
+                                           StorageDict)
         self.get_view().get_display_lcd().display(self.get_model().get_newest_batch_number())
         self._connect_signals()
 
@@ -50,24 +53,33 @@ class StoragePresenter:
                 ui.show_warning_infobar('批次过大!', '您的批次号不能超过当前最新的批次号+1')
                 return
 
-            self.get_view().add_table_row(item_name, brand,
-                                          str(price),
-                                          self.get_model().gen_batch_serial_number(batch),
-                                          str(quantity))
+            for _ in range(quantity):
+                new_data: StorageDict = {
+                        'name': item_name,
+                        'brand': brand,
+                        'price': str(price),
+                        'batch_serial_number': self.get_model().gen_batch_serial_number(batch)
+                        }
+                self._table_handler.add_row(new_data)
             return
 
         # 如果是自动切换，那么就需要先获取最新的批次
         batch_serial_number = self.get_model().get_newest_batch_serial_number()
-        self.get_view().add_table_row(item_name, brand, str(price), batch_serial_number, str(quantity))
+        for _ in range(quantity):
+            new_data: StorageDict = {
+                    "name": item_name,
+                    "brand": brand,
+                    "price": str(price),
+                    "batch_serial_number": batch_serial_number
+                    }
+            self._table_handler.add_row(new_data)
         loguru.logger.debug(f'添加了一行数据:{item_name} {brand} {price} {batch_serial_number} {quantity}')
 
     def _clear_all_table(self) -> None:
         ui = self.get_view()
         result = ui.show_mask_dialog(title='清空表格', content='确定要清空表格吗？')
         if result:
-            ui.get_table_widget().clear()
-            # 重新设置表格的Header
-            ui.get_table_widget().setHorizontalHeaderLabels(self._table_headers)
+            self._table_handler.clear()
 
     def _delete_current_row(self) -> None:
         ui = self.get_view()
@@ -85,7 +97,8 @@ class StoragePresenter:
         mask_content = '点击确认将会清空表格并将数据添加到数据库,在还没添加之前您可以在表格里面对数据双击进行修改'
         if not self.get_view().show_mask_dialog(title=mask_title, content=mask_content):
             return
-        data = self._get_data()
+        # data = self._get_data()
+        data = self._table_handler.get_data()
         if not data:
             self.get_view().show_warning_infobar(title='没有数据！', content='请先添加数据')
             return

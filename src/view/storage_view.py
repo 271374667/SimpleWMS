@@ -52,51 +52,6 @@ class StorageView(MessageBaseView):
     def get_display_lcd(self) -> QLCDNumber:
         return self.ui.lcdNumber
 
-    def set_table_data(self, data: list[list[str, str, float, int]]) -> None:
-        """设置表格数据
-
-        设置表格数据，表格每一次都会被清空，然后重新设置数据,这样确保左侧的序号正确
-
-        Args:
-            data: list[list[商品名称, 品牌, 价格, 批次]]
-        """
-        table = self.get_table_widget()
-        table.clear()
-        table.setHorizontalHeaderLabels(['商品名称', '品牌', '价格', '批次'])
-        table.setRowCount(len(data))
-        for i, each in enumerate(data):
-            for j, item in enumerate(each):
-                table.setItem(i, j, QTableWidgetItem(item))
-
-    def add_table_row(self, name: str, brand: str, price: str, batch: str, quantity: str) -> None:
-        """添加表格行
-
-        Args:
-            name: 商品名称
-            brand: 品牌
-            price: 价格
-            batch: 批次
-            quantity: 数量
-        """
-        table = self.get_table_widget()
-        for _ in range(int(quantity)):
-            row_count = table.rowCount()
-            # 添加的时候优先添加前面空的行
-            for i in range(row_count):
-                if (not table.item(i, 0)
-                        and not table.item(i, 1)
-                        and not table.item(i, 2)
-                        and not table.item(i, 3)):
-                    row_count = i
-                    break
-
-            table.insertRow(row_count)
-            table.setItem(row_count, 0, QTableWidgetItem(name))
-            table.setItem(row_count, 1, QTableWidgetItem(brand))
-            table.setItem(row_count, 2, QTableWidgetItem(price))
-            table.setItem(row_count, 3, QTableWidgetItem(batch))
-        # 跳转到最后一行
-
     def initialize(self) -> None:
         # 设置输入框可以直接删除
         self.get_clothes_name_lineedit().setClearButtonEnabled(True)

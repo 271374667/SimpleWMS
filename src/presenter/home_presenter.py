@@ -30,8 +30,12 @@ class HomePresenter:
         ui.get_all_storage_label().setText(str(self.get_model().get_all_storage()))
         ui.get_all_retrieval_label().setText(str(self.get_model().get_all_retrieval()))
 
+    def _flush_button_clicked(self) -> None:
+        self._flush_all_label()
+        self.get_view().show_success_infobar("刷新成功", '所有的数据都已经刷新成功了哦~', 5000)
+
     def _connect_signal(self):
-        self._view.get_flush_tool_button().clicked.connect(self._flush_all_label)
+        self._view.get_flush_tool_button().clicked.connect(self._flush_button_clicked)
 
 
 if __name__ == '__main__':

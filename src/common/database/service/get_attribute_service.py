@@ -10,7 +10,7 @@ from src.common.database.utils import serial_number
 
 class GetAttributeService:
     def __init__(self):
-        self._session = Session()
+        self._session = Session
         self._get_model_service = GetModelService()
 
     # 返回 id

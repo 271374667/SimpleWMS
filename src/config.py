@@ -20,7 +20,7 @@ class Config(QConfig):
     email_account = ConfigItem("General", "邮箱", '', None)
     email_secret_key = ConfigItem("General", "密码", '', None)
 
-    # 存储
+    # 日志
     log_rotation_days = RangeConfigItem("General", "日志归档天数", 7, RangeValidator(1, 30))
     log_retention_days = RangeConfigItem("General", "日志保留天数", 30, RangeValidator(1, 90))
 

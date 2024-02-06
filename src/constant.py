@@ -10,8 +10,9 @@ ASSETS_DIR = ROOT_DIR / "assets"
 IMAGES_DIR = ASSETS_DIR / "images"
 UI_DIR = ASSETS_DIR / "ui"
 FONT_DIR = ASSETS_DIR / "fonts"
-RETRIEVE_DIR = ROOT_DIR / "retrieve"
-STORAGE_DIR = ROOT_DIR / "storage"
+OUTPUT_DIR = ROOT_DIR / "output"
+RETRIEVE_DIR = OUTPUT_DIR / "retrieval"
+STORAGE_DIR = OUTPUT_DIR / "storage"
 
 # FILE
 DATABASE_FILE = ROOT_DIR / "database.db"
@@ -31,9 +32,7 @@ REGULAR_FONT = FONT_DIR / "Alibaba-PuHuiTi-Regular.ttf"
 # 创建文件夹
 def create_dir():
     for dir_ in [BACKUP_DIR,
-            LOG_DIR,
-            RETRIEVE_DIR,
-            STORAGE_DIR]:
+            LOG_DIR]:
         if not dir_.exists():
             dir_.mkdir(parents=True)
 

@@ -52,6 +52,7 @@ class RetrievalView(MessageBaseView):
     def get_auto_wave_switch_button(self) -> SwitchButton:
         return self.ui.SwitchButton_3
 
+    # TODO: 将来表格操作的逻辑都会被放入到utils/table_handler.py中
     def get_data(self) -> List[Tuple[str, str, float, str, str, str]]:
         """获取表格数据"""
         table = self.get_table_widget()

@@ -9,10 +9,10 @@ class HomeController:
         self._get_attribute_service = GetAttributeService()
 
     def get_current_batch_name(self) -> str:
-        return convert.convert_batch_serial_number_to_batch_name(self._get_attribute_service.get_latest_batch_serial_number())
+        return convert.BatchConverter.convert_batch_serial_number_to_batch_name(self._get_attribute_service.get_latest_batch_serial_number())
 
     def get_current_wave_name(self) -> str:
-        return convert.convert_wave_serial_number_to_wave_name(self._get_attribute_service.get_latest_wave_serial_number())
+        return convert.WaveConverter.convert_wave_serial_number_to_wave_name(self._get_attribute_service.get_latest_wave_serial_number())
 
     def get_current_item_quantity(self) -> int:
         return len(self._get_model_service.get_unsold_inventory_this_month())

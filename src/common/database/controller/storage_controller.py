@@ -29,7 +29,7 @@ class StorageController:
     def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
         for item_name, brand, price, batch_serial_number in data:
-            batch_name = convert.convert_batch_serial_number_to_batch_name(batch_serial_number)
+            batch_name = convert.BatchConverter.convert_batch_serial_number_to_batch_name(batch_serial_number)
             batch_sqlalchemy_model = model.Batch(batch_serial_number=batch_serial_number,
                                                  batch_name=batch_name)
             self._add_model_service.add_inventory(item_name=item_name,

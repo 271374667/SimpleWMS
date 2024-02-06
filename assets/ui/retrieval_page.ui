@@ -474,7 +474,7 @@
              </column>
              <column>
               <property name="text">
-               <string>波次名称</string>
+               <string>波次编号</string>
               </property>
              </column>
              <column>

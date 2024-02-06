@@ -41,7 +41,7 @@ class RetrievalController:
 
     def is_real_ean13(self, ean13: str) -> bool:
         """检测是否是真实的EAN13"""
-        really_ean13 = convert.convert_id_to_ean13(int(ean13[:12]))
+        really_ean13 = convert.EAN13Converter.convert_id_to_ean13(int(ean13[:12]))
         if really_ean13 != ean13:
             return False
         return True
@@ -62,10 +62,10 @@ class RetrievalController:
 
         self._set_model_service.set_wave_for_inventory(ean13=ean13,
                                                        wave=model.Wave(wave_serial_number=wave_serial_number,
-                                                                       wave_name=convert.convert_wave_serial_number_to_wave_name(
+                                                                       wave_name=convert.WaveConverter.convert_wave_serial_number_to_wave_name(
                                                                                wave_serial_number)
                                                                        )
                                                        )
 
     def convert_wave_serial_number_to_wave_name(self, wave_serial_number: str) -> str:
-        return convert.convert_wave_serial_number_to_wave_name(wave_serial_number)
+        return convert.WaveConverter.convert_wave_serial_number_to_wave_name(wave_serial_number)
