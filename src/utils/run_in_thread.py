@@ -121,7 +121,7 @@ class MyWindow(QWidget):
         return '欢迎使用', '你好'
 
     def over(self, result):
-        # 注意这里需要传递一个参数 result
+        # 注意这里需要传递一个参数 _result
         loguru.logger.debug(f'slot: {result}')
         self.lb.setText('线程结束')
         self.btn.setEnabled(True)

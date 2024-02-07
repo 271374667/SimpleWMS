@@ -57,8 +57,30 @@ class TableHandler(QObject):
         """添加一行数据"""
         if len(row_data) != len(self._headers):
             raise ValueError("数据长度和表头长度不一致")
+
+        last_row_index = self.get_last_row_index()
+        max_row_count = self._table.rowCount()
+
+        if last_row_index == max_row_count - 1:
+            self._table.setRowCount(max_row_count + 1)
+
         for key in row_data:
-            self._table.setItem(self.get_last_row_index(), self._get_header_index(key), QTableWidgetItem(str(row_data[key])))
+            self._table.setItem(last_row_index, self._get_header_index(key),
+                                QTableWidgetItem(str(row_data[key])))
+
+    def add_rows(self, rows_data: list[CustomBaseDict]) -> None:
+        """添加多行数据"""
+        last_row_index = self.get_last_row_index()
+        max_row_count = self._table.rowCount()
+        data_length = len(rows_data)
+
+        if last_row_index + data_length >= max_row_count:
+            self._table.setRowCount(max_row_count + data_length)
+
+        for row_index in range(data_length):
+            for key in rows_data[row_index]:
+                self._table.setItem(last_row_index + row_index, self._get_header_index(key),
+                                    QTableWidgetItem(str(rows_data[row_index][key])))
 
     def _is_null(self, row_index: int, column_index: int = None) -> bool:
         """判断是存在空值

@@ -94,6 +94,7 @@ class RetrievalPresenter:
         loguru.logger.debug(f'添加了一行数据:{inventory}')
 
     def _export_data(self) -> None:
+        # TODO: 未来将会做成多线程
         mask_title = '确认出库?'
         mask_content = '点击确认将会清空表格并将数据写入到数据库然后输出xlsx,出库之后无法重新入库,重新入库会当成两件衣服处理,请谨慎操作'
         if not self.get_view().show_mask_dialog(title=mask_title, content=mask_content):

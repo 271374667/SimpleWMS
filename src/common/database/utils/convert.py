@@ -35,6 +35,17 @@ class BatchConverter(Converter):
         year, month, batch_number = result[0]
         return f'{year}{int(month):02d}{int(batch_number):03d}'
 
+    @staticmethod
+    def convert_int_to_batch_serial_number(batch_number: int) -> str:
+        """将批次数字转换为当天的批次编号"""
+        today = datetime.today()
+        return f'{today.year}{today.month:02d}{batch_number:03d}'
+
+    @staticmethod
+    def convert_batch_serial_number_to_int(batch_serial_number: str) -> int:
+        """将批次序号转换为批次数字"""
+        return int(batch_serial_number[-3:])
+
 
 class WaveConverter(Converter):
 

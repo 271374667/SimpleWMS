@@ -58,3 +58,8 @@ class GetAttributeService:
             loguru.logger.debug(f'本月没有任何波次，自动生成一个波次:{today.year}{today.month:02d}001')
             return f'{today.year}{today.month:02d}001'
         return serial_number.sort_serial_number(batchs_this_month)[0]
+
+
+if __name__ == '__main__':
+    g = GetAttributeService()
+    print(g.get_latest_batch_serial_number())

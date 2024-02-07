@@ -7,12 +7,16 @@ from typing import Optional
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import MessageBox
-from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition, PushButton
+from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition, PushButton, StateToolTip
 
 
 class MessageBaseView(QWidget):
     """这个类负责让其他的View继承，实现一些一些常用的信息提示的功能"""
     info_button_clicked = Signal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.is_state_tooltip_running = False
 
     def show_mask_dialog(self, title: str = 'Title', content: str = 'Content') -> bool:
         """显示一个遮罩式的对话框
@@ -132,6 +136,40 @@ class MessageBaseView(QWidget):
                 parent=self
                 )
         w.show()
+
+    def show_state_tooltip(self, title: str,
+                           content: str,
+                           x: int,
+                           y: int) -> None:
+        """显示一个状态提示框
+
+        Args:
+            title (str, optional): 标题. Defaults to 'Title'.
+            content (str, optional): 内容. Defaults to 'Content'.
+            x (int): x坐标
+            y (int): y坐标
+        """
+        # 防止多次点击
+        if self.is_state_tooltip_running:
+            return
+
+        self.state_tooltip = StateToolTip(title, content, self)
+        self.state_tooltip.setState(False)
+        self.state_tooltip.move(x, y)
+        self.state_tooltip.show()
+        self.is_state_tooltip_running = True
+
+    def finish_state_tooltip(self, title: str = None, content: str = None) -> None:
+        """结束状态提示框"""
+        if not self.is_state_tooltip_running:
+            return
+        if title:
+            self.state_tooltip.setTitle(title)
+        if content:
+            self.state_tooltip.setContent(content)
+
+        self.state_tooltip.setState(True)
+        self.is_state_tooltip_running = False
 
 
 if __name__ == '__main__':
