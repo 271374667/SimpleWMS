@@ -3,6 +3,7 @@ import loguru
 from src.dict_typing import RetrievalDict
 from src.model.retrieval_model import RetrievalModel
 from src.table_handler import TableHandler
+from src.utils.run_in_thread import RunInThread
 from src.view.retrieval_view import RetrievalView
 
 
@@ -101,17 +102,33 @@ class RetrievalPresenter:
             return
 
         ui = self.get_view()
-        # data = ui.get_data()
         data = self._table_handler.get_data()
         if not data:
             ui.show_warning_infobar(title='无数据', content='当前没有任何数据可以导出,导出操作已终止')
             return
-        self.get_model().export_data(data)
 
-        ui.show_success_infobar(title='导出成功', content='文件被成功导出,您可以在指定文件夹下查看对应文件',
-                                duration=-1)
-        ui.get_display_lcd().display(self.get_model().get_wave_lastest_number())
-        ui.get_table_widget().clearContents()
+        def start_func():
+            self.get_model().export_data(data)
+
+        def finish_func():
+            ui.show_success_infobar(title='导出成功', content='文件被成功导出,您可以在指定文件夹下查看对应文件',
+                                    duration=-1)
+            ui.get_display_lcd().display(self.get_model().get_wave_lastest_number())
+            ui.get_table_widget().clearContents()
+            self.get_view().finish_state_tooltip()
+            loguru.logger.debug('状态提示框已经关闭')
+
+        self.run_in_thread = RunInThread()
+        self.run_in_thread.set_start_func(start_func)
+        self.run_in_thread.set_finished_func(finish_func)
+        self.run_in_thread.start()
+
+        retrieval_button_pos = self.get_view().get_output_table_button().frameGeometry().topLeft()
+        loguru.logger.debug(f'显示状态提示框在如下位置:{retrieval_button_pos}')
+        self.get_view().show_state_tooltip('正在出库中...',
+                                           '请稍等',
+                                           retrieval_button_pos.x() - 20,
+                                           retrieval_button_pos.y() - 40)
 
     def _on_batch_spinbox_value_changed(self, value: int) -> None:
         ui = self.get_view()

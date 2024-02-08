@@ -118,6 +118,7 @@ class StoragePresenter:
 
         def finish_func():
             self.get_view().finish_state_tooltip()
+            loguru.logger.debug('状态提示框已经关闭')
             self.get_view().show_success_infobar(title='导出成功！', content='数据已经成功导出到Excel和数据库中!',
                                                  duration=-1)
             self.get_view().get_table_widget().clearContents()
@@ -127,12 +128,12 @@ class StoragePresenter:
         self._run_in_thread.set_start_func(run_func)
         self._run_in_thread.set_finished_func(finish_func)
         self._run_in_thread.start()
-        state_pos = self.get_view().get_save_table_button().frameGeometry().topLeft()
-        print(state_pos)
+        save_btn_pos = self.get_view().get_save_table_button().frameGeometry().topLeft()
+        loguru.logger.debug(f'显示状态提示框在如下位置:{save_btn_pos}')
         self.get_view().show_state_tooltip('正在导出数据',
                                            '请稍等...',
-                                           state_pos.x() - 20,
-                                           state_pos.y() - 40)
+                                           save_btn_pos.x() - 20,
+                                           save_btn_pos.y() - 40)
 
     def _connect_signals(self) -> None:
         ui = self.get_view()
