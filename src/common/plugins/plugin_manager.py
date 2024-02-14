@@ -2,8 +2,9 @@ import importlib
 from pathlib import Path
 from typing import Optional
 
+from src.common.plugins.database_plugins.out_of_stock_plugin import OutOfStockPlugin
+from src.common.plugins.database_plugins.unsalable_plugin import UnsalablePlugin
 from src.common.plugins.plugin_base import PluginBase
-from src.constant import DATABASE_PLUGINS_DIR
 
 
 class PluginManagerBase:
@@ -37,7 +38,12 @@ class PluginManagerBase:
 
 
 class DatabasePluginManager(PluginManagerBase):
-    plugins_dir = DATABASE_PLUGINS_DIR
+    def __init__(self):
+        super().__init__()
+        # 为了让pyinstaller能够识别，所以还是用了实例化的方法
+
+        self.plugins.setdefault(UnsalablePlugin.plugin_name, UnsalablePlugin())
+        self.plugins.setdefault(OutOfStockPlugin.plugin_name, OutOfStockPlugin())
 
 
 if __name__ == '__main__':

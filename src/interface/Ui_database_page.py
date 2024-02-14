@@ -19,10 +19,9 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
     QSizePolicy, QSpacerItem, QTableWidgetItem, QVBoxLayout,
     QWidget)
 
-from qfluentwidgets import (BodyLabel, CaptionLabel, CardWidget, ComboBox,
-    IconWidget, LargeTitleLabel, PrimaryPushButton, PushButton,
-    SimpleCardWidget, SmoothScrollArea, StrongBodyLabel, TableWidget,
-    VerticalSeparator)
+from qfluentwidgets import (BodyLabel, CardWidget, ComboBox, IconWidget,
+    LargeTitleLabel, PrimaryPushButton, PushButton, SimpleCardWidget,
+    SmoothScrollArea, StrongBodyLabel, TableWidget, VerticalSeparator)
 import resource_rc
 
 class Ui_Form(object):
@@ -42,7 +41,7 @@ class Ui_Form(object):
         self.SmoothScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 741))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 710))
         self.scrollAreaWidgetContents.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);")
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setSpacing(15)
@@ -175,11 +174,6 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.TableWidget)
 
-        self.CaptionLabel = CaptionLabel(self.scrollAreaWidgetContents)
-        self.CaptionLabel.setObjectName(u"CaptionLabel")
-
-        self.verticalLayout_2.addWidget(self.CaptionLabel)
-
         self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
 
         self.verticalLayout.addWidget(self.SmoothScrollArea)
@@ -214,6 +208,5 @@ class Ui_Form(object):
         ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"2", None));
         ___qtablewidgetitem7 = self.TableWidget.verticalHeaderItem(2)
         ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"3", None));
-        self.CaptionLabel.setText(QCoreApplication.translate("Form", u"\u5f53\u524d\u8868\u683c\u4e2d\u6570\u636e\u91cf:", None))
     # retranslateUi
 

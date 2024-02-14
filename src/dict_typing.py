@@ -29,3 +29,6 @@ class UnsalableDict(CustomBaseDict):
     storage_count: Required[str]
     total_count: Required[str]
     storage_rate: Required[str]
+
+
+OutOfStockDict = UnsalableDict

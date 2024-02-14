@@ -49,7 +49,7 @@
         <x>0</x>
         <y>0</y>
         <width>948</width>
-        <height>741</height>
+        <height>710</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -303,13 +303,6 @@
          </column>
         </widget>
        </item>
-       <item>
-        <widget class="CaptionLabel" name="CaptionLabel">
-         <property name="text">
-          <string>当前表格中数据量:</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </widget>
@@ -359,11 +352,6 @@
    <extends>QScrollArea</extends>
    <header>qfluentwidgets</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CaptionLabel</class>
-   <extends>QLabel</extends>
-   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>BodyLabel</class>
