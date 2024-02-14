@@ -44,7 +44,6 @@ class RetrievalPresenter:
         input_lineedit = ui.get_input_lineedit()
         input_text = input_lineedit.text()
         input_lineedit.clear()
-        ui.get_output_textedit().appendPlainText(f'No.{self._count}内容:{input_text}')
 
         # 如果输入为空，那么就不做任何处理
         if not input_text:
@@ -53,12 +52,14 @@ class RetrievalPresenter:
         # 如果输入的是数字，那么就根据EAN13查询
         if not input_text.isdigit():
             self.get_view().show_warning_infobar(title='必须是数字!', content='请输入正确的EAN13,输入必须为数字')
+            self._append_output_textedit(input_text, '失败')
             return
 
         # 检测是否是真实的EAN13
         if not self.get_model().is_real_ean13(input_text):
             ui.show_warning_infobar(title='不是正确的EAN13',
                                     content=f'请输入正确的EAN13，检查您的输入:{input_text}')
+            self._append_output_textedit(input_text, '失败')
             return
 
         # 检测表格中是否已经存在该商品
@@ -68,18 +69,23 @@ class RetrievalPresenter:
             elif input_text == ui.get_table_widget().item(row, 5).text():
                 ui.show_warning_infobar(title='商品已经存在',
                                         content=f'EAN13为{input_text}的商品在表格中已经存在,不要重复添加')
+                self._append_output_textedit(input_text, '失败')
                 return
 
         inventory = self.get_model().get_inventory_by_ean13(input_text)
         if inventory is None:
             ui.show_warning_infobar(title='没有找到该商品', content=f'没有找到EAN13为{input_text}的商品')
+            self._append_output_textedit(input_text, '失败')
             return
 
         # 检测商品是否已经出库
         if (self.get_model().is_inventory_sold(input_text)
                 and not ui.get_is_repeat_switch_button().isChecked()):
             ui.show_warning_infobar(title='商品已经出库', content=f'EAN13为{input_text}的商品已经出库')
+            self._append_output_textedit(input_text, '失败')
             return
+
+        self._append_output_textedit(input_text, '成功')
 
         wave_serial_number = self.get_model().get_wave_lastest_serial_number()
 
@@ -137,6 +143,17 @@ class RetrievalPresenter:
             ui.show_warning_infobar(title='波次号错误', content='波次号不能大于最新的波次号 + 1')
             ui.get_wave_spinbox().setValue(latest_wave_number + 1)
             return
+
+    def _append_output_textedit(self, ean13: str, text: str = None) -> None:
+        number = f'No.{self._count}'
+        ean13 = f'EAN13:{ean13}'
+        status = f'【{text}】' if text else f'【成功】'
+
+        pte = self.get_view().get_output_textedit()
+        pte.appendPlainText(status + number + ean13)
+        pte.appendPlainText('=' * 8)
+        # 滚动到最新的位置
+        pte.verticalScrollBar().setValue(pte.verticalScrollBar().maximum())
 
     def _connect_signals(self) -> None:
         ui = self.get_view()

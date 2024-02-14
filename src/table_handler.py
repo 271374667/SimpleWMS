@@ -7,9 +7,9 @@
 3. 表格数据的删除
 4. 表格数据的判断
 """
+from typing import Optional
 from typing import Union
 
-import loguru
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QTableWidgetItem
 from qfluentwidgets.components import TableWidget
@@ -21,7 +21,7 @@ class TableHandler(QObject):
     # 如果出现空行，那么就会发出这个信号,第一个参数是行数，第二个参数是列数
     null_skip_signal = Signal(int, int)
 
-    def __init__(self, table: TableWidget, headers: CustomBaseDict = None, show_headers: list[str] = None):
+    def __init__(self, table: TableWidget, headers: Optional[CustomBaseDict] = None, show_headers: list[str] = None):
         super().__init__()
         self._table: TableWidget = table
 
