@@ -13,6 +13,7 @@ FONT_DIR = ASSETS_DIR / "fonts"
 OUTPUT_DIR = ROOT_DIR / "output"
 RETRIEVE_DIR = OUTPUT_DIR / "retrieval"
 STORAGE_DIR = OUTPUT_DIR / "storage"
+DATABASE_PLUGINS_DIR = SRC_DIR / "common" / "plugins" / "database_plugins"
 
 # FILE
 DATABASE_FILE = ROOT_DIR / "database.db"

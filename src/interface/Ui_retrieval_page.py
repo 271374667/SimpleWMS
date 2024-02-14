@@ -367,7 +367,7 @@ class Ui_Form(object):
         ___qtablewidgetitem2 = self.TableWidget.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"\u4ef7\u683c", None));
         ___qtablewidgetitem3 = self.TableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"\u6ce2\u6b21\u540d\u79f0", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"\u6ce2\u6b21\u7f16\u53f7", None));
         ___qtablewidgetitem4 = self.TableWidget.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"\u5165\u5e93\u65f6\u95f4", None));
         ___qtablewidgetitem5 = self.TableWidget.horizontalHeaderItem(5)

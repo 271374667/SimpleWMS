@@ -1,6 +1,8 @@
 from datetime import date
+from datetime import datetime
 
 import loguru
+from sqlalchemy import func
 
 from src.common.database import Session
 from src.common.database.entity import model
@@ -59,7 +61,60 @@ class GetAttributeService:
             return f'{today.year}{today.month:02d}001'
         return serial_number.sort_serial_number(batchs_this_month)[0]
 
+    # 分组获取
+    def get_sold_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int]]:
+        """获取已售出的商品数量"""
+        result = (self._session.query(model.Inventory.item_name,
+                                      model.Inventory.brand,
+                                      model.Batch.batch_serial_number,
+                                      model.Batch.created_time,
+                                      func.count(1))
+                  .join(model.Batch,
+                        model.Inventory.batch_id == model.Batch.id)
+                  .filter(
+                model.Inventory.is_sold == 1)
+                  .group_by(model.Inventory.batch_id,
+                            model.Inventory.brand,
+                            model.Inventory.item_name).all()
+                  )
+        return result
+
+    def get_unsold_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int]]:
+        """获取未售出的商品数量"""
+        result = (self._session.query(model.Inventory.item_name,
+                                      model.Inventory.brand,
+                                      model.Batch.batch_serial_number,
+                                      model.Batch.created_time,
+                                      func.count(1))
+                  .join(model.Batch,
+                        model.Inventory.batch_id == model.Batch.id)
+                  .filter(
+                model.Inventory.is_sold == 0)
+                  .group_by(model.Inventory.batch_id,
+                            model.Inventory.brand,
+                            model.Inventory.item_name).all()
+                  )
+        return result
+
+    def get_all_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int]]:
+        """获取所有的商品数量"""
+        result = (self._session.query(model.Inventory.item_name,
+                                      model.Inventory.brand,
+                                      model.Batch.batch_serial_number,
+                                      model.Batch.created_time,
+                                      func.count(1))
+                  .join(model.Batch,
+                        model.Inventory.batch_id == model.Batch.id)
+                  .group_by(model.Inventory.batch_id,
+                            model.Inventory.brand,
+                            model.Inventory.item_name).all()
+                  )
+        return result
+
 
 if __name__ == '__main__':
+    from pprint import pprint
+
     g = GetAttributeService()
-    print(g.get_latest_batch_serial_number())
+    # print(g.get_latest_batch_serial_number())
+    pprint(g.get_all_inventory_and_count_group_by_batch_brand_name())

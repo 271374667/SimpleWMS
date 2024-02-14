@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>15</number>
@@ -46,13 +49,25 @@
         <x>0</x>
         <y>0</y>
         <width>948</width>
-        <height>708</height>
+        <height>741</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>15</number>
+       </property>
+       <property name="bottomMargin">
+        <number>15</number>
+       </property>
        <item>
         <widget class="SimpleCardWidget" name="SimpleCardWidget">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -111,7 +126,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>数据库操作(等待施工)</string>
+               <string>数据库分析</string>
               </property>
              </widget>
             </item>
@@ -124,7 +139,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>直接操作数据库修改异常数据(注意，此操作有一定风险)</string>
+               <string>多方位更加全面的理解你的数据</string>
               </property>
               <property name="lightColor" stdset="0">
                <color>
@@ -141,30 +156,87 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="BodyLabel" name="BodyLabel">
+          <widget class="BodyLabel" name="BodyLabel_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
-            <string>从数据库中搜索:</string>
+            <string>选择展示模式:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="SearchLineEdit" name="SearchLineEdit">
-           <property name="inputMask">
-            <string>9999999999999</string>
-           </property>
-           <property name="placeholderText">
-            <string>输入EAN13码</string>
+          <widget class="ComboBox" name="ComboBox">
+           <property name="text">
+            <string>请选择一个模式来获取数据</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
        <item>
+        <widget class="StrongBodyLabel" name="StrongBodyLabel">
+         <property name="text">
+          <string>当前配置:当前没有选择任何模式</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true"/>
+       </item>
+       <item>
+        <widget class="PrimaryPushButton" name="PrimaryPushButton">
+         <property name="text">
+          <string>开始查找</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="TableWidget" name="TableWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>400</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777209</height>
+          </size>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
          <property name="rowCount">
-          <number>100</number>
+          <number>20</number>
          </property>
          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
           <bool>true</bool>
@@ -187,86 +259,6 @@
            <string>3</string>
           </property>
          </row>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
          <row/>
          <row/>
          <row/>
@@ -311,6 +303,13 @@
          </column>
         </widget>
        </item>
+       <item>
+        <widget class="CaptionLabel" name="CaptionLabel">
+         <property name="text">
+          <string>当前表格中数据量:</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -318,6 +317,21 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
   <customwidget>
    <class>IconWidget</class>
    <extends>QWidget</extends>
@@ -347,23 +361,23 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
    <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>LargeTitleLabel</class>
    <extends>QLabel</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>LineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>SearchLineEdit</class>
-   <extends>LineEdit</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

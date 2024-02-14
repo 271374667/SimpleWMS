@@ -13,16 +13,16 @@ QtFutures
 
 from concurrent.futures import CancelledError, TimeoutError
 from typing import Optional
-from weakref import WeakSet
 
-from PySide6.QtCore import QRunnable, QThreadPool
+from PySide6.QtCore import QRunnable, QThreadPool, Signal, QObject
 
 
-class QtFutures(QRunnable):
+class QtFutures(QRunnable, QObject):
     """线程池任务类
     该类的接口和concurrent.futures.Future类似,使用方法可以直接参考官方文档
     https://docs.python.org/zh-cn/3.10/library/concurrent.futures.html?highlight=threadpool#future-objects
     """
+    finished = Signal(object)
 
     def __init__(self, func, *args, **kwargs):
         super().__init__()
@@ -45,8 +45,9 @@ class QtFutures(QRunnable):
                 self._exception = e
             finally:
                 self._done = True
-                # for callback in self.callbacks:
-                #     callback(self)
+                # self.finished.emit(self._result)
+                for callback in self.callbacks:
+                    callback(self)
 
     def cancel(self):
         """取消任务
@@ -64,7 +65,8 @@ class QtFutures(QRunnable):
         """添加回调函数"""
         self.callbacks.append(fn)
         if self._done:
-            fn(self)
+            fn()
+        # self.finished.connect(fn)
 
     @property
     def done(self):

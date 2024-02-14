@@ -58,6 +58,7 @@ class RetrievalModel:
         # 将数据导出到xlsx文件
         # 将DataFrame导出为Excel文件
 
+        # TODO: 之后这个方法改成yield之后会删去列表推导式
         df = pd.DataFrame({'名称': [each['name'] for each in data],
                                   '品牌': [each['brand'] for each in data],
                                   '价格': [each['price'] for each in data],

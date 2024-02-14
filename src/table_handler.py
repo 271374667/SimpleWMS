@@ -9,6 +9,7 @@
 """
 from typing import Union
 
+import loguru
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QTableWidgetItem
 from qfluentwidgets.components import TableWidget
@@ -20,13 +21,13 @@ class TableHandler(QObject):
     # 如果出现空行，那么就会发出这个信号,第一个参数是行数，第二个参数是列数
     null_skip_signal = Signal(int, int)
 
-    def __init__(self, table: TableWidget, headers: CustomBaseDict):
+    def __init__(self, table: TableWidget, headers: CustomBaseDict = None, show_headers: list[str] = None):
         super().__init__()
         self._table: TableWidget = table
-        self._headers: list[str] = list(headers.__annotations__.keys())
 
-        if self._table.columnCount() != len(self._headers):
-            raise ValueError("表头的长度和表格的列数不一致")
+        if headers:
+            self._headers: list[str] = list(headers.__annotations__.keys())
+        self.show_headers = show_headers
 
         self.clear()
 
@@ -41,6 +42,7 @@ class TableHandler(QObject):
 
     def get_data(self) -> list[CustomBaseDict]:
         """获取表格中的所有数据"""
+        # TODO: 之后这个方法改成yield
         row_count = self._table.rowCount()
         data = []
         for row_index in range(row_count):
@@ -52,6 +54,13 @@ class TableHandler(QObject):
 
             data.append(current_row_data)
         return data
+
+    def get_last_row_index(self) -> int:
+        """获取最后一行的索引, 如果有空值那么直接返回上一行的索引"""
+        for i in range(0, self._table.rowCount() - 1):
+            if self._is_null(i):
+                return i
+        return self._table.rowCount() - 1
 
     def add_row(self, row_data: CustomBaseDict) -> None:
         """添加一行数据"""
@@ -82,6 +91,28 @@ class TableHandler(QObject):
                 self._table.setItem(last_row_index + row_index, self._get_header_index(key),
                                     QTableWidgetItem(str(rows_data[row_index][key])))
 
+    def set_data(self, data: list[CustomBaseDict]) -> None:
+        """设置表格数据"""
+        self.clear()
+        self.add_rows(data)
+
+    def set_headers(self, headers: CustomBaseDict) -> None:
+        """设置表头"""
+        if headers:
+            self._headers = list(headers.__annotations__.keys())
+
+    def set_show_headers(self, show_headers: list[str]) -> None:
+        """设置展示给用户的表头"""
+        if self._table.columnCount() != len(show_headers):
+            self._table.setColumnCount(len(show_headers))
+
+        self._table.setHorizontalHeaderLabels(show_headers)
+        self.show_headers = show_headers
+
+    def scroll_to_row(self, row_index: int) -> None:
+        """滚动到指定行"""
+        self._table.scrollToItem(self._table.item(row_index, 0))
+
     def _is_null(self, row_index: int, column_index: int = None) -> bool:
         """判断是存在空值
 
@@ -110,10 +141,3 @@ class TableHandler(QObject):
             return self._headers.index(header)
         except ValueError:
             return None
-
-    def get_last_row_index(self) -> int:
-        """获取最后一行的索引, 如果有空值那么直接返回上一行的索引"""
-        for i in range(0, self._table.rowCount() - 1):
-            if self._is_null(i):
-                return i
-        return self._table.rowCount() - 1

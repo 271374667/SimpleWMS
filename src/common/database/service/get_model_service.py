@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 
 from src.common.database import Session
 from src.common.database.entity import model
@@ -37,6 +37,7 @@ class GetModelService:
         return self._session.query(model.Batch).filter(model.Batch.batch_serial_number == serial_number).first()
 
     # 按照时间进行获取
+    # TODO: 这里的时间都必须要高度抽象，之后要改成两个时间参数获取值,比如start_datetime, end_datetime
     def get_all_inventory_this_month(self) -> list[model.Inventory]:
         """获取本月的所有商品"""
         today = date.today()
@@ -68,3 +69,4 @@ class GetModelService:
                 ).all()
 
         return result
+

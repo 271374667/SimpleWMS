@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentIcon as FIF
 from qfluentwidgets import FluentWindow, InfoBadge, InfoBadgePosition, NavigationItemPosition
 
-from src.view import chart_view, database_view, home_view, retrieval_view, setting_view, storage_view, warn_view
+from src.view import chart_view, database_view, home_view, retrieval_view, setting_view, storage_view
 
 
 class MainView(FluentWindow):
@@ -12,7 +12,6 @@ class MainView(FluentWindow):
                  storage_view: storage_view.StorageView,
                  retrieval_view: retrieval_view.RetrievalView,
                  database_view: database_view.DatabaseView,
-                 warn_view: warn_view.WarnView,
                  chart_view: chart_view.ChartView,
                  setting_view: setting_view.SettingView
 
@@ -24,7 +23,6 @@ class MainView(FluentWindow):
         self.storageInterface = storage_view
         self.retrievalInterface = retrieval_view
         self.databaseInterface = database_view
-        self.warnInterface = warn_view
         self.chartInterface = chart_view
         self.settingInterface = setting_view
 
@@ -41,7 +39,6 @@ class MainView(FluentWindow):
         self.addSubInterface(self.databaseInterface, QIcon(":/icons/images/icons/database_administrator.svg"),
                              '数据库操作')
 
-        self.addSubInterface(self.warnInterface, QIcon(":/icons/images/icons/brake_warning.svg"), '预警')
         self.addSubInterface(self.chartInterface, QIcon(":/icons/images/icons/chart_bar.svg"), '图表')
 
         # add custom widget to bottom
