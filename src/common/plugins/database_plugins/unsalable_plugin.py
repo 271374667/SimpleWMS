@@ -27,7 +27,7 @@ class UnsalableWidget(QWidget):
         self.first_stage_day_spin_box.setRange(0, 100)
         self.first_stage_day_spin_box.setSuffix('天')
         self.first_stage_day_spin_box.setSingleStep(1)
-        self.first_stage_day_spin_box.setToolTip('当商品存放超过这个时间且满足轻微滞销的百分比，商品会被标记为滞销')
+        self.first_stage_day_spin_box.setToolTip('当商品存放时间在当前时间和中度滞销时间期间且满足轻微滞销的百分比,商品会被标记为滞销')
         self.first_stage_day_label.setBuddy(self.first_stage_day_spin_box)
         self.first_stage_layout.addWidget(self.first_stage_day_label)
         self.first_stage_layout.addWidget(self.first_stage_day_spin_box)
@@ -38,7 +38,7 @@ class UnsalableWidget(QWidget):
         self.first_state_value_spin_box.setSuffix('%')
         self.first_state_value_spin_box.setSingleStep(1)
         self.first_state_value_spin_box.setToolTip(
-                '如果在轻微滞销天数内依旧有这个百分比数量的商品，那么就会被标记为轻微滞销')
+                '轻微滞销天数和中度滞销天数期间达到百分比数量的商品,会被标记为轻微滞销')
         self.first_state_value_label.setBuddy(self.first_state_value_spin_box)
         self.first_stage_layout.addWidget(self.first_state_value_label)
         self.first_stage_layout.addWidget(self.first_state_value_spin_box)
@@ -72,7 +72,7 @@ class UnsalableWidget(QWidget):
         self.second_state_value_spin_box.setSuffix('%')
         self.second_state_value_spin_box.setSingleStep(1)
         self.second_state_value_spin_box.setToolTip(
-                '如果在中等滞销天数内依旧有这个百分比数量的商品，那么就会被标记为中等滞销')
+                '在中等滞销天数和严重滞销期间达到此百分比数量的商品,会被标记为中等滞销')
         self.second_state_value_label.setBuddy(self.second_state_value_spin_box)
         self.second_stage_layout.addWidget(self.second_state_value_label)
         self.second_stage_layout.addWidget(self.second_state_value_spin_box)

@@ -31,9 +31,12 @@ class DatabasePluginController:
                             stay_days,
                             unsold[4],
                             total[4],
-                            (unsold[4] / total[4]) * 100))
+                            round((unsold[4] / total[4]), 6) * 100))
                     continue
         return unsold_data
+
+    # 脱销的逻辑一样，这里直接偷懒
+    get_out_of_stock_data = get_unsalable_data
 
 
 if __name__ == '__main__':

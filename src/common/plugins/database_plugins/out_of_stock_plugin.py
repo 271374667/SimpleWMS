@@ -23,10 +23,10 @@ class OutOfStockWidget(QWidget):
         # 设置第一阶段的文本框和标签
         self.first_stage_day_label.setText('轻微脱销天数:')
         self.first_stage_day_spin_box.setValue(3)
-        self.first_stage_day_spin_box.setRange(1, 100)
+        self.first_stage_day_spin_box.setRange(0, 100)
         self.first_stage_day_spin_box.setSuffix('天')
         self.first_stage_day_spin_box.setSingleStep(1)
-        self.first_stage_day_spin_box.setToolTip('该天数不能大于中等滞销的天数')
+        self.first_stage_day_spin_box.setToolTip('该天数不能大于中等滞销的天数\n该天数内存货率小于百分比会被标记为脱销')
         self.first_stage_day_label.setBuddy(self.first_stage_day_spin_box)
         self.first_stage_layout.addWidget(self.first_stage_day_label)
         self.first_stage_layout.addWidget(self.first_stage_day_spin_box)
@@ -37,7 +37,7 @@ class OutOfStockWidget(QWidget):
         self.first_state_value_spin_box.setSuffix('%')
         self.first_state_value_spin_box.setSingleStep(1)
         self.first_state_value_spin_box.setToolTip(
-                '该数值为(该商品该批次未卖出数量/该商品该批次总进货)')
+                '当存货率小于该百分百则会被显示')
         self.first_state_value_label.setBuddy(self.first_state_value_spin_box)
         self.first_stage_layout.addWidget(self.first_state_value_label)
         self.first_stage_layout.addWidget(self.first_state_value_spin_box)
@@ -71,7 +71,7 @@ class OutOfStockWidget(QWidget):
         self.second_state_value_spin_box.setSuffix('%')
         self.second_state_value_spin_box.setSingleStep(1)
         self.second_state_value_spin_box.setToolTip(
-                '该数值为(该商品该批次未卖出数量/该商品该批次总进货)')
+                '该数值不能大于轻微脱销的百分比')
         self.second_state_value_label.setBuddy(self.second_state_value_spin_box)
         self.second_stage_layout.addWidget(self.second_state_value_label)
         self.second_stage_layout.addWidget(self.second_state_value_spin_box)
@@ -118,7 +118,7 @@ class OutOfStockPlugin(DatabasePluginBase):
         super().__init__()
 
     def get_data(self) -> list[OutOfStockDict]:
-        outofstock_data = self._database_plugin_controller.get_unsalable_data()
+        outofstock_data = self._database_plugin_controller.get_out_of_stock_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
         level_1_value = self._custom_widget.first_state_value_spin_box.value()
         level_2_day = self._custom_widget.second_stage_day_spin_box.value()
