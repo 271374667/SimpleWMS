@@ -103,14 +103,14 @@ class StoragePresenter:
 
     def _export_data_to_excel(self) -> None:
         """导出数据到Excel"""
-        mask_title = '确认添加?'
-        mask_content = '点击确认将会清空表格并将数据添加到数据库,在还没添加之前您可以在表格里面对数据双击进行修改'
-        if not self.get_view().show_mask_dialog(title=mask_title, content=mask_content):
-            return
-
         data = self._table_handler.get_data()
         if not data:
             self.get_view().show_warning_infobar(title='没有数据！', content='请先添加数据')
+            return
+
+        mask_title = '确认添加?'
+        mask_content = '点击确认将会清空表格并将数据添加到数据库,在还没添加之前您可以在表格里面对数据双击进行修改'
+        if not self.get_view().show_mask_dialog(title=mask_title, content=mask_content):
             return
 
         def run_func():

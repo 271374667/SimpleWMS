@@ -77,6 +77,8 @@ class StorageController:
         """判断这个批次是否是今天的"""
         today = datetime.today()
         batch_sqalchemy_model = self._get_model_service.get_batch_by_serial_number(serial_number)
+        if not batch_sqalchemy_model:
+            return True
         batch_time = batch_sqalchemy_model.created_time
         return batch_time.year == today.year and batch_time.month == today.month and batch_time.day == today.day
 

@@ -19,9 +19,9 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLay
     QHeaderView, QLCDNumber, QSizePolicy, QTableWidgetItem,
     QVBoxLayout, QWidget)
 
-from qfluentwidgets import (BodyLabel, CardWidget, HorizontalSeparator, IconWidget,
-    LargeTitleLabel, LineEdit, PlainTextEdit, PushButton,
-    SimpleCardWidget, SmoothScrollArea, SpinBox, SubtitleLabel,
+from qfluentwidgets import (BodyLabel, CardWidget, CompactSpinBox, HorizontalSeparator,
+    IconWidget, LargeTitleLabel, LineEdit, PlainTextEdit,
+    PushButton, SimpleCardWidget, SmoothScrollArea, SubtitleLabel,
     SwitchButton, TableWidget, TransparentPushButton, VerticalSeparator)
 import resource_rc
 
@@ -183,7 +183,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_4.addWidget(self.BodyLabel_5)
 
-        self.SpinBox_2 = SpinBox(self.SimpleCardWidget_3)
+        self.SpinBox_2 = CompactSpinBox(self.SimpleCardWidget_3)
         self.SpinBox_2.setObjectName(u"SpinBox_2")
         self.SpinBox_2.setMinimum(1)
         self.SpinBox_2.setMaximum(999)
@@ -305,9 +305,6 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.SmoothScrollArea)
 
-#if QT_CONFIG(shortcut)
-        self.BodyLabel_5.setBuddy(self.SpinBox_2)
-#endif // QT_CONFIG(shortcut)
         QWidget.setTabOrder(self.LineEdit, self.PlainTextEdit)
         QWidget.setTabOrder(self.PlainTextEdit, self.TransparentPushButton_4)
         QWidget.setTabOrder(self.TransparentPushButton_4, self.TransparentPushButton_5)
@@ -350,6 +347,8 @@ class Ui_Form(object):
 #if QT_CONFIG(tooltip)
         self.SpinBox_2.setToolTip(QCoreApplication.translate("Form", u"\u51fa\u8d27\u6ce2\u6b21,\u53ef\u4ee5\u586b\u5199\u5f53\u6708\u7684\u8fc7\u5f80\u6ce2\u6b21,\u4f46\u662f\u4e0d\u5141\u8bb8\u6ce2\u6b21\u6570\u8d85\u8fc7\u6700\u65b0\u6ce2\u6b21\u6570+1", None))
 #endif // QT_CONFIG(tooltip)
+        self.SpinBox_2.setSuffix(QCoreApplication.translate("Form", u"\u6ce2", None))
+        self.SpinBox_2.setPrefix(QCoreApplication.translate("Form", u"\u7b2c", None))
         self.LineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u8fd9\u91cc\u8f93\u5165EAN13\u7801", None))
         self.PushButton_2.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4", None))
         self.PlainTextEdit.setPlainText("")

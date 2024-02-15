@@ -24,7 +24,7 @@ class UnsalableWidget(QWidget):
         # 设置第一阶段的文本框和标签
         self.first_stage_day_label.setText('轻微滞销天数:')
         self.first_stage_day_spin_box.setValue(3)
-        self.first_stage_day_spin_box.setRange(1, 100)
+        self.first_stage_day_spin_box.setRange(0, 100)
         self.first_stage_day_spin_box.setSuffix('天')
         self.first_stage_day_spin_box.setSingleStep(1)
         self.first_stage_day_spin_box.setToolTip('当商品存放超过这个时间且满足轻微滞销的百分比，商品会被标记为滞销')

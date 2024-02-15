@@ -1,6 +1,7 @@
 from src.model import main_model
 from src.presenter import database_presenter, home_presenter, retrieval_presenter, setting_presenter, storage_presenter
 from src.view import (chart_view, main_view)
+from src.component.splashwindow import SplashWindow
 
 
 class MainPresenter:
@@ -20,6 +21,9 @@ class MainPresenter:
                 setting_view=self._setting_presenter.get_view()
                 )
         self._model = main_model.MainModel()
+
+        # 关闭启动图片
+        SplashWindow.close_splash()
 
     def get_view(self) -> main_view.MainView:
         return self._view

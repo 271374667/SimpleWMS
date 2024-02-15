@@ -1,7 +1,10 @@
+import locale
 import re
 from datetime import datetime
 
 from barcode import EAN13
+
+locale.setlocale(locale.LC_CTYPE, 'Chinese')
 
 
 class Converter:

@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QApplication, QLCDNumber, QTableWidgetItem, QWidget
-from qfluentwidgets.components import (DoubleSpinBox, LineEdit, PrimaryPushButton, SpinBox, SwitchButton, TableWidget,
-                                       ToolTipFilter, TransparentPushButton)
+from PySide6.QtWidgets import QApplication, QLCDNumber, QWidget
+from qfluentwidgets.components import (CompactDoubleSpinBox, CompactSpinBox, LineEdit, PrimaryPushButton, SwitchButton,
+                                       TableWidget, ToolTipFilter, TransparentPushButton)
 
 from src.interface.Ui_storage_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
@@ -22,14 +22,14 @@ class StorageView(MessageBaseView):
     def get_brand_lineedit(self) -> LineEdit:
         return self.ui.LineEdit_2
 
-    def get_price_doublespinbox(self) -> DoubleSpinBox:
-        return self.ui.DoubleSpinBox
+    def get_price_doublespinbox(self) -> CompactDoubleSpinBox:
+        return self.ui.CompactDoubleSpinBox
 
-    def get_batch_spinbox(self) -> SpinBox:
-        return self.ui.SpinBox_2
+    def get_batch_spinbox(self) -> CompactSpinBox:
+        return self.ui.CompactSpinBox
 
-    def get_print_number_spinbox(self) -> SpinBox:
-        return self.ui.SpinBox
+    def get_print_number_spinbox(self) -> CompactSpinBox:
+        return self.ui.CompactSpinBox_2
 
     def get_auto_switch_button(self) -> SwitchButton:
         return self.ui.SwitchButton
