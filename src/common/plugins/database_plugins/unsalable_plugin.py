@@ -27,7 +27,8 @@ class UnsalableWidget(QWidget):
         self.first_stage_day_spin_box.setRange(0, 100)
         self.first_stage_day_spin_box.setSuffix('天')
         self.first_stage_day_spin_box.setSingleStep(1)
-        self.first_stage_day_spin_box.setToolTip('当商品存放时间在当前时间和中度滞销时间期间且满足轻微滞销的百分比,商品会被标记为滞销')
+        self.first_stage_day_spin_box.setToolTip(
+            '当商品存放时间在当前时间和中度滞销时间期间且满足轻微滞销的百分比,商品会被标记为滞销')
         self.first_stage_day_label.setBuddy(self.first_stage_day_spin_box)
         self.first_stage_layout.addWidget(self.first_stage_day_label)
         self.first_stage_layout.addWidget(self.first_stage_day_spin_box)
@@ -140,9 +141,6 @@ class UnsalablePlugin(DatabasePluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
 
-    def __init__(self):
-        super().__init__()
-
     def get_data(self) -> list[UnsalableDict]:
         unsalable_data = self._database_plugin_controller.get_unsalable_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
@@ -153,6 +151,7 @@ class UnsalablePlugin(DatabasePluginBase):
 
         # 这里是对数据进行筛选
         result = []
+        # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
         for each in unsalable_data:
             level_1_condition = (
                     (each[3] >= level_1_day) and (each[3] < level_2_day) and (each[-1] >= level_1_value))

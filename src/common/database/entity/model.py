@@ -57,6 +57,7 @@ class Inventory(Base):
     price: Mapped[float] = mapped_column(Float, nullable=False)
     brand: Mapped[str] = mapped_column(String(16), nullable=False)
     is_sold: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    return_times: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     batch_id: Mapped[int] = mapped_column(Integer, ForeignKey("batch.id"), nullable=False)
     wave_id: Mapped[int] = mapped_column(Integer, ForeignKey("wave.id"), nullable=True)
 
@@ -65,7 +66,7 @@ class Inventory(Base):
     wave: Mapped[Wave] = relationship("Wave", backref="inventory")
 
     def __repr__(self) -> str:
-        return f"<Inventory(item_name={self.item_name}, price={self.price}, brand={self.brand}, batch={self.batch}, wave={self.wave})>"
+        return f"<Inventory(item_name={self.item_name}, price={self.price}, brand={self.brand}, return_times={self.return_times} batch={self.batch}, wave={self.wave})>"
 
 
 if not DATABASE_FILE.exists():

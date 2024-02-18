@@ -589,11 +589,13 @@
  </customwidgets>
  <tabstops>
   <tabstop>LineEdit</tabstop>
-  <tabstop>PlainTextEdit</tabstop>
+  <tabstop>PushButton_2</tabstop>
   <tabstop>TransparentPushButton_4</tabstop>
   <tabstop>TransparentPushButton_5</tabstop>
   <tabstop>TransparentPushButton_6</tabstop>
   <tabstop>TableWidget</tabstop>
+  <tabstop>SpinBox_2</tabstop>
+  <tabstop>PlainTextEdit</tabstop>
   <tabstop>SmoothScrollArea</tabstop>
  </tabstops>
  <resources>

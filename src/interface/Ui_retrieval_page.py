@@ -305,12 +305,14 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.SmoothScrollArea)
 
-        QWidget.setTabOrder(self.LineEdit, self.PlainTextEdit)
-        QWidget.setTabOrder(self.PlainTextEdit, self.TransparentPushButton_4)
+        QWidget.setTabOrder(self.LineEdit, self.PushButton_2)
+        QWidget.setTabOrder(self.PushButton_2, self.TransparentPushButton_4)
         QWidget.setTabOrder(self.TransparentPushButton_4, self.TransparentPushButton_5)
         QWidget.setTabOrder(self.TransparentPushButton_5, self.TransparentPushButton_6)
         QWidget.setTabOrder(self.TransparentPushButton_6, self.TableWidget)
-        QWidget.setTabOrder(self.TableWidget, self.SmoothScrollArea)
+        QWidget.setTabOrder(self.TableWidget, self.SpinBox_2)
+        QWidget.setTabOrder(self.SpinBox_2, self.PlainTextEdit)
+        QWidget.setTabOrder(self.PlainTextEdit, self.SmoothScrollArea)
 
         self.retranslateUi(Form)
         self.SwitchButton_3.checkedChanged.connect(self.BodyLabel_5.setHidden)

@@ -678,6 +678,10 @@
  <tabstops>
   <tabstop>LineEdit</tabstop>
   <tabstop>LineEdit_2</tabstop>
+  <tabstop>CompactDoubleSpinBox</tabstop>
+  <tabstop>CompactSpinBox</tabstop>
+  <tabstop>CompactSpinBox_2</tabstop>
+  <tabstop>PrimaryPushButton</tabstop>
   <tabstop>TransparentPushButton_4</tabstop>
   <tabstop>TransparentPushButton</tabstop>
   <tabstop>TransparentPushButton_3</tabstop>

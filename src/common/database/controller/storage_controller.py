@@ -86,4 +86,4 @@ class StorageController:
 if __name__ == '__main__':
     s = StorageController()
     a = ['202401001', '202401002', '202401001']
-    # print(s.get_latest_batch_serial_number())
+    # print(SType.get_latest_batch_serial_number())

@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional
 
 from src.common.plugins.database_plugins.out_of_stock_plugin import OutOfStockPlugin
+from src.common.plugins.database_plugins.return_times_plugin import ReturnTimesPlugin
 from src.common.plugins.database_plugins.unsalable_plugin import UnsalablePlugin
 from src.common.plugins.plugin_base import PluginBase
 
@@ -44,6 +45,7 @@ class DatabasePluginManager(PluginManagerBase):
 
         self.plugins.setdefault(UnsalablePlugin.plugin_name, UnsalablePlugin())
         self.plugins.setdefault(OutOfStockPlugin.plugin_name, OutOfStockPlugin())
+        self.plugins.setdefault(ReturnTimesPlugin.plugin_name, ReturnTimesPlugin())
 
 
 if __name__ == '__main__':

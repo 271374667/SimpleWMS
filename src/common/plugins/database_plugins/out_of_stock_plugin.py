@@ -114,9 +114,6 @@ class OutOfStockPlugin(DatabasePluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
 
-    def __init__(self):
-        super().__init__()
-
     def get_data(self) -> list[OutOfStockDict]:
         outofstock_data = self._database_plugin_controller.get_out_of_stock_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
@@ -126,6 +123,7 @@ class OutOfStockPlugin(DatabasePluginBase):
 
         # 这里是对数据进行筛选
         result = []
+        # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
         for each in outofstock_data:
             level_1_condition = (
                     (each[3] <= level_1_day) and (each[-1] <= level_1_value))
