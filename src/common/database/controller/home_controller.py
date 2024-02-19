@@ -15,33 +15,34 @@ class HomeController:
         return convert.WaveConverter.convert_wave_serial_number_to_wave_name(self._get_attribute_service.get_latest_wave_serial_number())
 
     def get_current_item_quantity(self) -> int:
-        return len(self._get_model_service.get_unsold_inventory_this_month())
+        return len(self._get_model_service.get_unsold_inventory_this_month().all())
 
     def get_current_money(self) -> int:
-        inventory_this_month = self._get_model_service.get_unsold_inventory_this_month()
-        return sum([x.price for x in inventory_this_month])
+        inventory_this_month = self._get_model_service.get_unsold_inventory_this_month().all()
+        return sum(x.price for x in inventory_this_month)
 
     def get_current_storage(self) -> int:
-        return len(self._get_model_service.get_all_inventory_this_month())
+        return len(self._get_model_service.get_all_inventory_by_date().all())
 
     def get_current_retrieval(self) -> int:
-        return len(self._get_model_service.get_all_inventory_this_month()) - len(
-                self._get_model_service.get_unsold_inventory_this_month())
+        return len(self._get_model_service.get_all_inventory_by_date().all()) - len(
+                self._get_model_service.get_unsold_inventory_this_month().all())
 
     def get_all_batch_number(self) -> int:
-        return len(self._get_model_service.get_all_batch())
+        return len(self._get_model_service.get_all_batch().all())
 
     def get_all_wave_number(self) -> int:
-        return len(self._get_model_service.get_all_wave())
+        return len(self._get_model_service.get_all_wave().all())
 
     def get_all_item_quantity(self) -> int:
-        return len(self._get_model_service.get_all_inventory())
+        return len(self._get_model_service.get_all_inventory().all())
 
     def get_all_money(self) -> int:
-        return sum([x.price for x in self._get_model_service.get_all_inventory()])
+        data = self._get_model_service.get_all_inventory().all()
+        return sum(x.price for x in data)
 
     def get_all_storage(self) -> int:
-        return len(self._get_model_service.get_all_inventory())
+        return len(self._get_model_service.get_all_inventory().all())
 
     def get_all_retrieval(self) -> int:
-        return len(self._get_model_service.get_all_inventory()) - len(self._get_model_service.get_unsold_inventory())
+        return len(self._get_model_service.get_all_inventory().all()) - len(self._get_model_service.get_unsold_inventory().all())

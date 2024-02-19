@@ -55,16 +55,19 @@ class StorageController:
         返回的数据格式为一个InventoryAndBatchInfo内容如下：
             [名称，品牌，价格，批次名称，批次序号，批次创建时间]
         """
-        inventory_list = self._get_model_service.get_inventory_greater_than_id(id)
-        result = []
-        for inventory in inventory_list:
-            result.append(StorageData(item_id=inventory.id,
-                                      item_name=inventory.item_name,
-                                      brand=inventory.brand,
-                                      price=inventory.price,
-                                      batch_name=inventory.batch.batch_name,
-                                      batch_serial_number=inventory.batch.batch_serial_number,
-                                      created_time=inventory.batch.created_time))
+        inventory_list = self._get_model_service.get_inventory_greater_than_id(id).all()
+        result = [
+                StorageData(
+                        item_id=inventory.id,
+                        item_name=inventory.item_name,
+                        brand=inventory.brand,
+                        price=inventory.price,
+                        batch_name=inventory.batch.batch_name,
+                        batch_serial_number=inventory.batch.batch_serial_number,
+                        created_time=inventory.batch.created_time,
+                        )
+                for inventory in inventory_list
+                ]
         # 按照 id 字段排序
         result = sorted(result, key=lambda x: x.item_id)
         return result
@@ -75,8 +78,8 @@ class StorageController:
 
     def _is_batch_today(self, serial_number: str) -> bool:
         """判断这个批次是否是今天的"""
-        today = datetime.today()
-        batch_sqalchemy_model = self._get_model_service.get_batch_by_serial_number(serial_number)
+        today = datetime.now()
+        batch_sqalchemy_model = self._get_model_service.get_batch_by_serial_number(serial_number).first()
         if not batch_sqalchemy_model:
             return True
         batch_time = batch_sqalchemy_model.created_time

@@ -28,7 +28,7 @@ class UnsalableWidget(QWidget):
         self.first_stage_day_spin_box.setSuffix('天')
         self.first_stage_day_spin_box.setSingleStep(1)
         self.first_stage_day_spin_box.setToolTip(
-            '当商品存放时间在当前时间和中度滞销时间期间且满足轻微滞销的百分比,商品会被标记为滞销')
+                '当商品存放时间在当前时间和中度滞销时间期间且满足轻微滞销的百分比,商品会被标记为滞销')
         self.first_stage_day_label.setBuddy(self.first_stage_day_spin_box)
         self.first_stage_layout.addWidget(self.first_stage_day_label)
         self.first_stage_layout.addWidget(self.first_stage_day_spin_box)
@@ -154,18 +154,13 @@ class UnsalablePlugin(DatabasePluginBase):
         # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
         for each in unsalable_data:
             level_1_condition = (
-                    (each[3] >= level_1_day) and (each[3] < level_2_day) and (each[-1] >= level_1_value))
-            level_2_condition = ((each[3] >= level_2_day) and (each[-1] >= level_2_value))
-            level_3_condition = each[3] >= level_3_day
+                    (each['storage_time_from_today'] >= level_1_day) and (
+                        each['storage_time_from_today'] < level_2_day) and (each['storage_rate'] >= level_1_value))
+            level_2_condition = (
+                        (each['storage_time_from_today'] >= level_2_day) and (each['storage_rate'] >= level_2_value))
+            level_3_condition = each['storage_time_from_today'] >= level_3_day
             if level_1_condition or level_2_condition or level_3_condition:
-                result.append({'name': each[0],
-                                      'brand': each[1],
-                                      'batch_serial_number': each[2],
-                                      'storage_time_from_today': each[3],
-                                      'storage_count': each[4],
-                                      'total_count': each[5],
-                                      'storage_rate': each[6]
-                                      })
+                result.append(each)
         return result
 
     get_data.__doc__ = DatabasePluginBase.get_data.__doc__

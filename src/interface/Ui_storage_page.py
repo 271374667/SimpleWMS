@@ -32,7 +32,7 @@ class Ui_Form(object):
             Form.setObjectName(u"Form")
         Form.resize(977, 738)
         self.verticalLayout_2 = QVBoxLayout(Form)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")c
         self.SmoothScrollArea = SmoothScrollArea(Form)
         self.SmoothScrollArea.setObjectName(u"SmoothScrollArea")
         self.SmoothScrollArea.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);")

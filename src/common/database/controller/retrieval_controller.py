@@ -26,37 +26,33 @@ class RetrievalController:
         self._get_model_service = GetModelService()
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
-        result = self._get_model_service.get_inventory_by_ean13(ean13)
+        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
         if result is None:
             return None
 
-        data = RetrievalData(name=result.item_name,
-                             brand=result.brand,
-                             price=result.price,
-                             batch_name=result.batch.batch_name,
-                             storage_time=result.batch.created_time,
-                             ean13=ean13,
-                             )
-        return data
+        return RetrievalData(
+                name=result.item_name,
+                brand=result.brand,
+                price=result.price,
+                batch_name=result.batch.batch_name,
+                storage_time=result.batch.created_time,
+                ean13=ean13,
+                )
 
     def is_real_ean13(self, ean13: str) -> bool:
         """检测是否是真实的EAN13"""
         really_ean13 = convert.EAN13Converter.convert_id_to_ean13(int(ean13[:12]))
-        if really_ean13 != ean13:
-            return False
-        return True
+        return really_ean13 == ean13
 
     def get_lastest_wave_serial_number(self) -> str:
         return self._get_attribute_service.get_latest_wave_serial_number()
 
     def is_inventory_sold(self, ean13: str) -> bool:
-        result = self._get_model_service.get_inventory_by_ean13(ean13)
-        if result is None:
-            return False
-        return bool(result.is_sold)
+        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        return False if result is None else bool(result.is_sold)
 
     def set_inventory_sold(self, ean13: str, wave_serial_number: str) -> None:
-        result = self._get_model_service.get_inventory_by_ean13(ean13)
+        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
         if result is None:
             return
 

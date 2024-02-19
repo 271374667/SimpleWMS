@@ -1,5 +1,6 @@
 from datetime import date
 from datetime import datetime
+from typing import Tuple
 
 import loguru
 from sqlalchemy import func
@@ -18,29 +19,23 @@ class GetAttributeService:
     # 返回 id
     def get_batch_latest_id(self) -> int:
         batch = self._session.query(model.Batch).order_by(model.Batch.id.desc()).first()
-        if batch is None:
-            return 0
-        return batch.id
+        return 0 if batch is None else batch.id
 
     def get_wave_latest_id(self) -> int:
         wave = self._session.query(model.Wave).order_by(model.Wave.id.desc()).first()
-        if wave is None:
-            return 0
-        return wave.id
+        return 0 if wave is None else wave.id
 
     def get_inventory_latest_id(self) -> int:
         inventory = self._session.query(model.Inventory).order_by(model.Inventory.id.desc()).first()
-        if inventory is None:
-            return 0
-        return inventory.id
+        return 0 if inventory is None else inventory.id
 
     # 返回 serial_number
     def get_all_batch_serial_number_this_month(self) -> list[str]:
-        batch_sqlalchemy_model = self._get_model_service.get_all_batch_this_month()
+        batch_sqlalchemy_model = self._get_model_service.get_all_batch_by_date().all()
         return [x.batch_serial_number for x in batch_sqlalchemy_model]
 
     def get_all_wave_serial_number_this_month(self) -> list[str]:
-        wave_sqlalchemy_model = self._get_model_service.get_all_wave_this_month()
+        wave_sqlalchemy_model = self._get_model_service.get_all_wave_by_date().all()
         return [x.wave_serial_number for x in wave_sqlalchemy_model]
 
     def get_latest_batch_serial_number(self) -> str:
@@ -64,57 +59,66 @@ class GetAttributeService:
     # 分组获取
     def get_sold_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int, int]]:
         """获取已售出的商品数量"""
-        result = (self._session.query(model.Inventory.item_name,
-                                      model.Inventory.brand,
-                                      model.Batch.batch_serial_number,
-                                      model.Batch.created_time,
-                                      func.count(1),
-                                      model.Inventory.return_times
-                                      )
-                  .join(model.Batch,
-                        model.Inventory.batch_id == model.Batch.id)
-                  .filter(
-                model.Inventory.is_sold == 1)
-                  .group_by(model.Inventory.batch_id,
-                            model.Inventory.brand,
-                            model.Inventory.item_name).all()
-                  )
-        return result
+        return (
+                self._session.query(
+                        model.Inventory.item_name,
+                        model.Inventory.brand,
+                        model.Batch.batch_serial_number,
+                        model.Batch.created_time,
+                        func.count(1),
+                        model.Inventory.return_times,
+                        )
+                .join(model.Batch, model.Inventory.batch_id == model.Batch.id)
+                .filter(model.Inventory.is_sold == 1)
+                .group_by(
+                        model.Inventory.batch_id,
+                        model.Inventory.brand,
+                        model.Inventory.item_name,
+                        )
+                .all()
+        )
 
-    def get_unsold_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int, int]]:
+    def get_unsold_inventory_and_count_group_by_batch_brand_name(self) -> (
+            list[Tuple[str, str, str, datetime, int, int]]):
         """获取未售出的商品数量"""
-        result = (self._session.query(model.Inventory.item_name,
-                                      model.Inventory.brand,
-                                      model.Batch.batch_serial_number,
-                                      model.Batch.created_time,
-                                      func.count(1),
-                                      model.Inventory.return_times
-                                      )
-                  .join(model.Batch,
-                        model.Inventory.batch_id == model.Batch.id)
-                  .filter(
-                model.Inventory.is_sold == 0)
-                  .group_by(model.Inventory.batch_id,
-                            model.Inventory.brand,
-                            model.Inventory.item_name).all()
-                  )
-        return result
+        return (
+                self._session.query(
+                        model.Inventory.item_name,
+                        model.Inventory.brand,
+                        model.Batch.batch_serial_number,
+                        model.Batch.created_time,
+                        func.count(1),
+                        model.Inventory.return_times,
+                        )
+                .join(model.Batch, model.Inventory.batch_id == model.Batch.id)
+                .filter(model.Inventory.is_sold == 0)
+                .group_by(
+                        model.Inventory.batch_id,
+                        model.Inventory.brand,
+                        model.Inventory.item_name,
+                        )
+                .all()
+        )
 
     def get_all_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int, int]]:
         """获取所有的商品数量"""
-        result = (self._session.query(model.Inventory.item_name,
-                                      model.Inventory.brand,
-                                      model.Batch.batch_serial_number,
-                                      model.Batch.created_time,
-                                      func.count(1),
-                                      model.Inventory.return_times)
-                  .join(model.Batch,
-                        model.Inventory.batch_id == model.Batch.id)
-                  .group_by(model.Inventory.batch_id,
-                            model.Inventory.brand,
-                            model.Inventory.item_name).all()
-                  )
-        return result
+        return (
+                self._session.query(
+                        model.Inventory.item_name,
+                        model.Inventory.brand,
+                        model.Batch.batch_serial_number,
+                        model.Batch.created_time,
+                        func.count(1),
+                        model.Inventory.return_times,
+                        )
+                .join(model.Batch, model.Inventory.batch_id == model.Batch.id)
+                .group_by(
+                        model.Inventory.batch_id,
+                        model.Inventory.brand,
+                        model.Inventory.item_name,
+                        )
+                .all()
+        )
 
 
 if __name__ == '__main__':
