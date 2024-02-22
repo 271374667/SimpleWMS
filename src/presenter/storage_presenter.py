@@ -1,6 +1,6 @@
 import loguru
 
-from src.dict_typing import ReStorageDict, StorageCardDict, StorageDict
+from src.dict_typing import ReStorageDict, StorageDict
 from src.model.storage_model import StorageModel
 from src.table_handler import TableHandler
 from src.utils.run_in_thread import RunInThread
@@ -140,7 +140,8 @@ class StoragePresenter:
             if self._table_handler.is_null(row):
                 break
             elif current_text == ui.get_table_widget().item(row, 7).text():
-                ui.show_warning_infobar(title='商品已经存在', content=f'EAN13为{current_text}的商品在表格中已经存在,不要重复添加')
+                ui.show_warning_infobar(title='商品已经存在',
+                                        content=f'EAN13为{current_text}的商品在表格中已经存在,不要重复添加')
                 return
 
         # 将数据添加到表格中
