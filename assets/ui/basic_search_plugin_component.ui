@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>596</width>
+    <height>459</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>筛选</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_3">
+          <property name="text">
+           <string>根据EAN13查找:</string>
+          </property>
+          <property name="buddy">
+           <cstring>LineEdit_3</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="LineEdit" name="LineEdit_3">
+          <property name="toolTip">
+           <string>每一个商品都有自己的一个EAN13码</string>
+          </property>
+          <property name="placeholderText">
+           <string>13位的数字编号</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_7">
+          <property name="text">
+           <string>根据商品名称查找:</string>
+          </property>
+          <property name="buddy">
+           <cstring>LineEdit_5</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="LineEdit" name="LineEdit_5">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;模糊搜索不是相似推荐&lt;/p&gt;&lt;p&gt;搜索&amp;quot;零食&amp;quot;只会同时搜索出&amp;quot;好零食&amp;quot;,&amp;quot;零食妙&amp;quot;,而无法搜索出&amp;quot;零小食&amp;quot;或者&amp;quot;薯片&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>商品的名称(默认模糊搜索)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel">
+          <property name="text">
+           <string>根据品牌查找:</string>
+          </property>
+          <property name="buddy">
+           <cstring>LineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="LineEdit" name="LineEdit">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意品牌的大小写,相同英文但是大小写不同的品牌会被认为是两个品牌&lt;/p&gt;&lt;p&gt;比如Nike和nike将会被认为是两个牌子&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>商品的品牌名称(英文区分大小写)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_5">
+          <property name="text">
+           <string>根据价格查找</string>
+          </property>
+          <property name="buddy">
+           <cstring>CompactDoubleSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ComboBox" name="ComboBox">
+          <property name="text">
+           <string>等于</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CompactDoubleSpinBox" name="CompactDoubleSpinBox">
+          <property name="toolTip">
+           <string>价格最大支持10万元</string>
+          </property>
+          <property name="suffix">
+           <string>元</string>
+          </property>
+          <property name="maximum">
+           <double>100000.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SwitchButton" name="SwitchButton">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启该选项才能进行价格查找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="onText">
+           <string>启用</string>
+          </property>
+          <property name="offText">
+           <string>禁用</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_2">
+          <property name="text">
+           <string>根据批次查找</string>
+          </property>
+          <property name="buddy">
+           <cstring>LineEdit_2</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="LineEdit" name="LineEdit_2">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;编号为纯数字,编号格式如下202401001&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>批次的编号</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_4">
+          <property name="text">
+           <string>根据波次查找:</string>
+          </property>
+          <property name="buddy">
+           <cstring>LineEdit_4</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="LineEdit" name="LineEdit_4">
+          <property name="toolTip">
+           <string>编号为纯数字,编号格式如下202401001</string>
+          </property>
+          <property name="placeholderText">
+           <string>波次的编号</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_6">
+          <property name="text">
+           <string>根据存放时间查找:</string>
+          </property>
+          <property name="buddy">
+           <cstring>CompactSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ComboBox" name="ComboBox_2">
+          <property name="text">
+           <string>等于</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CompactSpinBox" name="CompactSpinBox">
+          <property name="toolTip">
+           <string>天数最长支持搜索365天</string>
+          </property>
+          <property name="suffix">
+           <string>天</string>
+          </property>
+          <property name="maximum">
+           <number>365</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SwitchButton" name="SwitchButton_2">
+          <property name="toolTip">
+           <string>开启该选项才能搜索存放时间</string>
+          </property>
+          <property name="onText">
+           <string>启用</string>
+          </property>
+          <property name="offText">
+           <string>禁用</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="PushButton" name="PushButton">
+        <property name="toolTip">
+         <string>该按钮会重置所有的搜索条件</string>
+        </property>
+        <property name="text">
+         <string>重置筛选项</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>更多选项</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="CheckBox" name="CheckBox">
+        <property name="toolTip">
+         <string>是否显示已经卖出的商品</string>
+        </property>
+        <property name="text">
+         <string>隐藏已卖出的商品</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CheckBox" name="CheckBox_2">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="text">
+         <string>隐藏有过退货的商品</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SwitchButton</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CompactSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CompactDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>LineEdit_3</tabstop>
+  <tabstop>LineEdit_5</tabstop>
+  <tabstop>LineEdit</tabstop>
+  <tabstop>ComboBox</tabstop>
+  <tabstop>CompactDoubleSpinBox</tabstop>
+  <tabstop>LineEdit_2</tabstop>
+  <tabstop>LineEdit_4</tabstop>
+  <tabstop>ComboBox_2</tabstop>
+  <tabstop>CompactSpinBox</tabstop>
+  <tabstop>PushButton</tabstop>
+  <tabstop>CheckBox</tabstop>
+  <tabstop>CheckBox_2</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LineEdit_4</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LineEdit_2</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>333</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>331</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>204</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LineEdit_3</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>117</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>59</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LineEdit_5</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>272</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

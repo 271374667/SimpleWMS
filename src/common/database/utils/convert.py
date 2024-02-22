@@ -100,6 +100,11 @@ class EAN13Converter(Converter):
         """将数字转换为EAN13条形码"""
         return EAN13Converter.convert_length12str_to_ean13(str(item_id).zfill(12))
 
+    @staticmethod
+    def convert_ean13_to_id(ean13: str) -> int:
+        """将EAN13条形码转换为数字"""
+        return int(EAN13Converter.convert_ean13_to_length12str(ean13))
+
 
 if __name__ == '__main__':
     # print(convert_batch_serial_number_to_datetime('202401001'))

@@ -5,6 +5,7 @@ from typing import Optional
 from src.common.plugins.database_plugins.out_of_stock_plugin import OutOfStockPlugin
 from src.common.plugins.database_plugins.return_times_plugin import ReturnTimesPlugin
 from src.common.plugins.database_plugins.unsalable_plugin import UnsalablePlugin
+from src.common.plugins.database_plugins.basic_search_plugin import BasicSearchPlugin
 from src.common.plugins.plugin_base import PluginBase
 
 
@@ -43,6 +44,7 @@ class DatabasePluginManager(PluginManagerBase):
         super().__init__()
         # 为了让pyinstaller能够识别，所以还是用了实例化的方法
 
+        self.plugins.setdefault(BasicSearchPlugin.plugin_name, BasicSearchPlugin())
         self.plugins.setdefault(UnsalablePlugin.plugin_name, UnsalablePlugin())
         self.plugins.setdefault(OutOfStockPlugin.plugin_name, OutOfStockPlugin())
         self.plugins.setdefault(ReturnTimesPlugin.plugin_name, ReturnTimesPlugin())

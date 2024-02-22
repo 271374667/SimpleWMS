@@ -65,7 +65,7 @@ class CustomWidget(QWidget):
 
 
 class ReturnTimesPlugin(DatabasePluginBase):
-    plugin_name: str = '查看退货率'
+    plugin_name: str = '查看退货'
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_show_headers: list[str] = ['商品名称', '品牌', '批次号', '入库时间', '退货次数', 'EAN13']

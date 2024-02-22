@@ -6,7 +6,7 @@ from sqlalchemy.orm import Query
 
 from src.common.database import Session
 from src.common.database.entity import model
-
+from typing import Tuple
 
 class GetModelService:
     def __init__(self):
@@ -21,6 +21,9 @@ class GetModelService:
 
     def get_all_wave(self) -> Query[model.Wave]:
         return self._session.query(model.Wave)
+
+    def get_all_data(self) -> Query[Tuple[model.Inventory , model.Batch , model.Wave]]:
+        return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(model.Wave, isouter=True)
 
     # 通过属性查询
     def get_inventory_greater_than_id(self, id: int) -> Query[model.Inventory]:
@@ -140,7 +143,7 @@ class GetModelService:
         return (
                 self._session.query(model.Inventory)
                 .filter(model.Inventory.is_sold == 0)
-                )
+        )
 
     def get_unsold_inventory_this_month(self) -> Query[model.Inventory]:
         """获取本月未售出的商品数量"""
@@ -155,4 +158,17 @@ class GetModelService:
                                         ),
                                 )
                         )
-                )
+        )
+
+
+if __name__ == '__main__':
+    from pprint import pprint
+
+    g = GetModelService()
+    a = g.get_all_data()
+    a.filter(model.Inventory.price > 0)
+    # a.filter_by(model.Inventory.price > 0)
+    a = a.all()
+    pprint(len(a))
+    # pprint(a[0].price)
+    # pprint(g.get_all_data().first())
