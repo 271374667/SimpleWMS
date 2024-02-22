@@ -1,6 +1,6 @@
 import loguru
 
-from src.dict_typing import ReStorageDict, StorageDict
+from src.dict_typing import ReStorageDict, StorageCardDict, StorageDict
 from src.model.storage_model import StorageModel
 from src.table_handler import TableHandler
 from src.utils.run_in_thread import RunInThread

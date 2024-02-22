@@ -128,6 +128,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.ElevatedCardWidget_5 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_5.setObjectName(u"ElevatedCardWidget_5")
+        self.ElevatedCardWidget_5.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_5.setLineWidth(1)
         self.ElevatedCardWidget_5.setBorderRadius(10)
         self.verticalLayout_9 = QVBoxLayout(self.ElevatedCardWidget_5)
@@ -163,6 +164,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_6 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_6.setObjectName(u"ElevatedCardWidget_6")
+        self.ElevatedCardWidget_6.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_6.setLineWidth(1)
         self.ElevatedCardWidget_6.setBorderRadius(10)
         self.verticalLayout_11 = QVBoxLayout(self.ElevatedCardWidget_6)
@@ -205,6 +207,7 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.ElevatedCardWidget = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget.setObjectName(u"ElevatedCardWidget")
+        self.ElevatedCardWidget.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget.setLineWidth(1)
         self.ElevatedCardWidget.setBorderRadius(10)
         self.verticalLayout_2 = QVBoxLayout(self.ElevatedCardWidget)
@@ -237,6 +240,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_4 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_4.setObjectName(u"ElevatedCardWidget_4")
+        self.ElevatedCardWidget_4.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_4.setLineWidth(1)
         self.ElevatedCardWidget_4.setBorderRadius(10)
         self.verticalLayout_7 = QVBoxLayout(self.ElevatedCardWidget_4)
@@ -269,6 +273,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_2 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_2.setObjectName(u"ElevatedCardWidget_2")
+        self.ElevatedCardWidget_2.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_2.setLineWidth(1)
         self.ElevatedCardWidget_2.setBorderRadius(10)
         self.verticalLayout_3 = QVBoxLayout(self.ElevatedCardWidget_2)
@@ -301,6 +306,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_3 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_3.setObjectName(u"ElevatedCardWidget_3")
+        self.ElevatedCardWidget_3.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_3.setLineWidth(1)
         self.ElevatedCardWidget_3.setBorderRadius(10)
         self.verticalLayout_5 = QVBoxLayout(self.ElevatedCardWidget_3)
@@ -348,6 +354,7 @@ class Ui_Form(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.ElevatedCardWidget_20 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_20.setObjectName(u"ElevatedCardWidget_20")
+        self.ElevatedCardWidget_20.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_20.setLineWidth(1)
         self.ElevatedCardWidget_20.setBorderRadius(10)
         self.verticalLayout_44 = QVBoxLayout(self.ElevatedCardWidget_20)
@@ -380,6 +387,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_21 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_21.setObjectName(u"ElevatedCardWidget_21")
+        self.ElevatedCardWidget_21.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_21.setLineWidth(1)
         self.ElevatedCardWidget_21.setBorderRadius(10)
         self.verticalLayout_46 = QVBoxLayout(self.ElevatedCardWidget_21)
@@ -422,6 +430,7 @@ class Ui_Form(object):
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.ElevatedCardWidget_7 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_7.setObjectName(u"ElevatedCardWidget_7")
+        self.ElevatedCardWidget_7.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_7.setLineWidth(1)
         self.ElevatedCardWidget_7.setBorderRadius(10)
         self.verticalLayout_13 = QVBoxLayout(self.ElevatedCardWidget_7)
@@ -454,6 +463,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_8 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_8.setObjectName(u"ElevatedCardWidget_8")
+        self.ElevatedCardWidget_8.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_8.setLineWidth(1)
         self.ElevatedCardWidget_8.setBorderRadius(10)
         self.verticalLayout_17 = QVBoxLayout(self.ElevatedCardWidget_8)
@@ -486,6 +496,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_9 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_9.setObjectName(u"ElevatedCardWidget_9")
+        self.ElevatedCardWidget_9.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_9.setLineWidth(1)
         self.ElevatedCardWidget_9.setBorderRadius(10)
         self.verticalLayout_19 = QVBoxLayout(self.ElevatedCardWidget_9)
@@ -518,6 +529,7 @@ class Ui_Form(object):
 
         self.ElevatedCardWidget_19 = ElevatedCardWidget(self.scrollAreaWidgetContents)
         self.ElevatedCardWidget_19.setObjectName(u"ElevatedCardWidget_19")
+        self.ElevatedCardWidget_19.setCursor(QCursor(Qt.PointingHandCursor))
         self.ElevatedCardWidget_19.setLineWidth(1)
         self.ElevatedCardWidget_19.setBorderRadius(10)
         self.verticalLayout_42 = QVBoxLayout(self.ElevatedCardWidget_19)
@@ -570,7 +582,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.LargeTitleLabel.setText(QCoreApplication.translate("Form", u"\u6570\u636e\u9762\u677f", None))
-        self.BodyLabel_7.setText(QCoreApplication.translate("Form", u"\u4f7f\u7528\u6570\u636e\u9762\u677f\u4ee5\u4fbf\u76f4\u89c2\u7684\u89c2\u5bdf\u5f53\u524d\u4ed3\u5e93\u7684\u60c5\u51b5", None))
+        self.BodyLabel_7.setText(QCoreApplication.translate("Form", u"\u4f7f\u7528\u6570\u636e\u9762\u677f\u4ee5\u4fbf\u76f4\u89c2\u7684\u89c2\u5bdf\u5f53\u524d\u4ed3\u5e93\u7684\u60c5\u51b5,\u70b9\u51fb\u4e0b\u65b9\u65b9\u683c\u67e5\u770b\u8be6\u7ec6\u4fe1\u606f", None))
         self.ToolButton.setText("")
         self.SubtitleLabel_2.setText(QCoreApplication.translate("Form", u"\u672c\u6708\u73b0\u72b6", None))
         self.TitleLabel_5.setText(QCoreApplication.translate("Form", u"2024\u5e741\u6708\u7b2c1\u6279", None))

@@ -92,7 +92,7 @@ class DatabasePluginController:
         # 根据商品名称搜索
         name = parameter.get('name')
         if name:
-            all_data = all_data.filter(model.Inventory.item_name == name)
+            all_data = all_data.filter(model.Inventory.item_name.like(f'%{name}%'))
 
         # 根据品牌搜索
         brand = parameter.get('brand')
@@ -186,8 +186,8 @@ if __name__ == '__main__':
     d = DatabasePluginController()
     # 测试一下get_basic_search_data
     parameter: BasicSearchParameterDict = {
-            # 'name': 'test',
-            'brand': 'Nike',
+            'name': '毛衣',
+            # 'brand': 'Nike',
             # 'has_price': True,
             # 'price': 300,
             # 'price_operation': BasicSearchCombboxOperationEnum.Greater,

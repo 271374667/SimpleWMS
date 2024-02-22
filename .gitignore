@@ -180,3 +180,4 @@ config.json
 .gitignore
 打包命令.txt
 output
+log
