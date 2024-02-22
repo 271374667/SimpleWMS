@@ -118,7 +118,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>使用数据面板以便直观的观察当前仓库的情况</string>
+               <string>使用数据面板以便直观的观察当前仓库的情况,点击下方方格查看详细信息</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -198,6 +198,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_5">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -262,6 +265,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_6">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -333,6 +339,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -397,6 +406,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_4">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -461,6 +473,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_2">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -525,6 +540,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_3">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -619,6 +637,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_20">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -683,6 +704,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_21">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -754,6 +778,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_7">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -818,6 +845,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_8">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -882,6 +912,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_9">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>
@@ -946,6 +979,9 @@
          </item>
          <item>
           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_19">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="lineWidth">
             <number>1</number>
            </property>

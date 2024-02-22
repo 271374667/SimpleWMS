@@ -67,6 +67,11 @@ class TableHandler(QObject):
         if len(row_data) != len(self._headers):
             raise ValueError("数据长度和表头长度不一致")
 
+        if ((row_data is None)
+                or (not isinstance(row_data, dict))
+                or (row_data == {})):
+            return None
+
         last_row_index = self.get_last_row_index()
         max_row_count = self._table.rowCount()
 
@@ -79,6 +84,9 @@ class TableHandler(QObject):
 
     def add_rows(self, rows_data: list[CustomBaseDict]) -> None:
         """添加多行数据"""
+        if not rows_data or not isinstance(rows_data, list):
+            return None
+
         last_row_index = self.get_last_row_index()
         max_row_count = self._table.rowCount()
         data_length = len(rows_data)

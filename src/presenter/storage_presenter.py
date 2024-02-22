@@ -1,6 +1,6 @@
 import loguru
 
-from src.dict_typing import ReStorageDict, StorageDict
+from src.dict_typing import ReStorageDict, StorageCardDict
 from src.model.storage_model import StorageModel
 from src.table_handler import TableHandler
 from src.utils.run_in_thread import RunInThread
@@ -12,7 +12,7 @@ class StoragePresenter:
         self._view = StorageView()
         self._model = StorageModel()
         self._table_handler = TableHandler(self.get_view().get_table_widget(),
-                                           StorageDict)
+                                           StorageCardDict)
         self.get_view().get_display_lcd().display(self.get_model().get_newest_batch_number())
         self._connect_signals()
 
@@ -58,9 +58,9 @@ class StoragePresenter:
                 return
 
             # 将数据添加到表格中
-            new_data_list: list[StorageDict] = []
+            new_data_list: list[StorageCardDict] = []
             for _ in range(quantity):
-                new_data: StorageDict = {
+                new_data: StorageCardDict = {
                         'name': item_name,
                         'brand': brand,
                         'price': price,
@@ -72,9 +72,9 @@ class StoragePresenter:
 
         # 如果是自动切换，那么就需要先获取最新的批次
         batch_serial_number = self.get_model().get_newest_batch_serial_number()
-        new_data_list: list[StorageDict] = []
+        new_data_list: list[StorageCardDict] = []
         for _ in range(quantity):
-            new_data: StorageDict = {
+            new_data: StorageCardDict = {
                     "name": item_name,
                     "brand": brand,
                     "price": price,
@@ -106,7 +106,7 @@ class StoragePresenter:
         # 切换模式需要更改一些属性,下面为退出退货模式
         self.get_view().get_return_switch_button().setChecked(False)
         self._table_handler.clear()
-        self._table_handler.set_headers(StorageDict)
+        self._table_handler.set_headers(StorageCardDict)
         self._table_handler.set_show_headers(['名称', '品牌', '价格', '批次号'])
 
         if current_mode is False:
@@ -177,7 +177,7 @@ class StoragePresenter:
 
     def _export_normal_data_to_excel(self) -> None:
         """导出数据到Excel"""
-        data: list[StorageDict] = self._table_handler.get_data()
+        data: list[StorageCardDict] = self._table_handler.get_data()
         if not data:
             self.get_view().show_warning_infobar(title='没有数据！', content='请先添加数据')
             return

@@ -9,7 +9,7 @@ import pandas as pd
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
 from src.config import cfg
-from src.dict_typing import ReStorageDict, StorageDict
+from src.dict_typing import ReStorageDict, StorageCardDict
 
 
 class StorageModel:
@@ -53,7 +53,7 @@ class StorageModel:
         today = datetime.today()
         return f'{today.year}{today.month:02d}{number:03d}'
 
-    def export_data(self, data: list[StorageDict]) -> None:
+    def export_data(self, data: list[StorageCardDict]) -> None:
         """导出数据到Excel和数据库"""
         # 先获取最新的inventory_id
         latest_inventory_id = self._db_controller.get_latest_inventory_id()

@@ -10,6 +10,7 @@ class CustomBaseDict(TypedDict):
 
 
 class StorageDict(CustomBaseDict):
+    """入库"""
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -17,6 +18,7 @@ class StorageDict(CustomBaseDict):
 
 
 class ReStorageDict(CustomBaseDict):
+    """退货重新入库"""
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -28,6 +30,7 @@ class ReStorageDict(CustomBaseDict):
 
 
 class RetrievalDict(CustomBaseDict):
+    """出库"""
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -37,6 +40,7 @@ class RetrievalDict(CustomBaseDict):
 
 
 class UnsalableDict(CustomBaseDict):
+    """滞销"""
     name: Required[str]
     brand: Required[str]
     batch_serial_number: Required[str]
@@ -46,10 +50,12 @@ class UnsalableDict(CustomBaseDict):
     storage_rate: Required[float]
 
 
+# 脱销
 OutOfStockDict = UnsalableDict
 
 
 class ReturnTimesDict(CustomBaseDict):
+    """退货次数"""
     name: Required[str]
     brand: Required[str]
     batch_serial_number: Required[str]
@@ -59,6 +65,7 @@ class ReturnTimesDict(CustomBaseDict):
 
 
 class BasicSearchDict(CustomBaseDict):
+    """基本查询"""
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -73,6 +80,7 @@ class BasicSearchDict(CustomBaseDict):
 
 
 class BasicSearchParameterDict(CustomBaseDict):
+    """基本查询参数"""
     ean13: NotRequired[str]
     name: NotRequired[str]
     brand: NotRequired[str]
@@ -86,3 +94,40 @@ class BasicSearchParameterDict(CustomBaseDict):
     storage_days_operation: NotRequired[BasicSearchCombboxOperationEnum]
     hide_sold_item: NotRequired[bool]
     hide_has_return_item: NotRequired[bool]
+
+
+# 下面是 home 页面里面 card 表格的字典
+class BatchCardDict(CustomBaseDict):
+    batch_serial_number: Required[str]
+    batch_created_time: Required[datetime]
+    item_quantity: Required[int]
+
+
+class WaveCardDict(CustomBaseDict):
+    wave_serial_number: Required[str]
+    wave_created_time: Required[datetime]
+    item_quantity: Required[int]
+
+
+class ItemQuantityCardDict(CustomBaseDict):
+    name: Required[str]
+    brand: Required[str]
+    item_quantity: Required[int]
+
+
+class MoneyCardDict(CustomBaseDict):
+    name: Required[str]
+    brand: Required[str]
+    price: Required[float]
+
+
+class StorageCardDict(CustomBaseDict):
+    name: Required[str]
+    brand: Required[str]
+    storage_number: Required[float]
+
+
+class RetrievalCardDict(CustomBaseDict):
+    name: Required[str]
+    brand: Required[str]
+    retrieval_number: Required[float]
