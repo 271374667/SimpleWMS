@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>977</width>
+    <width>923</width>
     <height>738</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>959</width>
+        <width>905</width>
         <height>720</height>
        </rect>
       </property>
@@ -246,65 +246,6 @@
                 <property name="spacing">
                  <number>15</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="BodyLabel" name="BodyLabel">
-                  <property name="text">
-                   <string>衣服名称</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>LineEdit</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="LineEdit" name="LineEdit">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="CompactSpinBox" name="CompactSpinBox_2">
-                  <property name="toolTip">
-                   <string>同样的商品的数量,注意该数量不要超过打印机的打印纸数量</string>
-                  </property>
-                  <property name="suffix">
-                   <string>件</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>9999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_5">
-                  <property name="text">
-                   <string>批次</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="SwitchButton" name="SwitchButton">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的批次,如果最新批次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该批次,否则创建新的批次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="checked">
-                   <bool>false</bool>
-                  </property>
-                  <property name="onText">
-                   <string>开启</string>
-                  </property>
-                  <property name="offText">
-                   <string>关闭</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="1">
                  <widget class="LineEdit" name="LineEdit_2">
                   <property name="sizePolicy">
@@ -312,6 +253,12 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>该选项区分大小写,Nike和NIKE会被视为两个牌子</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>输入品牌名称</string>
                   </property>
                  </widget>
                 </item>
@@ -334,10 +281,23 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_4">
+                <item row="5" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_6">
                   <property name="text">
-                   <string>商品数量</string>
+                   <string>自动批次</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="SwitchButton" name="SwitchButton_2">
+                  <property name="toolTip">
+                   <string>使用该选项会进入特殊的退货模式</string>
+                  </property>
+                  <property name="onText">
+                   <string>开启</string>
+                  </property>
+                  <property name="offText">
+                   <string>关闭</string>
                   </property>
                  </widget>
                 </item>
@@ -364,10 +324,120 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_6">
+                <item row="4" column="1">
+                 <widget class="CompactSpinBox" name="CompactSpinBox_2">
+                  <property name="toolTip">
+                   <string>同样的商品的数量,注意该数量不要超过打印机的打印纸数量</string>
+                  </property>
+                  <property name="suffix">
+                   <string>件</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9999</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="SwitchButton" name="SwitchButton">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的批次,如果最新批次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该批次,否则创建新的批次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                  <property name="onText">
+                   <string>开启</string>
+                  </property>
+                  <property name="offText">
+                   <string>关闭</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0" colspan="2">
+                 <widget class="PrimaryPushButton" name="PrimaryPushButton">
+                  <property name="toolTip">
+                   <string>提交数据到右侧表格内</string>
+                  </property>
                   <property name="text">
-                   <string>自动批次</string>
+                   <string>确认</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_8">
+                  <property name="text">
+                   <string>退货模式</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="LineEdit" name="LineEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>商品的名称可以重复</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>输入商品的名称</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="BodyLabel" name="BodyLabel">
+                  <property name="text">
+                   <string>商品名称</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>LineEdit</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0" colspan="2">
+                 <widget class="LineEdit" name="LineEdit_3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>您可以直接在此处使用扫码枪或者使用回车进行快捷输入</string>
+                  </property>
+                  <property name="inputMask">
+                   <string/>
+                  </property>
+                  <property name="maxLength">
+                   <number>13</number>
+                  </property>
+                  <property name="placeholderText">
+                   <string>在此处输入退货的EAN13码</string>
+                  </property>
+                  <property name="cursorMoveStyle">
+                   <enum>Qt::LogicalMoveStyle</enum>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_5">
+                  <property name="text">
+                   <string>批次</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_4">
+                  <property name="text">
+                   <string>商品数量</string>
                   </property>
                  </widget>
                 </item>
@@ -378,13 +448,13 @@
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0" colspan="2">
-                 <widget class="PrimaryPushButton" name="PrimaryPushButton">
+                <item row="9" column="0" colspan="2">
+                 <widget class="PushButton" name="PushButton">
                   <property name="toolTip">
-                   <string>提交数据到右侧表格内</string>
+                   <string>点击此处进行退货,您也可以在上方回车或者使用扫码枪</string>
                   </property>
                   <property name="text">
-                   <string>确认</string>
+                   <string>确认退货</string>
                   </property>
                  </widget>
                 </item>
@@ -681,6 +751,7 @@
   <tabstop>CompactDoubleSpinBox</tabstop>
   <tabstop>CompactSpinBox</tabstop>
   <tabstop>CompactSpinBox_2</tabstop>
+  <tabstop>LineEdit_3</tabstop>
   <tabstop>PrimaryPushButton</tabstop>
   <tabstop>TransparentPushButton_4</tabstop>
   <tabstop>TransparentPushButton</tabstop>
@@ -721,6 +792,246 @@
     <hint type="destinationlabel">
      <x>162</x>
      <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>LineEdit_3</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>520</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>PushButton</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>188</x>
+     <y>517</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>609</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>PrimaryPushButton</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>222</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>650</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_4</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>515</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>89</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactSpinBox_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>225</x>
+     <y>517</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_3</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>202</x>
+     <y>516</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>59</x>
+     <y>351</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactDoubleSpinBox</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>201</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>147</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>503</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>75</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>LineEdit_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>503</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>LineEdit</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>503</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>84</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_6</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>513</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>85</x>
+     <y>478</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>SwitchButton</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>196</x>
+     <y>513</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>475</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>BodyLabel_5</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>168</x>
+     <y>518</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>83</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactSpinBox</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>180</x>
+     <y>513</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>397</y>
     </hint>
    </hints>
   </connection>

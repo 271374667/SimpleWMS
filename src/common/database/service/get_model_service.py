@@ -22,7 +22,7 @@ class GetModelService:
     def get_all_wave(self) -> Query[model.Wave]:
         return self._session.query(model.Wave)
 
-    def get_all_data(self) -> Query[Tuple[model.Inventory , model.Batch , model.Wave]]:
+    def get_all_data(self) -> Query[Tuple[model.Inventory, model.Batch, model.Wave]]:
         return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(model.Wave, isouter=True)
 
     # 通过属性查询

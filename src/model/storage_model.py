@@ -9,12 +9,27 @@ import pandas as pd
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
 from src.config import cfg
-from src.dict_typing import StorageDict
+from src.dict_typing import ReStorageDict, StorageDict
 
 
 class StorageModel:
     def __init__(self):
         self._db_controller = StorageController()
+
+    def get_inventory_by_ean13(self, ean13: str) -> ReStorageDict:
+        """根据EAN13获取库存信息"""
+        data = self._db_controller.get_inventory_by_ean13(ean13)
+        row: ReStorageDict = {
+                'name': str(data.item_name),
+                'brand': str(data.brand),
+                'price': float(data.price),
+                'storage_time': data.batch.created_time,
+                'return_times': int(data.return_times),
+                'batch_serial_number': data.batch.batch_serial_number,
+                'wave_serial_number': data.wave.wave_serial_number,
+                'ean13': convert.EAN13Converter.convert_id_to_ean13(data.id),
+                }
+        return row
 
     def get_newest_batch_serial_number(self) -> str:
         """获取最新的批次"""
@@ -73,6 +88,19 @@ class StorageModel:
         loguru.logger.debug(f'本次导出了{len(dict_list)}条数据到Excel文件')
         os.startfile(save_dir)
 
+    def export_return_data(self, data: list[ReStorageDict]) -> None:
+        """前往数据库中将他们的EAN13的return_times+1,同时将is_sold设置为0"""
+        for each in data:
+            self._db_controller.set_inventory_return_times_and_is_sold(each['ean13'])
+
+    def is_real_ean13(self, ean13: str) -> bool:
+        """检测是否是真实的EAN13"""
+        return self._db_controller.is_real_ean13(ean13)
+
+    def is_inventory_sold(self, ean13: str) -> bool:
+        return self._db_controller.is_inventory_sold(ean13)
+
 
 if __name__ == "__main__":
     s = StorageModel()
+    print(s.get_inventory_by_ean13('0000000000017'))

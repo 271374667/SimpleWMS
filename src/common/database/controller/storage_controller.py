@@ -2,10 +2,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Tuple
 
+from src.common.database import Session
 from src.common.database.entity import model
 from src.common.database.service.add_model_service import AddModelService
 from src.common.database.service.get_attribute_service import GetAttributeService
 from src.common.database.service.get_model_service import GetModelService
+from src.common.database.service.set_model_service import SetModelService
 from src.common.database.utils import convert
 
 
@@ -22,9 +24,15 @@ class StorageData:
 
 class StorageController:
     def __init__(self):
+        self._session = Session
         self._add_model_service = AddModelService()
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
+        self._set_model_service = SetModelService()
+
+    def get_inventory_by_ean13(self, ean13: str) -> model.Inventory:
+        """根据EAN13获取库存信息"""
+        return self._get_model_service.get_inventory_by_ean13(ean13).first()
 
     def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
@@ -75,6 +83,26 @@ class StorageController:
     def get_latest_inventory_id(self) -> int:
         """获取最新的库存ID"""
         return self._get_attribute_service.get_inventory_latest_id()
+
+    def is_real_ean13(self, ean13: str) -> bool:
+        """检测是否是真实的EAN13"""
+        really_ean13 = convert.EAN13Converter.convert_id_to_ean13(int(ean13[:12]))
+        return really_ean13 == ean13
+
+    def is_inventory_sold(self, ean13: str) -> bool:
+        """检测库存是否已经出库"""
+        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        if result is None:
+            return False
+
+        if result.is_sold == 0:
+            return False
+
+        return True
+
+    def set_inventory_return_times_and_is_sold(self, ean13: str) -> None:
+        """设置库存的退货次数和是否出库"""
+        self._set_model_service.set_inventory_return_and_sold(ean13)
 
     def _is_batch_today(self, serial_number: str) -> bool:
         """判断这个批次是否是今天的"""

@@ -108,4 +108,5 @@ class EAN13Converter(Converter):
 
 if __name__ == '__main__':
     # print(convert_batch_serial_number_to_datetime('202401001'))
-    print(BatchConverter.convert_batch_name_to_batch_serial_number('2024年01月第040批'))
+    # print(BatchConverter.convert_batch_name_to_batch_serial_number('2024年01月第040批'))
+    print(EAN13Converter.convert_id_to_ean13(7))

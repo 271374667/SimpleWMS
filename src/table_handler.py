@@ -47,7 +47,7 @@ class TableHandler(QObject):
         data = []
         for row_index in range(row_count):
             current_row_data = {}
-            if self._is_null(row_index):
+            if self.is_null(row_index):
                 continue
             for column_index in range(len(self._headers)):
                 current_row_data[self._headers[column_index]] = self._table.item(row_index, column_index).text()
@@ -58,7 +58,7 @@ class TableHandler(QObject):
     def get_last_row_index(self) -> int:
         """获取最后一行的索引, 如果有空值那么直接返回上一行的索引"""
         for i in range(0, self._table.rowCount() - 1):
-            if self._is_null(i):
+            if self.is_null(i):
                 return i
         return self._table.rowCount() - 1
 
@@ -113,7 +113,7 @@ class TableHandler(QObject):
         """滚动到指定行"""
         self._table.scrollToItem(self._table.item(row_index, 0))
 
-    def _is_null(self, row_index: int, column_index: int = None) -> bool:
+    def is_null(self, row_index: int, column_index: int = None) -> bool:
         """判断是存在空值
 
         判断某个项是否存在空值,如果不填写列数，那么就会判断整行是否存在空值

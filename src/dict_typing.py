@@ -16,6 +16,17 @@ class StorageDict(CustomBaseDict):
     batch_serial_number: Required[str]
 
 
+class ReStorageDict(CustomBaseDict):
+    name: Required[str]
+    brand: Required[str]
+    price: Required[float]
+    storage_time: Required[datetime]
+    return_times: Required[int]
+    batch_serial_number: Required[str]
+    wave_serial_number: Required[str]
+    ean13: Required[str]
+
+
 class RetrievalDict(CustomBaseDict):
     name: Required[str]
     brand: Required[str]

@@ -51,3 +51,17 @@ class SetModelService:
         inventory_sqlalchemy_model.is_sold = 1
         self._session.commit()
         loguru.logger.debug(f"设置 EAN13 为 {ean13} 的商品为波次 {wave.wave_serial_number}")
+
+    def set_inventory_return_and_sold(self, ean13: str) -> None:
+        """设置库存为退货和已售出,同时清空他的波次信息"""
+        inventory_sqlalchemy_model = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        if not inventory_sqlalchemy_model:
+            loguru.logger.warning(f"没有找到 EAN13 为 {ean13} 的商品")
+            return
+
+        inventory_sqlalchemy_model.is_sold = 0
+        inventory_sqlalchemy_model.return_times += 1
+        inventory_sqlalchemy_model.wave = None
+        inventory_sqlalchemy_model.wave_id = None
+        self._session.commit()
+        loguru.logger.debug(f"设置 EAN13 为 {ean13} 的商品为退货")

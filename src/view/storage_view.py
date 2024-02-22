@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QLCDNumber, QWidget
-from qfluentwidgets.components import (CompactDoubleSpinBox, CompactSpinBox, LineEdit, PrimaryPushButton, SwitchButton,
-                                       TableWidget, ToolTipFilter, TransparentPushButton)
+from qfluentwidgets.components import (CompactDoubleSpinBox, CompactSpinBox, LineEdit, PrimaryPushButton, PushButton,
+                                       SwitchButton, TableWidget, ToolTipFilter, TransparentPushButton)
 
 from src.interface.Ui_storage_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
@@ -15,6 +15,10 @@ class StorageView(MessageBaseView):
         self.setWindowTitle("存储")
         self.setObjectName("storage_view")
         self.initialize()
+
+        # 默认隐藏退货输入框和退货按钮
+        self.get_return_lineedit().hide()
+        self.get_return_pushbutton().hide()
 
     def get_clothes_name_lineedit(self) -> LineEdit:
         return self.ui.LineEdit
@@ -33,6 +37,15 @@ class StorageView(MessageBaseView):
 
     def get_auto_switch_button(self) -> SwitchButton:
         return self.ui.SwitchButton
+
+    def get_return_switch_button(self) -> SwitchButton:
+        return self.ui.SwitchButton_2
+
+    def get_return_pushbutton(self) -> PushButton:
+        return self.ui.PushButton
+
+    def get_return_lineedit(self) -> LineEdit:
+        return self.ui.LineEdit_3
 
     def get_confirm_button(self) -> PrimaryPushButton:
         return self.ui.PrimaryPushButton

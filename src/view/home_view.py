@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication
-from qfluentwidgets.components import TitleLabel, ToolButton
+from qfluentwidgets.components import TitleLabel, ToolButton, ElevatedCardWidget
 
 from src.interface.Ui_home_page import Ui_Form
 from src.view.message_base_view import MessageBaseView

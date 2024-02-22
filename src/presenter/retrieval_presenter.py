@@ -64,7 +64,7 @@ class RetrievalPresenter:
 
         # 检测表格中是否已经存在该商品
         for row in range(ui.get_table_widget().rowCount()):
-            if self.get_view().is_row_empty(row):
+            if self._table_handler.is_null(row):
                 break
             elif input_text == ui.get_table_widget().item(row, 5).text():
                 ui.show_warning_infobar(title='商品已经存在',
@@ -92,9 +92,9 @@ class RetrievalPresenter:
         new_data: RetrievalDict = {
                 "name": inventory.name,
                 "brand": inventory.brand,
-                "price": str(inventory.price),
+                "price": inventory.price,
                 "wave_serial_number": wave_serial_number,
-                "storage_time": str(inventory.storage_time),
+                "storage_time": inventory.storage_time,
                 "ean13": inventory.ean13,
                 }
         self._table_handler.add_row(new_data)
