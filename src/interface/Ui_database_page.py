@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QSizePolicy, QSpacerItem, QTableWidgetItem,
-    QVBoxLayout, QWidget)
+    QHeaderView, QSizePolicy, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 from qfluentwidgets import (BodyLabel, CardWidget, ComboBox, IconWidget,
     LargeTitleLabel, PrimaryPushButton, PushButton, SimpleCardWidget,
@@ -115,10 +115,6 @@ class Ui_Form(object):
         self.ComboBox.setObjectName(u"ComboBox")
 
         self.horizontalLayout_2.addWidget(self.ComboBox)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)

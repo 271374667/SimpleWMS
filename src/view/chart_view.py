@@ -1,6 +1,7 @@
 from src.interface.Ui_chart_page import Ui_Form
 from PySide6.QtWidgets import QWidget, QApplication
-from qfluentwidgets.components import ToolTipFilter
+from qfluentwidgets.components import ToolTipFilter, ComboBox, StrongBodyLabel, PrimaryPushButton
+from qframelesswindow.webengine import FramelessWebEngineView
 
 
 class ChartView(QWidget):
@@ -11,6 +12,24 @@ class ChartView(QWidget):
         self.setWindowTitle("图表")
         self.setObjectName("chart_view")
         self.initialize()
+
+    def get_plugin_select_comboBox(self) -> ComboBox:
+        return self.ui.ComboBox
+
+    def get_chart_select_comboBox(self) -> ComboBox:
+        return self.ui.ComboBox_2
+
+    def get_custom_widget(self) -> QWidget:
+        return self.ui.widget
+
+    def get_description_label(self) -> StrongBodyLabel:
+        return self.ui.StrongBodyLabel
+
+    def get_submit_button(self) -> PrimaryPushButton:
+        return self.ui.PrimaryPushButton
+
+    def get_web_view(self) -> FramelessWebEngineView:
+        return self.ui.widget_2
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):

@@ -99,7 +99,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>图表(等待施工)</string>
+               <string>图表</string>
               </property>
              </widget>
             </item>
@@ -129,17 +129,109 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <item>
+          <widget class="BodyLabel" name="BodyLabel_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>选择统计模式:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ComboBox" name="ComboBox">
+           <property name="toolTip">
+            <string>可以选择不同的角度来观察数据,比如查看退货率,售出率等</string>
+           </property>
+           <property name="text">
+            <string>请选择您需要可视化的内容</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <item>
+          <widget class="BodyLabel" name="BodyLabel_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>选择图表样式:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ComboBox" name="ComboBox_2">
+           <property name="toolTip">
+            <string>选择绘制不同类型的图标,比如折线图,直方图等</string>
+           </property>
+           <property name="text">
+            <string>在此处选择您具体需要绘制的样式</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="StrongBodyLabel" name="StrongBodyLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>当前配置:当前没有选择任何模式</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true"/>
+       </item>
+       <item>
+        <widget class="PrimaryPushButton" name="PrimaryPushButton">
+         <property name="text">
+          <string>绘制图表</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="FramelessWebEngineView" name="widget_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>0</width>
+           <height>400</height>
           </size>
          </property>
-        </spacer>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -148,6 +240,21 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
   <customwidget>
    <class>IconWidget</class>
    <extends>QWidget</extends>
@@ -182,9 +289,20 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
    <class>LargeTitleLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>FramelessWebEngineView</class>
+   <extends>QWidget</extends>
+   <header>qframelesswindow.webengine</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
