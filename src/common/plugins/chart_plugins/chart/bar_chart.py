@@ -1,23 +1,23 @@
 from datetime import date, timedelta
-from typing import List, Optional, Tuple, Union, Sequence
+from typing import List, Optional, Sequence, Tuple, Union
 
-from pyecharts.charts import Line
-from pyecharts.options import (AxisOpts, DataZoomOpts, InitOpts, LabelOpts, MarkLineItem, MarkLineOpts, MarkPointItem,
-                               MarkPointOpts,
-                               TitleOpts, ToolBoxFeatureDataViewOpts, ToolBoxFeatureMagicTypeOpts, ToolBoxFeatureOpts,
-                               ToolboxOpts)
+from pyecharts.charts import Bar
+from pyecharts.charts.chart import Chart
+from pyecharts.options import (AxisOpts, DataZoomOpts, InitOpts, LabelOpts, MarkPointItem,
+                               MarkPointOpts, TitleOpts, ToolBoxFeatureDataViewOpts, ToolBoxFeatureMagicTypeOpts,
+                               ToolBoxFeatureOpts, ToolboxOpts, TooltipOpts)
 
 from src.common.plugins.chart_plugins.chart.chart_base import PyEChartsBase
 
 
-class LineChart(PyEChartsBase):
-    def __init__(self, data: List[Tuple[str, Sequence[int]]],
+class BarChart(PyEChartsBase):
+    def __init__(self, data: List[Tuple[str, Sequence]],
                  chart_title: Optional[str] = None,
                  chart_subtitle: Optional[str] = None,
                  xaxis_labels: Optional[List[Union[date, str]]] = None
                  ):
         super().__init__()
-        self.chart = Line(init_opts=InitOpts(theme=self.echarts_theme, width="100%"))
+        self.chart = Bar(init_opts=InitOpts(theme=self.echarts_theme, width="100%"))
 
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 type_=["stack", "tiled"],
@@ -27,7 +27,7 @@ class LineChart(PyEChartsBase):
                 data_view=ToolBoxFeatureDataViewOpts(is_show=False),
                 )
 
-        # # 设置 x 轴标签(默认是时间)
+        # 设置 x 轴标签(默认是时间)
         if xaxis_labels:
             self.chart.add_xaxis(xaxis_labels)
         else:
@@ -39,18 +39,12 @@ class LineChart(PyEChartsBase):
         for name, values in data:
             self.chart.add_yaxis(series_name=name,
                                  y_axis=values,
-                                 is_smooth=True,
                                  markpoint_opts=MarkPointOpts(
                                          data=[
                                                  MarkPointItem(type_="max", name="最大值"),
                                                  MarkPointItem(type_="min", name="最小值"),
                                                  ]
-                                         ),
-                                 markline_opts=MarkLineOpts(
-                                         data=[
-                                                 MarkLineItem(type_="average", name="平均值"),
-                                                 ]
-                                         ),
+                                         )
                                  )
 
         self.chart.set_global_opts(
@@ -59,13 +53,14 @@ class LineChart(PyEChartsBase):
                 datazoom_opts=[DataZoomOpts(), DataZoomOpts(type_="inside")],
                 yaxis_opts=AxisOpts(axislabel_opts=LabelOpts(formatter="{value} 件"), name="数量"),
                 toolbox_opts=ToolboxOpts(feature=tool_box_feature_opts),
+                tooltip_opts=TooltipOpts(trigger="axis", axis_pointer_type="cross"),
                 )
 
         self.chart.set_series_opts(
                 label_opts=LabelOpts(is_show=True),
                 )
 
-    def get_chart(self) -> Line:
+    def get_chart(self) -> Chart:
         return self.chart
 
 
@@ -74,10 +69,17 @@ if __name__ == '__main__':
     from PySide6.QtWebEngineWidgets import QWebEngineView
     from random import randint
 
+    data = [("A", [randint(1, 100) for _ in range(10)]),
+            ("B", [randint(1, 100) for _ in range(10)]),
+            ("C", [randint(1, 100) for _ in range(10)]),
+            ("D", [randint(1, 100) for _ in range(10)]),
+            ("E", [randint(1, 100) for _ in range(10)]),
+            ]
+
     app = QApplication([])
     web = QWebEngineView()
-    l = LineChart([("A", [randint(0, 100) for _ in range(50)]), ("B", [randint(0, 100) for _ in range(100)])])
-    web.setHtml(l.get_chart().render_embed())
+    b = BarChart(data, chart_title='主标题', chart_subtitle='子标题')
+    web.setHtml(b.get_chart().render_embed())
     web.resize(800, 600)
     web.show()
     app.exec()

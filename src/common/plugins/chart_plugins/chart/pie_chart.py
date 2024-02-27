@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from pyecharts.charts import Pie
 from pyecharts.options import (InitOpts, LabelOpts, LegendOpts, TitleOpts, ToolBoxFeatureDataViewOpts,
@@ -9,28 +9,23 @@ from src.common.plugins.chart_plugins.chart.chart_base import PyEChartsBase
 
 
 class PieChart(PyEChartsBase):
-    def __init__(self):
+    def __init__(self, data: List[Tuple[str, int]],
+                 chart_title: Optional[str] = None,
+                 chart_subtitle: Optional[str] = None):
         super().__init__()
         self.chart = Pie(init_opts=InitOpts(theme=self.echarts_theme, width="100%"))
+        self._data = data
 
-        self._tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
+        tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 is_show=False
                 )
-        self._tool_box_feature_opts = ToolBoxFeatureOpts(
-                magic_type=self._tool_box_feature_magic_type_opts,
+        tool_box_feature_opts = ToolBoxFeatureOpts(
+                magic_type=tool_box_feature_magic_type_opts,
                 data_view=ToolBoxFeatureDataViewOpts(is_show=False),
                 data_zoom=ToolBoxFeatureDataZoomOpts(is_show=False),
                 restore=ToolBoxFeatureRestoreOpts(is_show=False),
                 )
 
-    def set_title(self, title: str):
-        self.chart.set_global_opts(title_opts=TitleOpts(title=title))
-
-    def set_subtitle(self, subtitle: str):
-        self.chart.set_global_opts(title_opts=TitleOpts(subtitle=subtitle))
-
-    def set_data(self, data: List[Tuple[str, int]]):
-        self._data = data
         self.chart.add(
                 series_name="详细信息",
                 data_pair=self._data,
@@ -39,11 +34,11 @@ class PieChart(PyEChartsBase):
                 )
 
         self.chart.set_global_opts(
-                title_opts=TitleOpts(title="Pie-基本示例", subtitle="我是副标题"),
+                title_opts=TitleOpts(title=chart_title, subtitle=chart_subtitle),
                 legend_opts=LegendOpts(
                         type_="scroll", pos_left="85%", orient="vertical"
                         ),
-                toolbox_opts=ToolboxOpts(feature=self._tool_box_feature_opts),
+                toolbox_opts=ToolboxOpts(feature=tool_box_feature_opts),
                 )
 
         self.chart.set_series_opts(
@@ -78,10 +73,6 @@ class PieChart(PyEChartsBase):
                         ),
                 )
 
-    def set_xaxis_label(self, labels: List[str]):
-        """您不应该使用这个方法,因为Pie图表不需要x轴"""
-        pass
-
     def get_chart(self) -> Pie:
         return self.chart
 
@@ -92,8 +83,7 @@ if __name__ == '__main__':
 
     app = QApplication([])
     web = QWebEngineView()
-    p = PieChart()
-    p.set_data([("A", 10), ("B", 20), ("C", 30), ("D", 40), ("E", 50), ("F", 60)])
+    p = PieChart([("A", 10), ("B", 20), ("C", 30), ("D", 40), ("E", 50), ("F", 60)], '饼图', '这是子标题')
     web.setHtml(p.get_chart().render_embed())
     web.resize(800, 600)
     web.show()
