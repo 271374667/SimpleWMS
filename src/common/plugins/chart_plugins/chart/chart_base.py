@@ -1,102 +1,39 @@
-"""
-默认情况下主题均为QChart.ChartTheme.ChartThemeBlueIcy
-动画均为QChart.AnimationOption.AllAnimations
-"""
-from typing import Sequence
+from typing import List, Tuple
 
-from PySide6.QtCharts import QAbstractSeries, QChart, QChartView
-from PySide6.QtCore import QAbstractItemModel, Qt
 from PySide6.QtCore import QObject
-from PySide6.QtGui import QPainter
+from pyecharts.charts.chart import Chart
+from pyecharts.globals import CurrentConfig
+from pyecharts.globals import ThemeType
+
+CurrentConfig.ONLINE_HOST = "http://127.0.0.1:8000/"
 
 
-class ChartModelBase(QObject):
-    """模型映射器基类, 用于将数据集映射到图表上"""
-
-    def get_mapper(self) -> QObject:
-        raise NotImplementedError('当前方法未实现')
-
-    def get_series(self) -> QAbstractSeries:
-        raise NotImplementedError('当前方法未实现')
-
-    def get_model(self) -> QAbstractItemModel:
-        raise NotImplementedError('当前方法未实现')
-
-    def set_data(self, data: Sequence, headers: Sequence) -> None:
-        """设置数据"""
-        raise NotImplementedError('当前方法未实现')
-
-    def is_empty(self) -> bool:
-        """判断数据是否为空"""
-        raise NotImplementedError('当前方法未实现')
-
-    def _initialize_series(self, chart_series: QAbstractSeries) -> None:
-        """定义每一个图标特殊的内容"""
-        raise NotImplementedError('当前方法未实现')
-
-    def _initialize_mapper(self, mapper: QObject) -> None:
-        """初始化映射器并设置属性"""
-        raise NotImplementedError('当前方法未实现')
-
-    def _initialize_model(self, model: QAbstractItemModel, mapper: QObject) -> None:
-        """初始化数据模型并设置属性"""
-        raise NotImplementedError('当前方法未实现')
+class ChartBase:
+    """未来可能会接入其他的绘图三方库"""
+    ...
 
 
-class ChartControllerBase(QObject):
-    """图表控制器基类, 用于控制图表的行为
-    通过传入数据,在这里可以设置图表的标题,主题,动画等
-    """
+class PyEChartsBase(ChartBase, QObject):
+    """PyECharts的基类"""
+    # 默认将使用 WALDEN 主题, 这个主题贴近 Fluent
+    echarts_theme = ThemeType.WALDEN
 
-    def __init__(self):
-        super().__init__()
-        self._model = None
-        self._chart_view = None
+    def set_title(self, title: str):
+        """设置图表标题"""
+        ...
 
-    def set_title(self, title: str) -> None:
-        self._chart_view.chart().setTitle(title)
+    def set_subtitle(self, subtitle: str):
+        """设置图表副标题"""
+        ...
 
-    def set_theme(self, theme: QChart.ChartTheme) -> None:
-        self._chart_view.chart().setTheme(theme)
+    def set_data(self, data: List[Tuple]):
+        """设置图表的数据"""
+        ...
 
-    def set_animation(self, animation: QChart.AnimationOption) -> None:
-        self._chart_view.chart().setAnimationOptions(animation)
+    def set_xaxis_label(self, labels: List[str]):
+        """设置图表的数据x轴标签"""
+        ...
 
-    def _initialize_chart_view(self, chart_view: QChartView) -> None:
-        """初始化图表视图"""
-        chart_view.setRenderHint(QPainter.Antialiasing)
-        chart_view.chart().addSeries(self._model.get_series())
-
-        chart = chart_view.chart()
-        chart.setTitle('Chart')
-        chart.setTheme(QChart.ChartTheme.ChartThemeBlueIcy)
-        chart.setAnimationOptions(QChart.AnimationOption.AllAnimations)
-
-    def _initialize_legend(self, chart_view: QChartView) -> None:
-        """初始化图例"""
-        chart = chart_view.chart()
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignmentFlag.AlignTop)
-
-    def _initialize_label(self, series: QAbstractSeries):
-        raise NotImplementedError('当前方法未实现')
-
-
-class ChartBase(QObject):
-    """图表基类
-
-    该类用于创建各类图表,同时也是对外暴露的接口
-    创建一个图表不应该直接调用ChartModel,而是调用ChartBase的子类
-    """
-
-    def get_view(self) -> QChartView:
-        raise NotImplementedError('当前方法未实现')
-
-    def get_model(self) -> QAbstractItemModel:
-        raise NotImplementedError('当前方法未实现')
-
-    def set_title(self, title: str) -> None:
-        raise NotImplementedError('当前方法未实现')
-
-    def set_data(self, data: Sequence, headers: Sequence) -> None:
-        raise NotImplementedError('当前方法未实现')
+    def get_chart(self) -> Chart:
+        """获取图标,之后可以调用图表的render方法进行渲染"""
+        ...
