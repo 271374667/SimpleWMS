@@ -14,6 +14,7 @@ OUTPUT_DIR = ROOT_DIR / "output"
 RETRIEVE_DIR = OUTPUT_DIR / "retrieval"
 STORAGE_DIR = OUTPUT_DIR / "storage"
 DATABASE_PLUGINS_DIR = SRC_DIR / "common" / "plugins" / "database_plugins"
+PYECHART_ASSETS = ASSETS_DIR / 'pyecharts_assets'  # 打包的时候需要将这个文件夹打包进去
 
 # FILE
 DATABASE_FILE = ROOT_DIR / "database.db"
