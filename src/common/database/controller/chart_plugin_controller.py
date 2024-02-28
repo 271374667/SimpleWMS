@@ -14,7 +14,7 @@ class ChartPluginController:
 
     def get_count_groupby_brand(self) -> List[Tuple[str, int]]:
         """获取品牌数量"""
-        query = self._get_model_service.get_custom_query([model.Inventory.brand, func.count(1)])
+        query = self._get_model_service.get_custom_query(model.Inventory.brand, func.count(1))
         query = GroupByFilter.brand(query)
         return query.all()
 

@@ -60,7 +60,7 @@ class CardFlyoutTableView(QWidget):
         self.flyout_window = TeachingTip.make(
                 target=self.parent_widget,
                 view=self.get_view(),
-                duration=-1,
+                duration=30000,
                 tailPosition=TeachingTipTailPosition.BOTTOM,
                 parent=self.parent_window
                 )

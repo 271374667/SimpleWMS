@@ -25,7 +25,7 @@ class GetModelService:
         return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(
                 model.Wave, isouter=True)
 
-    def get_custom_query(self, query_list: list) -> Query:
+    def get_custom_query(self, *query_list) -> Query:
         return self._session.query(*query_list)
 
 

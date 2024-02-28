@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from typing import List, Tuple
 
-from src.common.database import get_session
 from src.common.database.entity import model
 from src.common.database.service.get_attribute_service import GetAttributeService, GetModelService
 from src.common.database.utils import convert
@@ -13,8 +12,6 @@ class DatabasePluginController:
     def __init__(self):
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
-        # TODO: 理论上 controller 层不应该直接操作数据库，而应该通过 service 层来操作,之后重构
-        self._session = get_session()
 
     def get_unsalable_data(self) -> List[UnsalableDict]:
         """获取滞销数据
@@ -53,15 +50,18 @@ class DatabasePluginController:
         # 获取所有数据
         # ['id', '商品名称', '品牌', '批次号', '入库时间', '退货次数', '退货率']
 
-        data = (self._session.query(model.Inventory.id,
-                                    model.Inventory.item_name,
-                                    model.Inventory.brand,
-                                    model.Inventory.batch_id,
-                                    model.Batch.created_time,
-                                    model.Inventory.return_times)
-                .join(model.Batch, model.Inventory.batch_id == model.Batch.id)
-                .order_by(model.Inventory.return_times.desc())
-                .filter(model.Inventory.return_times > 0).all())
+        query = self._get_model_service.get_custom_query(
+                model.Inventory.id,
+                model.Inventory.item_name,
+                model.Inventory.brand,
+                model.Inventory.batch_id,
+                model.Batch.created_time,
+                model.Inventory.return_times
+                )
+        query = query.join(model.Batch, model.Inventory.batch_id == model.Batch.id)
+        query = query.order_by(model.Inventory.return_times.desc())
+        query = query.filter(model.Inventory.return_times > 0)
+        data = query.all()
         if not data:
             return []
 

@@ -2,14 +2,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Tuple
 
-from src.common.database import Session
 from src.common.database.entity import model
+from src.common.database.query_filter import IdFilter
 from src.common.database.service.add_model_service import AddModelService
 from src.common.database.service.get_attribute_service import GetAttributeService
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.service.set_model_service import SetModelService
 from src.common.database.utils import convert
-from src.common.database.query_filter import IdFilter
 
 
 @dataclass(order=True)
@@ -25,7 +24,6 @@ class StorageData:
 
 class StorageController:
     def __init__(self):
-        self._session = Session
         self._add_model_service = AddModelService()
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
