@@ -22,6 +22,7 @@ CONFIG_FILE = ROOT_DIR / "config.json"
 LOG_FILE = LOG_DIR / "log.log"
 QRC_FILE = ASSETS_DIR / "resource.qrc"
 QRC_PY_FILE = ROOT_DIR / "resource_rc.py"
+SPLASH_IMAGE_PATH = IMAGES_DIR / "splash.png"
 
 # FONT
 BOLD_FONT = FONT_DIR / "Alibaba-PuHuiTi-Bold.ttf"
