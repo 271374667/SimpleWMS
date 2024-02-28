@@ -4,7 +4,7 @@ from sqlalchemy import func
 
 from src.common.database.entity import model
 from src.common.database.service.get_attribute_service import GetAttributeService, GetModelService
-from src.common.database.service.query_filter import GroupByFilter
+from src.common.database.query_filter import GroupByFilter
 
 
 class ChartPluginController:

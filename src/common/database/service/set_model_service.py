@@ -5,9 +5,9 @@ import loguru
 
 from src.common.database import Session
 from src.common.database.entity import model
+from src.common.database.query_filter import IdFilter
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.utils import convert
-
 
 class SetModelService:
     def __init__(self):
@@ -27,7 +27,9 @@ class SetModelService:
             ean13 = convert.EAN13Converter.convert_length12str_to_ean13(ean13)
 
         # 检查是否有这个物品
-        inventory_sqlalchemy_model = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        inventory_sqlalchemy_model = query.first()
         if not inventory_sqlalchemy_model:
             loguru.logger.warning(f"没有找到 EAN13 为 {ean13} 的商品")
             return
@@ -42,7 +44,9 @@ class SetModelService:
             return
 
         # 检查是否有这个波次,没有则创建,没有再使用传入的wave创建
-        wave_sqlalchemy_model = self._get_model_service.get_wave_by_serial_number(wave.wave_serial_number).first()
+        query = self._get_model_service.get_all_wave()
+        query = IdFilter.wave_serial_number(query, wave.wave_serial_number)
+        wave_sqlalchemy_model = query.first()
         if wave_sqlalchemy_model is None:
             self._session.add(wave)
             wave_sqlalchemy_model = wave
@@ -54,7 +58,9 @@ class SetModelService:
 
     def set_inventory_return_and_sold(self, ean13: str) -> None:
         """设置库存为退货和已售出,同时清空他的波次信息"""
-        inventory_sqlalchemy_model = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        inventory_sqlalchemy_model = query.first()
         if not inventory_sqlalchemy_model:
             loguru.logger.warning(f"没有找到 EAN13 为 {ean13} 的商品")
             return

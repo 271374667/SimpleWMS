@@ -9,6 +9,7 @@ from src.common.database.service.get_attribute_service import GetAttributeServic
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.service.set_model_service import SetModelService
 from src.common.database.utils import convert
+from src.common.database.query_filter import IdFilter
 
 
 @dataclass(order=True)
@@ -32,7 +33,9 @@ class StorageController:
 
     def get_inventory_by_ean13(self, ean13: str) -> model.Inventory:
         """根据EAN13获取库存信息"""
-        return self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        return query.first()
 
     def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
@@ -63,7 +66,9 @@ class StorageController:
         返回的数据格式为一个InventoryAndBatchInfo内容如下：
             [名称，品牌，价格，批次名称，批次序号，批次创建时间]
         """
-        inventory_list = self._get_model_service.get_inventory_greater_than_id(id).all()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_id_greater_than(query, id)
+        inventory_list = query.all()
         result = [
                 StorageData(
                         item_id=inventory.id,
@@ -91,14 +96,10 @@ class StorageController:
 
     def is_inventory_sold(self, ean13: str) -> bool:
         """检测库存是否已经出库"""
-        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
-        if result is None:
-            return False
-
-        if result.is_sold == 0:
-            return False
-
-        return True
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        result = query.first()
+        return False if result is None else result.is_sold != 0
 
     def set_inventory_return_times_and_is_sold(self, ean13: str) -> None:
         """设置库存的退货次数和是否出库"""
@@ -107,7 +108,10 @@ class StorageController:
     def _is_batch_today(self, serial_number: str) -> bool:
         """判断这个批次是否是今天的"""
         today = datetime.now()
-        batch_sqalchemy_model = self._get_model_service.get_batch_by_serial_number(serial_number).first()
+
+        query = self._get_model_service.get_all_batch()
+        query = IdFilter.batch_serial_number(query, serial_number)
+        batch_sqalchemy_model = query.first()
         if not batch_sqalchemy_model:
             return True
         batch_time = batch_sqalchemy_model.created_time

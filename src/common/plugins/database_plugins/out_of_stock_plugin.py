@@ -126,17 +126,10 @@ class OutOfStockPlugin(DatabasePluginBase):
         # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
         for each in outofstock_data:
             level_1_condition = (
-                    (each[3] <= level_1_day) and (each[-1] <= level_1_value))
-            level_2_condition = ((each[3] <= level_2_day) and (each[-1] <= level_2_value))
+                    (each['storage_time_from_today'] <= level_1_day) and (each['storage_rate'] <= level_1_value))
+            level_2_condition = ((each['storage_time_from_today'] <= level_2_day) and (each['storage_rate'] <= level_2_value))
             if level_1_condition or level_2_condition:
-                result.append({'name': each[0],
-                                      'brand': each[1],
-                                      'batch_serial_number': each[2],
-                                      'storage_time_from_today': each[3],
-                                      'storage_count': each[4],
-                                      'total_count': each[5],
-                                      'storage_rate': each[6]
-                                      })
+                result.append(each)
         return result
 
     get_data.__doc__ = DatabasePluginBase.get_data.__doc__

@@ -5,6 +5,7 @@ from sqlalchemy import func
 from src import dict_typing
 from src.common.database import Session
 from src.common.database.entity import model
+from src.common.database.query_filter import AttrFilter, TimeFilter, TimeFilterEnum
 from src.common.database.service.get_attribute_service import GetAttributeService
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.utils import convert
@@ -25,18 +26,31 @@ class HomeController:
                 self._get_attribute_service.get_latest_wave_serial_number())
 
     def get_current_item_quantity(self) -> int:
-        return len(self._get_model_service.get_unsold_inventory_this_month().all())
+        query = self._get_model_service.get_all_inventory()
+        query = TimeFilter.inventory_created_time(query, time_filter_enum=TimeFilterEnum.Month)
+        query = AttrFilter.inventory_is_sold(query, 0)
+        return len(query.all())
 
     def get_current_money(self) -> int:
-        inventory_this_month = self._get_model_service.get_unsold_inventory_this_month().all()
+        query = self._get_model_service.get_all_inventory()
+        query = TimeFilter.inventory_created_time(query, time_filter_enum=TimeFilterEnum.Month)
+        query = AttrFilter.inventory_is_sold(query, 0)
+        inventory_this_month = query.all()
         return sum(x.price for x in inventory_this_month)
 
     def get_current_storage(self) -> int:
-        return len(self._get_model_service.get_all_inventory_by_date().all())
+        query = self._get_model_service.get_all_inventory()
+        query = TimeFilter.inventory_created_time(query, time_filter_enum=TimeFilterEnum.Month)
+        return len(query.all())
 
     def get_current_retrieval(self) -> int:
-        return len(self._get_model_service.get_all_inventory_by_date().all()) - len(
-                self._get_model_service.get_unsold_inventory_this_month().all())
+        query1 = self._get_model_service.get_all_inventory()
+        query1 = TimeFilter.inventory_created_time(query1, time_filter_enum=TimeFilterEnum.Month)
+
+        query2 = self._get_model_service.get_all_inventory()
+        query2 = TimeFilter.inventory_created_time(query2, time_filter_enum=TimeFilterEnum.Month)
+        query2 = AttrFilter.inventory_is_sold(query2, 0)
+        return len(query1.all()) - len(query2.all())
 
     def get_all_batch_number(self) -> int:
         return len(self._get_model_service.get_all_batch().all())
@@ -55,8 +69,10 @@ class HomeController:
         return len(self._get_model_service.get_all_inventory().all())
 
     def get_all_retrieval(self) -> int:
+        query = self._get_model_service.get_all_inventory()
+        query = AttrFilter.inventory_is_sold(query, 0)
         return len(self._get_model_service.get_all_inventory().all()) - len(
-                self._get_model_service.get_unsold_inventory().all())
+                query.all())
 
     # 下面是点击 card 之后出现的表格的数据
     def get_current_batch_card_data(self) -> list[dict_typing.BatchCardDict]:

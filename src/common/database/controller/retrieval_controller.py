@@ -7,6 +7,7 @@ from src.common.database.service.get_attribute_service import GetAttributeServic
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.service.set_model_service import SetModelService
 from src.common.database.utils import convert
+from src.common.database.query_filter import IdFilter
 
 
 @dataclass
@@ -26,7 +27,9 @@ class RetrievalController:
         self._get_model_service = GetModelService()
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
-        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        result = query.first()
         if result is None:
             return None
 
@@ -48,11 +51,15 @@ class RetrievalController:
         return self._get_attribute_service.get_latest_wave_serial_number()
 
     def is_inventory_sold(self, ean13: str) -> bool:
-        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        result = query.first()
         return False if result is None else bool(result.is_sold)
 
     def set_inventory_sold(self, ean13: str, wave_serial_number: str) -> None:
-        result = self._get_model_service.get_inventory_by_ean13(ean13).first()
+        query = self._get_model_service.get_all_inventory()
+        query = IdFilter.inventory_ean13(query, ean13)
+        result = query.first()
         if result is None:
             return
 

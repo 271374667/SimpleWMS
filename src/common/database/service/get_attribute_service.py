@@ -7,6 +7,7 @@ from sqlalchemy import func
 
 from src.common.database import Session
 from src.common.database.entity import model
+from src.common.database.query_filter import TimeFilter, TimeFilterEnum
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.utils import serial_number
 
@@ -31,11 +32,15 @@ class GetAttributeService:
 
     # 返回 serial_number
     def get_all_batch_serial_number_this_month(self) -> list[str]:
-        batch_sqlalchemy_model = self._get_model_service.get_all_batch_by_date().all()
+        query = self._get_model_service.get_all_batch()
+        query = TimeFilter.batch_created_time(query, time_filter_enum=TimeFilterEnum.Month)
+        batch_sqlalchemy_model = query.all()
         return [x.batch_serial_number for x in batch_sqlalchemy_model]
 
     def get_all_wave_serial_number_this_month(self) -> list[str]:
-        wave_sqlalchemy_model = self._get_model_service.get_all_wave_by_date().all()
+        query = self._get_model_service.get_all_wave()
+        query = TimeFilter.wave_created_time(query, time_filter_enum=TimeFilterEnum.Month)
+        wave_sqlalchemy_model = query.all()
         return [x.wave_serial_number for x in wave_sqlalchemy_model]
 
     def get_latest_batch_serial_number(self) -> str:

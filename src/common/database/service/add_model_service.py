@@ -2,6 +2,7 @@ from datetime import datetime
 
 from src.common.database import Session
 from src.common.database.entity import model
+from src.common.database.query_filter import IdFilter
 from src.common.database.service.get_model_service import GetModelService
 
 
@@ -12,7 +13,9 @@ class AddModelService:
 
     def add_inventory(self, item_name: str, price: float, brand: str, batch: model.Batch) -> model.Inventory:
         # 批次存在则获取批次，不存在则创建批次
-        batch_sqlalchemy_model = self._get_model_service.get_batch_by_serial_number(batch.batch_serial_number).first()
+        query = self._get_model_service.get_all_batch()
+        query = IdFilter.batch_serial_number(query, batch.batch_serial_number)
+        batch_sqlalchemy_model = query.first()
         if batch_sqlalchemy_model is None:
             batch_sqlalchemy_model = batch
 
