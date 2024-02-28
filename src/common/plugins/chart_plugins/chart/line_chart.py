@@ -39,6 +39,7 @@ class LineChart(PyEChartsBase):
         for name, values in data:
             self.chart.add_yaxis(series_name=name,
                                  y_axis=values,
+                                 is_connect_nones=True,
                                  is_smooth=True,
                                  markpoint_opts=MarkPointOpts(
                                          data=[
@@ -56,7 +57,7 @@ class LineChart(PyEChartsBase):
         self.chart.set_global_opts(
                 title_opts=TitleOpts(title=chart_title, subtitle=chart_subtitle),
                 xaxis_opts=AxisOpts(axislabel_opts=LabelOpts(rotate=-15), name="日期"),
-                datazoom_opts=[DataZoomOpts(), DataZoomOpts(type_="inside")],
+                datazoom_opts=[DataZoomOpts(range_start=0, range_end=100), DataZoomOpts(type_="inside")],
                 yaxis_opts=AxisOpts(axislabel_opts=LabelOpts(formatter="{value} 件"), name="数量"),
                 toolbox_opts=ToolboxOpts(feature=tool_box_feature_opts),
                 )
@@ -76,7 +77,8 @@ if __name__ == '__main__':
 
     app = QApplication([])
     web = QWebEngineView()
-    l = LineChart([("A", [randint(0, 100) for _ in range(50)]), ("B", [randint(0, 100) for _ in range(100)])])
+    l = LineChart([("A", [1, 3, 5, None, None, 2, 10]),
+                          ("B", [2, None, 6, 8, 4])])
     web.setHtml(l.get_chart().render_embed())
     web.resize(800, 600)
     web.show()

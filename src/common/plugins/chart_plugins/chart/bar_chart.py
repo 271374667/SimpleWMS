@@ -50,7 +50,7 @@ class BarChart(PyEChartsBase):
         self.chart.set_global_opts(
                 title_opts=TitleOpts(title=chart_title, subtitle=chart_subtitle),
                 xaxis_opts=AxisOpts(axislabel_opts=LabelOpts(rotate=-15), name="日期"),
-                datazoom_opts=[DataZoomOpts(), DataZoomOpts(type_="inside")],
+                datazoom_opts=[DataZoomOpts(range_start=0, range_end=100), DataZoomOpts(type_="inside")],
                 yaxis_opts=AxisOpts(axislabel_opts=LabelOpts(formatter="{value} 件"), name="数量"),
                 toolbox_opts=ToolboxOpts(feature=tool_box_feature_opts),
                 tooltip_opts=TooltipOpts(trigger="axis", axis_pointer_type="cross"),

@@ -13,6 +13,7 @@ class DatabasePluginController:
     def __init__(self):
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
+        # TODO: 理论上 controller 层不应该直接操作数据库，而应该通过 service 层来操作,之后重构
         self._session = get_session()
 
     def get_unsalable_data(self) -> List[UnsalableDict]:
@@ -84,19 +85,13 @@ class DatabasePluginController:
         # ['商品名称', '品牌', '批次号', '入库时间', '存库天数', '退货次数', '波次编号', '出库时间', '是否售出', 'EAN13']
         all_data = self._get_model_service.get_all_data()  # [model.Inventory, model.Batch, model.Wave]
 
-        # 根据 ean13 搜索
-        ean13 = parameter.get('ean13')
-        if ean13:
+        if ean13 := parameter.get('ean13'):
             all_data = all_data.filter(model.Inventory.id == convert.EAN13Converter.convert_ean13_to_id(ean13))
 
-        # 根据商品名称搜索
-        name = parameter.get('name')
-        if name:
+        if name := parameter.get('name'):
             all_data = all_data.filter(model.Inventory.item_name.like(f'%{name}%'))
 
-        # 根据品牌搜索
-        brand = parameter.get('brand')
-        if brand:
+        if brand := parameter.get('brand'):
             all_data = all_data.filter(model.Inventory.brand == brand)
 
         # 根据价格搜索
@@ -111,15 +106,11 @@ class DatabasePluginController:
             elif price_operation == BasicSearchCombboxOperationEnum.Less:
                 all_data = all_data.filter(model.Inventory.price < price)
 
-        # 根据批次号搜索
-        batch_serial_number = parameter.get('batch_serial_number')
-        if batch_serial_number:
+        if batch_serial_number := parameter.get('batch_serial_number'):
             all_data = all_data.filter(model.Inventory.batch_id == model.Batch.id).filter(
                     model.Batch.batch_serial_number == batch_serial_number)
 
-        # 根据波次号搜索
-        wave_serial_number = parameter.get('wave_serial_number')
-        if wave_serial_number:
+        if wave_serial_number := parameter.get('wave_serial_number'):
             all_data = all_data.filter(model.Inventory.wave_id == model.Wave.id).filter(
                     model.Wave.wave_serial_number == wave_serial_number)
 
@@ -148,14 +139,12 @@ class DatabasePluginController:
                 all_data = all_data.filter(model.Inventory.batch_id == model.Batch.id).filter(
                         model.Batch.created_time > today - timedelta(days=storage_days))
 
-        # 是否隐藏已经卖出的商品
-        hide_sold_item = parameter.get('hide_sold_item')
-        if hide_sold_item:
+        # 根据是否隐藏售出
+        if hide_sold_item := parameter.get('hide_sold_item'):
             all_data = all_data.filter(model.Inventory.is_sold == 0)
 
-        # 是否隐藏已经退货的商品
-        hide_has_return_item = parameter.get('hide_has_return_item')
-        if hide_has_return_item:
+        # 是否隐藏有退货的
+        if hide_has_return_item := parameter.get('hide_has_return_item'):
             all_data = all_data.filter(model.Inventory.return_times == 0)
 
         # 获取所有数据
@@ -163,20 +152,24 @@ class DatabasePluginController:
 
         result: list[BasicSearchDict] = []
         today = datetime.now()
-        for each in all_data:
-            result.append({
-                    'name': str(each[0].item_name),
-                    'brand': str(each[0].brand),
-                    'price': each[0].price,
-                    'batch_serial_number': str(each[1].batch_serial_number),
-                    'storage_time': each[1].created_time,
-                    'storage_time_from_today': (today - each[1].created_time).days,
-                    'return_times': each[0].return_times,
-                    'wave_serial_number': str(each[2].wave_serial_number if each[2] else ''),
-                    'retrieval_time': each[2].created_time if each[2] else '',
-                    'is_sold': '是' if each[0].is_sold else '否',
-                    'ean13': convert.EAN13Converter.convert_id_to_ean13(each[0].id)
-                    })
+        result.extend(
+                {
+                        'name': str(each[0].item_name),
+                        'brand': str(each[0].brand),
+                        'price': each[0].price,
+                        'batch_serial_number': str(each[1].batch_serial_number),
+                        'storage_time': each[1].created_time,
+                        'storage_time_from_today': (today - each[1].created_time).days,
+                        'return_times': each[0].return_times,
+                        'wave_serial_number': str(
+                                each[2].wave_serial_number if each[2] else ''
+                                ),
+                        'retrieval_time': each[2].created_time if each[2] else '',
+                        'is_sold': '是' if each[0].is_sold else '否',
+                        'ean13': convert.EAN13Converter.convert_id_to_ean13(each[0].id),
+                        }
+                        for each in all_data
+                )
         return result
 
 

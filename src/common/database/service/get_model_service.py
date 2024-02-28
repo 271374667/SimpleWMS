@@ -1,12 +1,13 @@
 from datetime import date
 from typing import Optional
+from typing import Tuple
 
 from sqlalchemy import and_
 from sqlalchemy.orm import Query
 
 from src.common.database import Session
 from src.common.database.entity import model
-from typing import Tuple
+
 
 class GetModelService:
     def __init__(self):
@@ -23,7 +24,11 @@ class GetModelService:
         return self._session.query(model.Wave)
 
     def get_all_data(self) -> Query[Tuple[model.Inventory, model.Batch, model.Wave]]:
-        return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(model.Wave, isouter=True)
+        return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(
+            model.Wave, isouter=True)
+
+    def get_custom_query(self, query_list: list) -> Query:
+        return self._session.query(*query_list)
 
     # 通过属性查询
     def get_inventory_greater_than_id(self, id: int) -> Query[model.Inventory]:
