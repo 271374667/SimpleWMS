@@ -2,11 +2,12 @@ import importlib
 from pathlib import Path
 from typing import Optional
 
+from src.common.plugins.chart_plugins.brand_chart import BrandChartSet
+from src.common.plugins.database_plugins.basic_search_plugin import BasicSearchPlugin
 from src.common.plugins.database_plugins.out_of_stock_plugin import OutOfStockPlugin
 from src.common.plugins.database_plugins.return_times_plugin import ReturnTimesPlugin
 from src.common.plugins.database_plugins.unsalable_plugin import UnsalablePlugin
-from src.common.plugins.database_plugins.basic_search_plugin import BasicSearchPlugin
-from src.common.plugins.plugin_base import PluginBase
+from src.common.plugins.plugin_base import PluginBase, ChartSet, DatabasePluginBase
 
 
 class PluginManagerBase:
@@ -40,6 +41,8 @@ class PluginManagerBase:
 
 
 class DatabasePluginManager(PluginManagerBase):
+    plugins: dict[str, DatabasePluginBase] = {}
+
     def __init__(self):
         super().__init__()
         # 为了让pyinstaller能够识别，所以还是用了实例化的方法
@@ -48,6 +51,23 @@ class DatabasePluginManager(PluginManagerBase):
         self.plugins.setdefault(UnsalablePlugin.plugin_name, UnsalablePlugin())
         self.plugins.setdefault(OutOfStockPlugin.plugin_name, OutOfStockPlugin())
         self.plugins.setdefault(ReturnTimesPlugin.plugin_name, ReturnTimesPlugin())
+
+
+class ChartPluginManager(PluginManagerBase):
+    plugins: dict[str, ChartSet] = {}
+
+    def __init__(self):
+        super().__init__()
+
+        self.plugins.setdefault(BrandChartSet.plugin_name, BrandChartSet())
+
+    @classmethod
+    def get_all_plugins(cls) -> dict[str, ChartSet]:
+        return cls.plugins
+
+    @classmethod
+    def get_plugin_by_name(cls, name: str) -> Optional[ChartSet]:
+        return cls.plugins.get(name)
 
 
 if __name__ == '__main__':

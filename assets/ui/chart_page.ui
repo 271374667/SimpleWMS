@@ -16,11 +16,26 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="SmoothScrollArea" name="SmoothScrollArea">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>450</height>
+      </size>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="widgetResizable">
       <bool>true</bool>
@@ -205,10 +220,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widget" native="true"/>
-       </item>
-       <item>
         <widget class="PrimaryPushButton" name="PrimaryPushButton">
+         <property name="toolTip">
+          <string>仅当您点击绘制时才会更新表格</string>
+         </property>
          <property name="text">
           <string>绘制图表</string>
          </property>
@@ -217,7 +232,7 @@
        <item>
         <widget class="FramelessWebEngineView" name="widget_2" native="true">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -225,11 +240,11 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>400</height>
+           <height>440</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
+          <string notr="true"/>
          </property>
         </widget>
        </item>

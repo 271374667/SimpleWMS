@@ -13,7 +13,7 @@ class PieChart(PyEChartsBase):
                  chart_title: Optional[str] = None,
                  chart_subtitle: Optional[str] = None):
         super().__init__()
-        self.chart = Pie(init_opts=InitOpts(theme=self.echarts_theme, width="100%"))
+        self.chart = Pie(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
         self._data = data
 
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(

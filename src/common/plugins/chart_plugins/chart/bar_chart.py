@@ -17,7 +17,7 @@ class BarChart(PyEChartsBase):
                  xaxis_labels: Optional[List[Union[date, str]]] = None
                  ):
         super().__init__()
-        self.chart = Bar(init_opts=InitOpts(theme=self.echarts_theme, width="100%"))
+        self.chart = Bar(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
 
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 type_=["stack", "tiled"],
