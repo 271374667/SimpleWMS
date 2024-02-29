@@ -33,14 +33,14 @@ class ChartPresenter:
                 self._view.get_chart_select_comboBox().addItem(each.chart_title)
 
         if len(plugins) == 0:
-            self._view.show_error_infobar("插件初始化失败", "插件初始化失败,没有获取到任何插件", 10)
+            self._view.show_error_infobar("插件初始化失败", "插件初始化失败,没有获取到任何插件")
             return
 
         ui = self.get_view()
         combox_box = ui.get_plugin_select_comboBox()
         current_plugin = self._chart_plugin_manager.get_plugin_by_name(combox_box.currentText())
         if not current_plugin:
-            self.get_view().show_error_infobar("插件初始化失败", f'插件{combox_box.currentText()}初始化失败', 10)
+            self.get_view().show_error_infobar("插件初始化失败", f'插件{combox_box.currentText()}初始化失败')
             return
 
         # 设置描述
@@ -49,6 +49,22 @@ class ChartPresenter:
         # 设置图表
         current_chart_index = self._view.get_chart_select_comboBox().currentIndex()
         self._view.get_web_view().setHtml(current_plugin.get_html(current_chart_index))
+
+    def _mode_select_changed(self) -> None:
+        ui = self.get_view()
+        chart_combox_box = ui.get_chart_select_comboBox()
+        # 清空之前所有的内容,然后将新的内容添加进去
+        chart_combox_box.clear()
+        current_plugin = self._chart_plugin_manager.get_plugin_by_name(ui.get_plugin_select_comboBox().currentText())
+        if not current_plugin:
+            self.get_view().show_error_infobar("插件初始化失败",
+                                               f'插件{ui.get_plugin_select_comboBox().currentText()}初始化失败')
+            return
+
+        for each in current_plugin.chart_list:
+            chart_combox_box.addItem(each.chart_title)
+
+        ui.get_description_label().setText(current_plugin.get_description())
 
     def _submit(self) -> None:
         ui = self.get_view()
@@ -67,6 +83,7 @@ class ChartPresenter:
 
     def _connect_signal(self) -> None:
         self._view.get_submit_button().clicked.connect(self._submit)
+        self._view.get_plugin_select_comboBox().currentIndexChanged.connect(self._mode_select_changed)
 
 
 if __name__ == '__main__':

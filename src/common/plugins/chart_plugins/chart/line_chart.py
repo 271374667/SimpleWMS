@@ -12,13 +12,12 @@ from src.common.plugins.chart_plugins.chart.chart_base import PyEChartsBase
 
 class LineChart(PyEChartsBase):
     def __init__(self, data: List[Tuple[str, Sequence[int]]],
+                 xaxis_labels: Optional[List[Union[date, str]]] = None,
                  chart_title: Optional[str] = None,
                  chart_subtitle: Optional[str] = None,
-                 xaxis_labels: Optional[List[Union[date, str]]] = None
                  ):
         super().__init__()
         self.chart = Line(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
-
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 type_=["stack", "tiled"],
                 )

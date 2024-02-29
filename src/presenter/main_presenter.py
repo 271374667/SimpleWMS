@@ -34,6 +34,7 @@ class MainPresenter:
 
         self._splash_view.show_message('正在初始化主模型...(8/8)')
         self._model = MainModel()
+        self._splash_view.show_message('加载完毕,准备启动页面...')
 
     def get_view(self) -> MainView:
         return self._view

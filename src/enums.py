@@ -8,7 +8,7 @@ class BasicSearchCombboxOperationEnum(Enum):
 
 
 class TimeFilterEnum(Enum):
-    Day = 0
+    Today = 0
     Week = auto()
     FiftenDays = auto()
     Month = auto()

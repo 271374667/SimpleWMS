@@ -12,12 +12,17 @@ from src.common.plugins.chart_plugins.chart.chart_base import PyEChartsBase
 
 class BarChart(PyEChartsBase):
     def __init__(self, data: List[Tuple[str, Sequence]],
+                 xaxis_labels: Optional[List[Union[date, str]]] = None,
                  chart_title: Optional[str] = None,
-                 chart_subtitle: Optional[str] = None,
-                 xaxis_labels: Optional[List[Union[date, str]]] = None
+                 chart_subtitle: Optional[str] = None
                  ):
         super().__init__()
-        self.chart = Bar(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
+        self.chart = Bar(init_opts=InitOpts(theme=self.echarts_theme,
+                                            width="100%",
+                                            height='440px',
+                                            bg_color='background_color="rgba(0,0,0,0)"',
+                                            is_fill_bg_color=True)
+                         )
 
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 type_=["stack", "tiled"],
@@ -54,6 +59,7 @@ class BarChart(PyEChartsBase):
                 yaxis_opts=AxisOpts(axislabel_opts=LabelOpts(formatter="{value} 件"), name="数量"),
                 toolbox_opts=ToolboxOpts(feature=tool_box_feature_opts),
                 tooltip_opts=TooltipOpts(trigger="axis", axis_pointer_type="cross"),
+
                 )
 
         self.chart.set_series_opts(

@@ -18,7 +18,7 @@ class GroupByFilter(Query):
         return query.group_by(model.Inventory.brand, model.Inventory.item_name)
 
     @staticmethod
-    def custom_group_by(query: Query, group_by_query: list) -> Query:
+    def custom_group_by(query: Query, *group_by_query) -> Query:
         return query.group_by(*group_by_query)
 
 
@@ -93,7 +93,7 @@ class TimeFilter(Query):
                         model.Inventory.batch.has(model.Batch.created_time <= end_time)
                         )
 
-        elif time_filter_enum == TimeFilterEnum.Day:
+        elif time_filter_enum == TimeFilterEnum.Today:
             return query.filter(model.Inventory.batch.has(model.Batch.created_time >= today))
         elif time_filter_enum == TimeFilterEnum.Week:
             temp_time = today - timedelta(days=7)
@@ -145,7 +145,7 @@ class TimeFilter(Query):
             else:
                 return query.filter(model.Batch.created_time <= end_time)
 
-        elif time_filter_enum == TimeFilterEnum.Day:
+        elif time_filter_enum == TimeFilterEnum.Today:
             return query.filter(model.Batch.created_time >= today)
         elif time_filter_enum == TimeFilterEnum.Week:
             temp_time = today - timedelta(days=7)
@@ -197,7 +197,7 @@ class TimeFilter(Query):
             else:
                 return query.filter(model.Wave.created_time <= end_time)
 
-        elif time_filter_enum == TimeFilterEnum.Day:
+        elif time_filter_enum == TimeFilterEnum.Today:
             return query.filter(model.Wave.created_time >= today)
         elif time_filter_enum == TimeFilterEnum.Week:
             temp_time = today - timedelta(days=7)
