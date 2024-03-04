@@ -1,8 +1,9 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentIcon as FIF
-from qfluentwidgets import FluentWindow, InfoBadge, InfoBadgePosition, NavigationItemPosition
+from qfluentwidgets import FluentWindow, NavigationItemPosition
 
+from src.common.plugins.chart_plugins import server
 from src.view import chart_view, database_view, home_view, retrieval_view, setting_view, storage_view
 
 
@@ -69,6 +70,10 @@ class MainView(FluentWindow):
         # set the minimum window width that allows the navigation panel to be expanded
         # self.navigationInterface.setMinimumExpandWidth(900)
         # self.navigationInterface.expand(useAni=False)
+
+    def closeEvent(self, event):
+        server.stop()
+        event.accept()
 
 
 if __name__ == '__main__':
