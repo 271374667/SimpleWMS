@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Tuple
 
 from PySide6.QtWidgets import QApplication, QLCDNumber, QTableWidgetItem, QWidget
-from qfluentwidgets.components import (CompactSpinBox, LineEdit, PlainTextEdit, PushButton, SwitchButton, TableWidget,
+from qfluentwidgets.components import (LineEdit, PlainTextEdit, PushButton, SpinBox, SwitchButton, TableWidget,
                                        ToolTipFilter, TransparentPushButton)
 
 from src.interface.Ui_retrieval_page import Ui_Form
@@ -22,7 +22,7 @@ class RetrievalView(MessageBaseView):
     def get_is_repeat_switch_button(self) -> SwitchButton:
         return self.ui.SwitchButton
 
-    def get_wave_spinbox(self) -> CompactSpinBox:
+    def get_wave_spinbox(self) -> SpinBox:
         return self.ui.SpinBox_2
 
     def get_input_lineedit(self) -> LineEdit:

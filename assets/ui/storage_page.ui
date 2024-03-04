@@ -246,156 +246,10 @@
                 <property name="spacing">
                  <number>15</number>
                 </property>
-                <item row="1" column="1">
-                 <widget class="LineEdit" name="LineEdit_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>该选项区分大小写,Nike和NIKE会被视为两个牌子</string>
-                  </property>
-                  <property name="placeholderText">
-                   <string>输入品牌名称</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="CompactSpinBox" name="CompactSpinBox">
-                  <property name="toolTip">
-                   <string>进货批次,可以填写当月的过往批次,但是不允许批次数超过最新批次数+1</string>
-                  </property>
-                  <property name="suffix">
-                   <string>批</string>
-                  </property>
-                  <property name="prefix">
-                   <string>第</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_6">
+                <item row="2" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_3">
                   <property name="text">
-                   <string>自动批次</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="SwitchButton" name="SwitchButton_2">
-                  <property name="toolTip">
-                   <string>使用该选项会进入特殊的退货模式</string>
-                  </property>
-                  <property name="onText">
-                   <string>开启</string>
-                  </property>
-                  <property name="offText">
-                   <string>关闭</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_2">
-                  <property name="text">
-                   <string>品牌</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>LineEdit_2</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="CompactDoubleSpinBox" name="CompactDoubleSpinBox">
-                  <property name="toolTip">
-                   <string>支持小数点后两位,最多支持单价为十万</string>
-                  </property>
-                  <property name="suffix">
-                   <string>元</string>
-                  </property>
-                  <property name="maximum">
-                   <double>100000.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="CompactSpinBox" name="CompactSpinBox_2">
-                  <property name="toolTip">
-                   <string>同样的商品的数量,注意该数量不要超过打印机的打印纸数量</string>
-                  </property>
-                  <property name="suffix">
-                   <string>件</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>9999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="SwitchButton" name="SwitchButton">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的批次,如果最新批次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该批次,否则创建新的批次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="checked">
-                   <bool>false</bool>
-                  </property>
-                  <property name="onText">
-                   <string>开启</string>
-                  </property>
-                  <property name="offText">
-                   <string>关闭</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="0" colspan="2">
-                 <widget class="PrimaryPushButton" name="PrimaryPushButton">
-                  <property name="toolTip">
-                   <string>提交数据到右侧表格内</string>
-                  </property>
-                  <property name="text">
-                   <string>确认</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_8">
-                  <property name="text">
-                   <string>退货模式</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="LineEdit" name="LineEdit">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>商品的名称可以重复</string>
-                  </property>
-                  <property name="placeholderText">
-                   <string>输入商品的名称</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="BodyLabel" name="BodyLabel">
-                  <property name="text">
-                   <string>商品名称</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>LineEdit</cstring>
+                   <string>价格</string>
                   </property>
                  </widget>
                 </item>
@@ -427,24 +281,92 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_5">
-                  <property name="text">
-                   <string>批次</string>
+                <item row="0" column="1">
+                 <widget class="LineEdit" name="LineEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>商品的名称可以重复</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>输入商品的名称</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_4">
+                <item row="1" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_2">
                   <property name="text">
-                   <string>商品数量</string>
+                   <string>品牌</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>LineEdit_2</cstring>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="BodyLabel" name="BodyLabel_3">
+                <item row="6" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_8">
                   <property name="text">
-                   <string>价格</string>
+                   <string>退货模式</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0" colspan="2">
+                 <widget class="PrimaryPushButton" name="PrimaryPushButton">
+                  <property name="toolTip">
+                   <string>提交数据到右侧表格内</string>
+                  </property>
+                  <property name="text">
+                   <string>确认</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="LineEdit" name="LineEdit_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>该选项区分大小写,Nike和NIKE会被视为两个牌子</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>输入品牌名称</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="BodyLabel" name="BodyLabel">
+                  <property name="text">
+                   <string>商品名称</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>LineEdit</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_6">
+                  <property name="text">
+                   <string>自动批次</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="SwitchButton" name="SwitchButton_2">
+                  <property name="toolTip">
+                   <string>使用该选项会进入特殊的退货模式</string>
+                  </property>
+                  <property name="onText">
+                   <string>开启</string>
+                  </property>
+                  <property name="offText">
+                   <string>关闭</string>
                   </property>
                  </widget>
                 </item>
@@ -455,6 +377,84 @@
                   </property>
                   <property name="text">
                    <string>确认退货</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_4">
+                  <property name="text">
+                   <string>商品数量</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="SwitchButton" name="SwitchButton">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启后会从数据库中寻找目前最新的批次,如果最新批次是今天产生的&lt;/p&gt;&lt;p&gt;则会沿用该批次,否则创建新的批次&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                  <property name="onText">
+                   <string>开启</string>
+                  </property>
+                  <property name="offText">
+                   <string>关闭</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="BodyLabel" name="BodyLabel_5">
+                  <property name="text">
+                   <string>批次</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="DoubleSpinBox" name="CompactDoubleSpinBox">
+                  <property name="toolTip">
+                   <string>支持小数点后两位,最多支持单价为十万</string>
+                  </property>
+                  <property name="suffix">
+                   <string>元</string>
+                  </property>
+                  <property name="maximum">
+                   <double>100000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="SpinBox" name="CompactSpinBox">
+                  <property name="toolTip">
+                   <string>进货批次,可以填写当月的过往批次,但是不允许批次数超过最新批次数+1</string>
+                  </property>
+                  <property name="suffix">
+                   <string>批</string>
+                  </property>
+                  <property name="prefix">
+                   <string>第</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>999</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="SpinBox" name="CompactSpinBox_2">
+                  <property name="toolTip">
+                   <string>同样的商品的数量,注意该数量不要超过打印机的打印纸数量</string>
+                  </property>
+                  <property name="suffix">
+                   <string>件</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9999</number>
                   </property>
                  </widget>
                 </item>
@@ -730,12 +730,12 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>CompactSpinBox</class>
+   <class>SpinBox</class>
    <extends>QSpinBox</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>CompactDoubleSpinBox</class>
+   <class>DoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>qfluentwidgets</header>
   </customwidget>
@@ -752,6 +752,7 @@
   <tabstop>CompactSpinBox</tabstop>
   <tabstop>CompactSpinBox_2</tabstop>
   <tabstop>LineEdit_3</tabstop>
+  <tabstop>PushButton</tabstop>
   <tabstop>PrimaryPushButton</tabstop>
   <tabstop>TransparentPushButton_4</tabstop>
   <tabstop>TransparentPushButton</tabstop>
@@ -776,22 +777,6 @@
     <hint type="destinationlabel">
      <x>105</x>
      <y>402</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SwitchButton</sender>
-   <signal>checkedChanged(bool)</signal>
-   <receiver>CompactSpinBox</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>148</x>
-     <y>484</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>162</x>
-     <y>392</y>
     </hint>
    </hints>
   </connection>
@@ -862,22 +847,6 @@
   <connection>
    <sender>SwitchButton_2</sender>
    <signal>checkedChanged(bool)</signal>
-   <receiver>CompactSpinBox_2</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>225</x>
-     <y>517</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>176</x>
-     <y>433</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SwitchButton_2</sender>
-   <signal>checkedChanged(bool)</signal>
    <receiver>BodyLabel_3</receiver>
    <slot>setHidden(bool)</slot>
    <hints>
@@ -888,22 +857,6 @@
     <hint type="destinationlabel">
      <x>59</x>
      <y>351</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SwitchButton_2</sender>
-   <signal>checkedChanged(bool)</signal>
-   <receiver>CompactDoubleSpinBox</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>201</x>
-     <y>505</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>147</x>
-     <y>349</y>
     </hint>
    </hints>
   </connection>
@@ -1016,22 +969,6 @@
     <hint type="destinationlabel">
      <x>83</x>
      <y>378</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SwitchButton_2</sender>
-   <signal>checkedChanged(bool)</signal>
-   <receiver>CompactSpinBox</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>180</x>
-     <y>513</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>181</x>
-     <y>397</y>
     </hint>
    </hints>
   </connection>

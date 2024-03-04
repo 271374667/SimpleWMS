@@ -2,7 +2,7 @@ import importlib
 from pathlib import Path
 from typing import Optional
 
-from src.common.plugins.chart_plugins.brand_chart import BrandChartSet
+from src.common.plugins.chart_plugins.inventory_chart import BrandChartSet
 from src.common.plugins.database_plugins.basic_search_plugin import BasicSearchPlugin
 from src.common.plugins.database_plugins.out_of_stock_plugin import OutOfStockPlugin
 from src.common.plugins.database_plugins.return_times_plugin import ReturnTimesPlugin

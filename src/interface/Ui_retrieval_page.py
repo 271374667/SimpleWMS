@@ -19,9 +19,9 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLay
     QHeaderView, QLCDNumber, QSizePolicy, QTableWidgetItem,
     QVBoxLayout, QWidget)
 
-from qfluentwidgets import (BodyLabel, CardWidget, CompactSpinBox, HorizontalSeparator,
-    IconWidget, LargeTitleLabel, LineEdit, PlainTextEdit,
-    PushButton, SimpleCardWidget, SmoothScrollArea, SubtitleLabel,
+from qfluentwidgets import (BodyLabel, CardWidget, HorizontalSeparator, IconWidget,
+    LargeTitleLabel, LineEdit, PlainTextEdit, PushButton,
+    SimpleCardWidget, SmoothScrollArea, SpinBox, SubtitleLabel,
     SwitchButton, TableWidget, TransparentPushButton, VerticalSeparator)
 import resource_rc
 
@@ -183,7 +183,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_4.addWidget(self.BodyLabel_5)
 
-        self.SpinBox_2 = CompactSpinBox(self.SimpleCardWidget_3)
+        self.SpinBox_2 = SpinBox(self.SimpleCardWidget_3)
         self.SpinBox_2.setObjectName(u"SpinBox_2")
         self.SpinBox_2.setMinimum(1)
         self.SpinBox_2.setMaximum(999)
@@ -305,18 +305,17 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.SmoothScrollArea)
 
+        QWidget.setTabOrder(self.SpinBox_2, self.LineEdit)
         QWidget.setTabOrder(self.LineEdit, self.PushButton_2)
-        QWidget.setTabOrder(self.PushButton_2, self.TransparentPushButton_4)
+        QWidget.setTabOrder(self.PushButton_2, self.PlainTextEdit)
+        QWidget.setTabOrder(self.PlainTextEdit, self.TransparentPushButton_4)
         QWidget.setTabOrder(self.TransparentPushButton_4, self.TransparentPushButton_5)
         QWidget.setTabOrder(self.TransparentPushButton_5, self.TransparentPushButton_6)
         QWidget.setTabOrder(self.TransparentPushButton_6, self.TableWidget)
-        QWidget.setTabOrder(self.TableWidget, self.SpinBox_2)
-        QWidget.setTabOrder(self.SpinBox_2, self.PlainTextEdit)
-        QWidget.setTabOrder(self.PlainTextEdit, self.SmoothScrollArea)
+        QWidget.setTabOrder(self.TableWidget, self.SmoothScrollArea)
 
         self.retranslateUi(Form)
         self.SwitchButton_3.checkedChanged.connect(self.BodyLabel_5.setHidden)
-        self.SwitchButton_3.checkedChanged.connect(self.SpinBox_2.setHidden)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi

@@ -275,7 +275,7 @@
                </widget>
               </item>
               <item>
-               <widget class="CompactSpinBox" name="SpinBox_2">
+               <widget class="SpinBox" name="SpinBox_2">
                 <property name="toolTip">
                  <string>出货波次,可以填写当月的过往波次,但是不允许波次数超过最新波次数+1</string>
                 </property>
@@ -577,7 +577,7 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>CompactSpinBox</class>
+   <class>SpinBox</class>
    <extends>QSpinBox</extends>
    <header>qfluentwidgets</header>
   </customwidget>
@@ -588,14 +588,14 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>SpinBox_2</tabstop>
   <tabstop>LineEdit</tabstop>
   <tabstop>PushButton_2</tabstop>
+  <tabstop>PlainTextEdit</tabstop>
   <tabstop>TransparentPushButton_4</tabstop>
   <tabstop>TransparentPushButton_5</tabstop>
   <tabstop>TransparentPushButton_6</tabstop>
   <tabstop>TableWidget</tabstop>
-  <tabstop>SpinBox_2</tabstop>
-  <tabstop>PlainTextEdit</tabstop>
   <tabstop>SmoothScrollArea</tabstop>
  </tabstops>
  <resources>
@@ -615,22 +615,6 @@
     <hint type="destinationlabel">
      <x>104</x>
      <y>309</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SwitchButton_3</sender>
-   <signal>checkedChanged(bool)</signal>
-   <receiver>SpinBox_2</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>198</x>
-     <y>255</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>215</x>
-     <y>298</y>
     </hint>
    </hints>
   </connection>

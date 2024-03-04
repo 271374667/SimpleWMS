@@ -10,8 +10,10 @@ from functools import partial
 from pathlib import Path
 
 import loguru
+from pyecharts.globals import CurrentConfig
 
 from src.constant import PYECHART_ASSETS
+
 
 
 class HttpServer:
@@ -25,11 +27,20 @@ class HttpServer:
     def run(self):
         handler = partial(http.server.SimpleHTTPRequestHandler, directory=self.local_dir)
         handler.directory = str(self.local_dir)
+        try:
+            self.httpd = socketserver.TCPServer((self.host, self.port), handler)
+            self.server_thread = threading.Thread(target=self.httpd.serve_forever)
+            self.server_thread.start()
+            loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
+        except OSError as e:
+            loguru.logger.error(f"图表线程启动失败,正在切换端口,错误信息: {e}")
+            self.port += 1
+            self.httpd = socketserver.TCPServer((self.host, self.port), handler)
+            self.server_thread = threading.Thread(target=self.httpd.serve_forever)
+            self.server_thread.start()
+            loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
 
-        self.httpd = socketserver.TCPServer((self.host, self.port), handler)
-        self.server_thread = threading.Thread(target=self.httpd.serve_forever)
-        self.server_thread.start()
-        loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
+        CurrentConfig.ONLINE_HOST = f"http://127.0.0.1:{self.port}/"
 
     def stop(self):
         if self.httpd is not None:

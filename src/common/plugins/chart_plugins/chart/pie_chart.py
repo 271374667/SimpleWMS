@@ -13,9 +13,15 @@ class PieChart(PyEChartsBase):
                  chart_title: Optional[str] = None,
                  chart_subtitle: Optional[str] = None):
         super().__init__()
-        self.chart = Pie(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
         self._data = data
+        self.chart = Pie(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
+        if self._data:
+            self._create_chart(chart_title, chart_subtitle)
 
+    def get_chart(self) -> Pie:
+        return self.chart
+
+    def _create_chart(self, chart_title: Optional[str] = None, chart_subtitle: Optional[str] = None) -> Pie:
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 is_show=False
                 )
@@ -72,8 +78,6 @@ class PieChart(PyEChartsBase):
                         position="outside",
                         ),
                 )
-
-    def get_chart(self) -> Pie:
         return self.chart
 
 

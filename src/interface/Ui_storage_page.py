@@ -19,9 +19,9 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QHBoxLayout, QHeaderView, QLCDNumber, QSizePolicy,
     QSpacerItem, QTableWidgetItem, QVBoxLayout, QWidget)
 
-from qfluentwidgets import (BodyLabel, CardWidget, CompactDoubleSpinBox, CompactSpinBox,
-    HorizontalSeparator, IconWidget, LargeTitleLabel, LineEdit,
-    PrimaryPushButton, PushButton, SimpleCardWidget, SmoothScrollArea,
+from qfluentwidgets import (BodyLabel, CardWidget, DoubleSpinBox, HorizontalSeparator,
+    IconWidget, LargeTitleLabel, LineEdit, PrimaryPushButton,
+    PushButton, SimpleCardWidget, SmoothScrollArea, SpinBox,
     SubtitleLabel, SwitchButton, TableWidget, TransparentPushButton,
     VerticalSeparator)
 import resource_rc
@@ -155,75 +155,10 @@ class Ui_Form(object):
         self.gridLayout.setSpacing(15)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(15, 15, 15, 15)
-        self.LineEdit_2 = LineEdit(self.CardWidget)
-        self.LineEdit_2.setObjectName(u"LineEdit_2")
-        sizePolicy1.setHeightForWidth(self.LineEdit_2.sizePolicy().hasHeightForWidth())
-        self.LineEdit_2.setSizePolicy(sizePolicy1)
+        self.BodyLabel_3 = BodyLabel(self.CardWidget)
+        self.BodyLabel_3.setObjectName(u"BodyLabel_3")
 
-        self.gridLayout.addWidget(self.LineEdit_2, 1, 1, 1, 1)
-
-        self.CompactSpinBox = CompactSpinBox(self.CardWidget)
-        self.CompactSpinBox.setObjectName(u"CompactSpinBox")
-        self.CompactSpinBox.setMinimum(1)
-        self.CompactSpinBox.setMaximum(999)
-
-        self.gridLayout.addWidget(self.CompactSpinBox, 3, 1, 1, 1)
-
-        self.BodyLabel_6 = BodyLabel(self.CardWidget)
-        self.BodyLabel_6.setObjectName(u"BodyLabel_6")
-
-        self.gridLayout.addWidget(self.BodyLabel_6, 5, 0, 1, 1)
-
-        self.SwitchButton_2 = SwitchButton(self.CardWidget)
-        self.SwitchButton_2.setObjectName(u"SwitchButton_2")
-
-        self.gridLayout.addWidget(self.SwitchButton_2, 6, 1, 1, 1)
-
-        self.BodyLabel_2 = BodyLabel(self.CardWidget)
-        self.BodyLabel_2.setObjectName(u"BodyLabel_2")
-
-        self.gridLayout.addWidget(self.BodyLabel_2, 1, 0, 1, 1)
-
-        self.CompactDoubleSpinBox = CompactDoubleSpinBox(self.CardWidget)
-        self.CompactDoubleSpinBox.setObjectName(u"CompactDoubleSpinBox")
-        self.CompactDoubleSpinBox.setMaximum(100000.000000000000000)
-
-        self.gridLayout.addWidget(self.CompactDoubleSpinBox, 2, 1, 1, 1)
-
-        self.CompactSpinBox_2 = CompactSpinBox(self.CardWidget)
-        self.CompactSpinBox_2.setObjectName(u"CompactSpinBox_2")
-        self.CompactSpinBox_2.setMinimum(1)
-        self.CompactSpinBox_2.setMaximum(9999)
-
-        self.gridLayout.addWidget(self.CompactSpinBox_2, 4, 1, 1, 1)
-
-        self.SwitchButton = SwitchButton(self.CardWidget)
-        self.SwitchButton.setObjectName(u"SwitchButton")
-        self.SwitchButton.setChecked(False)
-
-        self.gridLayout.addWidget(self.SwitchButton, 5, 1, 1, 1)
-
-        self.PrimaryPushButton = PrimaryPushButton(self.CardWidget)
-        self.PrimaryPushButton.setObjectName(u"PrimaryPushButton")
-
-        self.gridLayout.addWidget(self.PrimaryPushButton, 10, 0, 1, 2)
-
-        self.BodyLabel_8 = BodyLabel(self.CardWidget)
-        self.BodyLabel_8.setObjectName(u"BodyLabel_8")
-
-        self.gridLayout.addWidget(self.BodyLabel_8, 6, 0, 1, 1)
-
-        self.LineEdit = LineEdit(self.CardWidget)
-        self.LineEdit.setObjectName(u"LineEdit")
-        sizePolicy1.setHeightForWidth(self.LineEdit.sizePolicy().hasHeightForWidth())
-        self.LineEdit.setSizePolicy(sizePolicy1)
-
-        self.gridLayout.addWidget(self.LineEdit, 0, 1, 1, 1)
-
-        self.BodyLabel = BodyLabel(self.CardWidget)
-        self.BodyLabel.setObjectName(u"BodyLabel")
-
-        self.gridLayout.addWidget(self.BodyLabel, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.BodyLabel_3, 2, 0, 1, 1)
 
         self.LineEdit_3 = LineEdit(self.CardWidget)
         self.LineEdit_3.setObjectName(u"LineEdit_3")
@@ -238,25 +173,90 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.LineEdit_3, 8, 0, 1, 2)
 
-        self.BodyLabel_5 = BodyLabel(self.CardWidget)
-        self.BodyLabel_5.setObjectName(u"BodyLabel_5")
+        self.LineEdit = LineEdit(self.CardWidget)
+        self.LineEdit.setObjectName(u"LineEdit")
+        sizePolicy1.setHeightForWidth(self.LineEdit.sizePolicy().hasHeightForWidth())
+        self.LineEdit.setSizePolicy(sizePolicy1)
 
-        self.gridLayout.addWidget(self.BodyLabel_5, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.LineEdit, 0, 1, 1, 1)
+
+        self.BodyLabel_2 = BodyLabel(self.CardWidget)
+        self.BodyLabel_2.setObjectName(u"BodyLabel_2")
+
+        self.gridLayout.addWidget(self.BodyLabel_2, 1, 0, 1, 1)
+
+        self.BodyLabel_8 = BodyLabel(self.CardWidget)
+        self.BodyLabel_8.setObjectName(u"BodyLabel_8")
+
+        self.gridLayout.addWidget(self.BodyLabel_8, 6, 0, 1, 1)
+
+        self.PrimaryPushButton = PrimaryPushButton(self.CardWidget)
+        self.PrimaryPushButton.setObjectName(u"PrimaryPushButton")
+
+        self.gridLayout.addWidget(self.PrimaryPushButton, 10, 0, 1, 2)
+
+        self.LineEdit_2 = LineEdit(self.CardWidget)
+        self.LineEdit_2.setObjectName(u"LineEdit_2")
+        sizePolicy1.setHeightForWidth(self.LineEdit_2.sizePolicy().hasHeightForWidth())
+        self.LineEdit_2.setSizePolicy(sizePolicy1)
+
+        self.gridLayout.addWidget(self.LineEdit_2, 1, 1, 1, 1)
+
+        self.BodyLabel = BodyLabel(self.CardWidget)
+        self.BodyLabel.setObjectName(u"BodyLabel")
+
+        self.gridLayout.addWidget(self.BodyLabel, 0, 0, 1, 1)
+
+        self.BodyLabel_6 = BodyLabel(self.CardWidget)
+        self.BodyLabel_6.setObjectName(u"BodyLabel_6")
+
+        self.gridLayout.addWidget(self.BodyLabel_6, 5, 0, 1, 1)
+
+        self.SwitchButton_2 = SwitchButton(self.CardWidget)
+        self.SwitchButton_2.setObjectName(u"SwitchButton_2")
+
+        self.gridLayout.addWidget(self.SwitchButton_2, 6, 1, 1, 1)
+
+        self.PushButton = PushButton(self.CardWidget)
+        self.PushButton.setObjectName(u"PushButton")
+
+        self.gridLayout.addWidget(self.PushButton, 9, 0, 1, 2)
 
         self.BodyLabel_4 = BodyLabel(self.CardWidget)
         self.BodyLabel_4.setObjectName(u"BodyLabel_4")
 
         self.gridLayout.addWidget(self.BodyLabel_4, 4, 0, 1, 1)
 
-        self.BodyLabel_3 = BodyLabel(self.CardWidget)
-        self.BodyLabel_3.setObjectName(u"BodyLabel_3")
+        self.SwitchButton = SwitchButton(self.CardWidget)
+        self.SwitchButton.setObjectName(u"SwitchButton")
+        self.SwitchButton.setChecked(False)
 
-        self.gridLayout.addWidget(self.BodyLabel_3, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.SwitchButton, 5, 1, 1, 1)
 
-        self.PushButton = PushButton(self.CardWidget)
-        self.PushButton.setObjectName(u"PushButton")
+        self.BodyLabel_5 = BodyLabel(self.CardWidget)
+        self.BodyLabel_5.setObjectName(u"BodyLabel_5")
 
-        self.gridLayout.addWidget(self.PushButton, 9, 0, 1, 2)
+        self.gridLayout.addWidget(self.BodyLabel_5, 3, 0, 1, 1)
+
+        self.CompactDoubleSpinBox = DoubleSpinBox(self.CardWidget)
+        self.CompactDoubleSpinBox.setObjectName(u"CompactDoubleSpinBox")
+        self.CompactDoubleSpinBox.setMaximum(100000.000000000000000)
+
+        self.gridLayout.addWidget(self.CompactDoubleSpinBox, 2, 1, 1, 1)
+
+        self.CompactSpinBox = SpinBox(self.CardWidget)
+        self.CompactSpinBox.setObjectName(u"CompactSpinBox")
+        self.CompactSpinBox.setMinimum(1)
+        self.CompactSpinBox.setMaximum(999)
+
+        self.gridLayout.addWidget(self.CompactSpinBox, 3, 1, 1, 1)
+
+        self.CompactSpinBox_2 = SpinBox(self.CardWidget)
+        self.CompactSpinBox_2.setObjectName(u"CompactSpinBox_2")
+        self.CompactSpinBox_2.setMinimum(1)
+        self.CompactSpinBox_2.setMaximum(9999)
+
+        self.gridLayout.addWidget(self.CompactSpinBox_2, 4, 1, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout)
@@ -369,7 +369,8 @@ class Ui_Form(object):
         QWidget.setTabOrder(self.CompactDoubleSpinBox, self.CompactSpinBox)
         QWidget.setTabOrder(self.CompactSpinBox, self.CompactSpinBox_2)
         QWidget.setTabOrder(self.CompactSpinBox_2, self.LineEdit_3)
-        QWidget.setTabOrder(self.LineEdit_3, self.PrimaryPushButton)
+        QWidget.setTabOrder(self.LineEdit_3, self.PushButton)
+        QWidget.setTabOrder(self.PushButton, self.PrimaryPushButton)
         QWidget.setTabOrder(self.PrimaryPushButton, self.TransparentPushButton_4)
         QWidget.setTabOrder(self.TransparentPushButton_4, self.TransparentPushButton)
         QWidget.setTabOrder(self.TransparentPushButton, self.TransparentPushButton_3)
@@ -378,14 +379,11 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.SwitchButton.checkedChanged.connect(self.BodyLabel_5.setHidden)
-        self.SwitchButton.checkedChanged.connect(self.CompactSpinBox.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.LineEdit_3.setVisible)
         self.SwitchButton_2.checkedChanged.connect(self.PushButton.setVisible)
         self.SwitchButton_2.checkedChanged.connect(self.PrimaryPushButton.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_4.setHidden)
-        self.SwitchButton_2.checkedChanged.connect(self.CompactSpinBox_2.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_3.setHidden)
-        self.SwitchButton_2.checkedChanged.connect(self.CompactDoubleSpinBox.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_2.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.LineEdit_2.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.LineEdit.setHidden)
@@ -393,7 +391,6 @@ class Ui_Form(object):
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_6.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.SwitchButton.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_5.setHidden)
-        self.SwitchButton_2.checkedChanged.connect(self.CompactSpinBox.setHidden)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
@@ -404,57 +401,57 @@ class Ui_Form(object):
         self.BodyLabel_7.setText(QCoreApplication.translate("Form", u"\u5c06\u5546\u54c1\u5199\u5165\u6570\u636e\u5e93,\u751f\u6210excel\u540e\u4f7f\u7528\u6253\u5370\u673a\u6253\u5370", None))
         self.SubtitleLabel_2.setText(QCoreApplication.translate("Form", u"\u6700\u65b0\u6279\u6b21\uff1a", None))
         self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"\u5165\u5e93\u4fe1\u606f", None))
+        self.BodyLabel_3.setText(QCoreApplication.translate("Form", u"\u4ef7\u683c", None))
+#if QT_CONFIG(tooltip)
+        self.LineEdit_3.setToolTip(QCoreApplication.translate("Form", u"\u60a8\u53ef\u4ee5\u76f4\u63a5\u5728\u6b64\u5904\u4f7f\u7528\u626b\u7801\u67aa\u6216\u8005\u4f7f\u7528\u56de\u8f66\u8fdb\u884c\u5feb\u6377\u8f93\u5165", None))
+#endif // QT_CONFIG(tooltip)
+        self.LineEdit_3.setInputMask("")
+        self.LineEdit_3.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u9000\u8d27\u7684EAN13\u7801", None))
+#if QT_CONFIG(tooltip)
+        self.LineEdit.setToolTip(QCoreApplication.translate("Form", u"\u5546\u54c1\u7684\u540d\u79f0\u53ef\u4ee5\u91cd\u590d", None))
+#endif // QT_CONFIG(tooltip)
+        self.LineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u5546\u54c1\u7684\u540d\u79f0", None))
+        self.BodyLabel_2.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None))
+        self.BodyLabel_8.setText(QCoreApplication.translate("Form", u"\u9000\u8d27\u6a21\u5f0f", None))
+#if QT_CONFIG(tooltip)
+        self.PrimaryPushButton.setToolTip(QCoreApplication.translate("Form", u"\u63d0\u4ea4\u6570\u636e\u5230\u53f3\u4fa7\u8868\u683c\u5185", None))
+#endif // QT_CONFIG(tooltip)
+        self.PrimaryPushButton.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4", None))
 #if QT_CONFIG(tooltip)
         self.LineEdit_2.setToolTip(QCoreApplication.translate("Form", u"\u8be5\u9009\u9879\u533a\u5206\u5927\u5c0f\u5199,Nike\u548cNIKE\u4f1a\u88ab\u89c6\u4e3a\u4e24\u4e2a\u724c\u5b50", None))
 #endif // QT_CONFIG(tooltip)
         self.LineEdit_2.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u54c1\u724c\u540d\u79f0", None))
-#if QT_CONFIG(tooltip)
-        self.CompactSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u8fdb\u8d27\u6279\u6b21,\u53ef\u4ee5\u586b\u5199\u5f53\u6708\u7684\u8fc7\u5f80\u6279\u6b21,\u4f46\u662f\u4e0d\u5141\u8bb8\u6279\u6b21\u6570\u8d85\u8fc7\u6700\u65b0\u6279\u6b21\u6570+1", None))
-#endif // QT_CONFIG(tooltip)
-        self.CompactSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u6279", None))
-        self.CompactSpinBox.setPrefix(QCoreApplication.translate("Form", u"\u7b2c", None))
+        self.BodyLabel.setText(QCoreApplication.translate("Form", u"\u5546\u54c1\u540d\u79f0", None))
         self.BodyLabel_6.setText(QCoreApplication.translate("Form", u"\u81ea\u52a8\u6279\u6b21", None))
 #if QT_CONFIG(tooltip)
         self.SwitchButton_2.setToolTip(QCoreApplication.translate("Form", u"\u4f7f\u7528\u8be5\u9009\u9879\u4f1a\u8fdb\u5165\u7279\u6b8a\u7684\u9000\u8d27\u6a21\u5f0f", None))
 #endif // QT_CONFIG(tooltip)
         self.SwitchButton_2.setOnText(QCoreApplication.translate("Form", u"\u5f00\u542f", None))
         self.SwitchButton_2.setOffText(QCoreApplication.translate("Form", u"\u5173\u95ed", None))
-        self.BodyLabel_2.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None))
 #if QT_CONFIG(tooltip)
-        self.CompactDoubleSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u652f\u6301\u5c0f\u6570\u70b9\u540e\u4e24\u4f4d,\u6700\u591a\u652f\u6301\u5355\u4ef7\u4e3a\u5341\u4e07", None))
+        self.PushButton.setToolTip(QCoreApplication.translate("Form", u"\u70b9\u51fb\u6b64\u5904\u8fdb\u884c\u9000\u8d27,\u60a8\u4e5f\u53ef\u4ee5\u5728\u4e0a\u65b9\u56de\u8f66\u6216\u8005\u4f7f\u7528\u626b\u7801\u67aa", None))
 #endif // QT_CONFIG(tooltip)
-        self.CompactDoubleSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5143", None))
-#if QT_CONFIG(tooltip)
-        self.CompactSpinBox_2.setToolTip(QCoreApplication.translate("Form", u"\u540c\u6837\u7684\u5546\u54c1\u7684\u6570\u91cf,\u6ce8\u610f\u8be5\u6570\u91cf\u4e0d\u8981\u8d85\u8fc7\u6253\u5370\u673a\u7684\u6253\u5370\u7eb8\u6570\u91cf", None))
-#endif // QT_CONFIG(tooltip)
-        self.CompactSpinBox_2.setSuffix(QCoreApplication.translate("Form", u"\u4ef6", None))
+        self.PushButton.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4\u9000\u8d27", None))
+        self.BodyLabel_4.setText(QCoreApplication.translate("Form", u"\u5546\u54c1\u6570\u91cf", None))
 #if QT_CONFIG(tooltip)
         self.SwitchButton.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u5f00\u542f\u540e\u4f1a\u4ece\u6570\u636e\u5e93\u4e2d\u5bfb\u627e\u76ee\u524d\u6700\u65b0\u7684\u6279\u6b21,\u5982\u679c\u6700\u65b0\u6279\u6b21\u662f\u4eca\u5929\u4ea7\u751f\u7684</p><p>\u5219\u4f1a\u6cbf\u7528\u8be5\u6279\u6b21,\u5426\u5219\u521b\u5efa\u65b0\u7684\u6279\u6b21</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.SwitchButton.setOnText(QCoreApplication.translate("Form", u"\u5f00\u542f", None))
         self.SwitchButton.setOffText(QCoreApplication.translate("Form", u"\u5173\u95ed", None))
-#if QT_CONFIG(tooltip)
-        self.PrimaryPushButton.setToolTip(QCoreApplication.translate("Form", u"\u63d0\u4ea4\u6570\u636e\u5230\u53f3\u4fa7\u8868\u683c\u5185", None))
-#endif // QT_CONFIG(tooltip)
-        self.PrimaryPushButton.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4", None))
-        self.BodyLabel_8.setText(QCoreApplication.translate("Form", u"\u9000\u8d27\u6a21\u5f0f", None))
-#if QT_CONFIG(tooltip)
-        self.LineEdit.setToolTip(QCoreApplication.translate("Form", u"\u5546\u54c1\u7684\u540d\u79f0\u53ef\u4ee5\u91cd\u590d", None))
-#endif // QT_CONFIG(tooltip)
-        self.LineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u5546\u54c1\u7684\u540d\u79f0", None))
-        self.BodyLabel.setText(QCoreApplication.translate("Form", u"\u5546\u54c1\u540d\u79f0", None))
-#if QT_CONFIG(tooltip)
-        self.LineEdit_3.setToolTip(QCoreApplication.translate("Form", u"\u60a8\u53ef\u4ee5\u76f4\u63a5\u5728\u6b64\u5904\u4f7f\u7528\u626b\u7801\u67aa\u6216\u8005\u4f7f\u7528\u56de\u8f66\u8fdb\u884c\u5feb\u6377\u8f93\u5165", None))
-#endif // QT_CONFIG(tooltip)
-        self.LineEdit_3.setInputMask("")
-        self.LineEdit_3.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u9000\u8d27\u7684EAN13\u7801", None))
         self.BodyLabel_5.setText(QCoreApplication.translate("Form", u"\u6279\u6b21", None))
-        self.BodyLabel_4.setText(QCoreApplication.translate("Form", u"\u5546\u54c1\u6570\u91cf", None))
-        self.BodyLabel_3.setText(QCoreApplication.translate("Form", u"\u4ef7\u683c", None))
 #if QT_CONFIG(tooltip)
-        self.PushButton.setToolTip(QCoreApplication.translate("Form", u"\u70b9\u51fb\u6b64\u5904\u8fdb\u884c\u9000\u8d27,\u60a8\u4e5f\u53ef\u4ee5\u5728\u4e0a\u65b9\u56de\u8f66\u6216\u8005\u4f7f\u7528\u626b\u7801\u67aa", None))
+        self.CompactDoubleSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u652f\u6301\u5c0f\u6570\u70b9\u540e\u4e24\u4f4d,\u6700\u591a\u652f\u6301\u5355\u4ef7\u4e3a\u5341\u4e07", None))
 #endif // QT_CONFIG(tooltip)
-        self.PushButton.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4\u9000\u8d27", None))
+        self.CompactDoubleSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5143", None))
+#if QT_CONFIG(tooltip)
+        self.CompactSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u8fdb\u8d27\u6279\u6b21,\u53ef\u4ee5\u586b\u5199\u5f53\u6708\u7684\u8fc7\u5f80\u6279\u6b21,\u4f46\u662f\u4e0d\u5141\u8bb8\u6279\u6b21\u6570\u8d85\u8fc7\u6700\u65b0\u6279\u6b21\u6570+1", None))
+#endif // QT_CONFIG(tooltip)
+        self.CompactSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u6279", None))
+        self.CompactSpinBox.setPrefix(QCoreApplication.translate("Form", u"\u7b2c", None))
+#if QT_CONFIG(tooltip)
+        self.CompactSpinBox_2.setToolTip(QCoreApplication.translate("Form", u"\u540c\u6837\u7684\u5546\u54c1\u7684\u6570\u91cf,\u6ce8\u610f\u8be5\u6570\u91cf\u4e0d\u8981\u8d85\u8fc7\u6253\u5370\u673a\u7684\u6253\u5370\u7eb8\u6570\u91cf", None))
+#endif // QT_CONFIG(tooltip)
+        self.CompactSpinBox_2.setSuffix(QCoreApplication.translate("Form", u"\u4ef6", None))
         self.TransparentPushButton_4.setText(QCoreApplication.translate("Form", u"\u5220\u9664\u5f53\u524d\u884c", None))
         self.TransparentPushButton.setText(QCoreApplication.translate("Form", u"\u6e05\u7a7a\u5168\u90e8", None))
 #if QT_CONFIG(tooltip)

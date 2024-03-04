@@ -1,11 +1,10 @@
 from datetime import date, timedelta
-from typing import List, Optional, Tuple, Union, Sequence
+from typing import List, Optional, Sequence, Tuple, Union
 
 from pyecharts.charts import Line
-from pyecharts.options import (AxisOpts, DataZoomOpts, InitOpts, LabelOpts, MarkLineItem, MarkLineOpts, MarkPointItem,
-                               MarkPointOpts,
-                               TitleOpts, ToolBoxFeatureDataViewOpts, ToolBoxFeatureMagicTypeOpts, ToolBoxFeatureOpts,
-                               ToolboxOpts)
+from pyecharts.options import (AnimationOpts, AxisOpts, DataZoomOpts, InitOpts, LabelOpts, MarkLineItem, MarkLineOpts,
+                               MarkPointItem, MarkPointOpts, TitleOpts, ToolBoxFeatureDataViewOpts,
+                               ToolBoxFeatureMagicTypeOpts, ToolBoxFeatureOpts, ToolboxOpts)
 
 from src.common.plugins.chart_plugins.chart.chart_base import PyEChartsBase
 
@@ -17,7 +16,8 @@ class LineChart(PyEChartsBase):
                  chart_subtitle: Optional[str] = None,
                  ):
         super().__init__()
-        self.chart = Line(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px'))
+        self.chart = Line(init_opts=InitOpts(theme=self.echarts_theme, width="100%", height='440px',
+                                             animation_opts=AnimationOpts(animation_threshold=2)))
         tool_box_feature_magic_type_opts = ToolBoxFeatureMagicTypeOpts(
                 type_=["stack", "tiled"],
                 )
@@ -72,7 +72,6 @@ class LineChart(PyEChartsBase):
 if __name__ == '__main__':
     from PySide6.QtWidgets import QApplication
     from PySide6.QtWebEngineWidgets import QWebEngineView
-    from random import randint
 
     app = QApplication([])
     web = QWebEngineView()
