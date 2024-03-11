@@ -102,9 +102,6 @@
           <property name="text">
            <string>根据价格查找</string>
           </property>
-          <property name="buddy">
-           <cstring>CompactDoubleSpinBox</cstring>
-          </property>
          </widget>
         </item>
         <item>
@@ -115,7 +112,7 @@
          </widget>
         </item>
         <item>
-         <widget class="CompactDoubleSpinBox" name="CompactDoubleSpinBox">
+         <widget class="DoubleSpinBox" name="DoubleSpinBox">
           <property name="toolTip">
            <string>价格最大支持10万元</string>
           </property>
@@ -197,9 +194,6 @@
           <property name="text">
            <string>根据存放时间查找:</string>
           </property>
-          <property name="buddy">
-           <cstring>CompactSpinBox</cstring>
-          </property>
          </widget>
         </item>
         <item>
@@ -210,7 +204,7 @@
          </widget>
         </item>
         <item>
-         <widget class="CompactSpinBox" name="CompactSpinBox">
+         <widget class="SpinBox" name="SpinBox">
           <property name="toolTip">
            <string>天数最长支持搜索365天</string>
           </property>
@@ -313,12 +307,12 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>CompactSpinBox</class>
+   <class>SpinBox</class>
    <extends>QSpinBox</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>CompactDoubleSpinBox</class>
+   <class>DoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>qfluentwidgets</header>
   </customwidget>
@@ -328,11 +322,11 @@
   <tabstop>LineEdit_5</tabstop>
   <tabstop>LineEdit</tabstop>
   <tabstop>ComboBox</tabstop>
-  <tabstop>CompactDoubleSpinBox</tabstop>
+  <tabstop>DoubleSpinBox</tabstop>
   <tabstop>LineEdit_2</tabstop>
   <tabstop>LineEdit_4</tabstop>
   <tabstop>ComboBox_2</tabstop>
-  <tabstop>CompactSpinBox</tabstop>
+  <tabstop>SpinBox</tabstop>
   <tabstop>PushButton</tabstop>
   <tabstop>CheckBox</tabstop>
   <tabstop>CheckBox_2</tabstop>

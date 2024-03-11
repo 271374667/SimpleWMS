@@ -1,4 +1,11 @@
+import subprocess
+import sys
+from PySide6.QtWidgets import QApplication
+
+import loguru
+
 from src.config import cfg
+from src.constant import DATABASE_FILE
 
 
 class SettingModel:

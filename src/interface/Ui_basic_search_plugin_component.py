@@ -18,8 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QSizePolicy,
     QVBoxLayout, QWidget)
 
-from qfluentwidgets import (BodyLabel, CheckBox, ComboBox, CompactDoubleSpinBox,
-    CompactSpinBox, LineEdit, PushButton, SwitchButton)
+from qfluentwidgets import (BodyLabel, CheckBox, ComboBox, DoubleSpinBox,
+    LineEdit, PushButton, SpinBox, SwitchButton)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -90,11 +90,11 @@ class Ui_Form(object):
 
         self.horizontalLayout.addWidget(self.ComboBox)
 
-        self.CompactDoubleSpinBox = CompactDoubleSpinBox(self.groupBox)
-        self.CompactDoubleSpinBox.setObjectName(u"CompactDoubleSpinBox")
-        self.CompactDoubleSpinBox.setMaximum(100000.000000000000000)
+        self.DoubleSpinBox = DoubleSpinBox(self.groupBox)
+        self.DoubleSpinBox.setObjectName(u"DoubleSpinBox")
+        self.DoubleSpinBox.setMaximum(100000.000000000000000)
 
-        self.horizontalLayout.addWidget(self.CompactDoubleSpinBox)
+        self.horizontalLayout.addWidget(self.DoubleSpinBox)
 
         self.SwitchButton = SwitchButton(self.groupBox)
         self.SwitchButton.setObjectName(u"SwitchButton")
@@ -146,11 +146,11 @@ class Ui_Form(object):
 
         self.horizontalLayout_6.addWidget(self.ComboBox_2)
 
-        self.CompactSpinBox = CompactSpinBox(self.groupBox)
-        self.CompactSpinBox.setObjectName(u"CompactSpinBox")
-        self.CompactSpinBox.setMaximum(365)
+        self.SpinBox = SpinBox(self.groupBox)
+        self.SpinBox.setObjectName(u"SpinBox")
+        self.SpinBox.setMaximum(365)
 
-        self.horizontalLayout_6.addWidget(self.CompactSpinBox)
+        self.horizontalLayout_6.addWidget(self.SpinBox)
 
         self.SwitchButton_2 = SwitchButton(self.groupBox)
         self.SwitchButton_2.setObjectName(u"SwitchButton_2")
@@ -189,20 +189,18 @@ class Ui_Form(object):
         self.BodyLabel_3.setBuddy(self.LineEdit_3)
         self.BodyLabel_7.setBuddy(self.LineEdit_5)
         self.BodyLabel.setBuddy(self.LineEdit)
-        self.BodyLabel_5.setBuddy(self.CompactDoubleSpinBox)
         self.BodyLabel_2.setBuddy(self.LineEdit_2)
         self.BodyLabel_4.setBuddy(self.LineEdit_4)
-        self.BodyLabel_6.setBuddy(self.CompactSpinBox)
 #endif // QT_CONFIG(shortcut)
         QWidget.setTabOrder(self.LineEdit_3, self.LineEdit_5)
         QWidget.setTabOrder(self.LineEdit_5, self.LineEdit)
         QWidget.setTabOrder(self.LineEdit, self.ComboBox)
-        QWidget.setTabOrder(self.ComboBox, self.CompactDoubleSpinBox)
-        QWidget.setTabOrder(self.CompactDoubleSpinBox, self.LineEdit_2)
+        QWidget.setTabOrder(self.ComboBox, self.DoubleSpinBox)
+        QWidget.setTabOrder(self.DoubleSpinBox, self.LineEdit_2)
         QWidget.setTabOrder(self.LineEdit_2, self.LineEdit_4)
         QWidget.setTabOrder(self.LineEdit_4, self.ComboBox_2)
-        QWidget.setTabOrder(self.ComboBox_2, self.CompactSpinBox)
-        QWidget.setTabOrder(self.CompactSpinBox, self.PushButton)
+        QWidget.setTabOrder(self.ComboBox_2, self.SpinBox)
+        QWidget.setTabOrder(self.SpinBox, self.PushButton)
         QWidget.setTabOrder(self.PushButton, self.CheckBox)
         QWidget.setTabOrder(self.CheckBox, self.CheckBox_2)
 
@@ -237,9 +235,9 @@ class Ui_Form(object):
         self.BodyLabel_5.setText(QCoreApplication.translate("Form", u"\u6839\u636e\u4ef7\u683c\u67e5\u627e", None))
         self.ComboBox.setText(QCoreApplication.translate("Form", u"\u7b49\u4e8e", None))
 #if QT_CONFIG(tooltip)
-        self.CompactDoubleSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u4ef7\u683c\u6700\u5927\u652f\u630110\u4e07\u5143", None))
+        self.DoubleSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u4ef7\u683c\u6700\u5927\u652f\u630110\u4e07\u5143", None))
 #endif // QT_CONFIG(tooltip)
-        self.CompactDoubleSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5143", None))
+        self.DoubleSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5143", None))
 #if QT_CONFIG(tooltip)
         self.SwitchButton.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u5f00\u542f\u8be5\u9009\u9879\u624d\u80fd\u8fdb\u884c\u4ef7\u683c\u67e5\u627e</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -258,9 +256,9 @@ class Ui_Form(object):
         self.BodyLabel_6.setText(QCoreApplication.translate("Form", u"\u6839\u636e\u5b58\u653e\u65f6\u95f4\u67e5\u627e:", None))
         self.ComboBox_2.setText(QCoreApplication.translate("Form", u"\u7b49\u4e8e", None))
 #if QT_CONFIG(tooltip)
-        self.CompactSpinBox.setToolTip(QCoreApplication.translate("Form", u"\u5929\u6570\u6700\u957f\u652f\u6301\u641c\u7d22365\u5929", None))
+        self.SpinBox.setToolTip(QCoreApplication.translate("Form", u"\u5929\u6570\u6700\u957f\u652f\u6301\u641c\u7d22365\u5929", None))
 #endif // QT_CONFIG(tooltip)
-        self.CompactSpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5929", None))
+        self.SpinBox.setSuffix(QCoreApplication.translate("Form", u"\u5929", None))
 #if QT_CONFIG(tooltip)
         self.SwitchButton_2.setToolTip(QCoreApplication.translate("Form", u"\u5f00\u542f\u8be5\u9009\u9879\u624d\u80fd\u641c\u7d22\u5b58\u653e\u65f6\u95f4", None))
 #endif // QT_CONFIG(tooltip)

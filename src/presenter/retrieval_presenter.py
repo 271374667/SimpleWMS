@@ -131,9 +131,7 @@ class RetrievalPresenter:
         retrieval_button_pos = self.get_view().get_output_table_button().frameGeometry().topLeft()
         loguru.logger.debug(f'显示状态提示框在如下位置:{retrieval_button_pos}')
         self.get_view().show_state_tooltip('正在出库中...',
-                                           '请稍等',
-                                           retrieval_button_pos.x() - 20,
-                                           retrieval_button_pos.y() - 40)
+                                           '请稍等')
 
     def _on_batch_spinbox_value_changed(self, value: int) -> None:
         ui = self.get_view()

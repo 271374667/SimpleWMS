@@ -1,8 +1,8 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QFrame, QWidget
-from qfluentwidgets import (OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard, RangeSettingCard,
-                            SettingCardGroup)
-from qfluentwidgets.components import ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter, OpacityAniStackedWidget
+from qfluentwidgets import (OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard,
+                            RangeSettingCard, SettingCardGroup)
+from qfluentwidgets.components import (ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter)
 
 from src.config import cfg
 from src.view.message_base_view import MessageBaseView

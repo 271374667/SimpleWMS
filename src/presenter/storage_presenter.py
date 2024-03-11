@@ -206,9 +206,7 @@ class StoragePresenter:
         save_btn_pos = self.get_view().get_save_table_button().frameGeometry().topLeft()
         loguru.logger.debug(f'显示状态提示框在如下位置:{save_btn_pos}')
         self.get_view().show_state_tooltip('正在导出数据',
-                                           '请稍等...',
-                                           save_btn_pos.x() - 20,
-                                           save_btn_pos.y() - 40)
+                                           '请稍等...')
 
     def _export_return_data_to_excel(self) -> None:
         data: list[ReStorageDict] = self._table_handler.get_data()
@@ -239,9 +237,7 @@ class StoragePresenter:
         save_btn_pos = self.get_view().get_save_table_button().frameGeometry().topLeft()
         loguru.logger.debug(f'显示状态提示框在如下位置:{save_btn_pos}')
         self.get_view().show_state_tooltip('正在导出数据',
-                                           '请稍等...',
-                                           save_btn_pos.x() - 20,
-                                           save_btn_pos.y() - 40)
+                                           '请稍等...')
 
     def _connect_signals(self) -> None:
         ui = self.get_view()

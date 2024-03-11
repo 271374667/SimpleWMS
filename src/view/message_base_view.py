@@ -139,15 +139,12 @@ class MessageBaseView(QWidget):
 
     def show_state_tooltip(self, title: str,
                            content: str,
-                           x: int,
-                           y: int) -> None:
+                           ) -> None:
         """显示一个状态提示框
 
         Args:
             title (str, optional): 标题. Defaults to 'Title'.
             content (str, optional): 内容. Defaults to 'Content'.
-            x (int): x坐标
-            y (int): y坐标
         """
         # 防止多次点击
         if self.is_state_tooltip_running:
@@ -155,7 +152,7 @@ class MessageBaseView(QWidget):
 
         self.state_tooltip = StateToolTip(title, content, self)
         self.state_tooltip.setState(False)
-        self.state_tooltip.move(x, y)
+        self.state_tooltip.move(self.state_tooltip.getSuitablePos())
         self.state_tooltip.show()
         self.is_state_tooltip_running = True
 
@@ -170,6 +167,11 @@ class MessageBaseView(QWidget):
 
         self.state_tooltip.setState(True)
         self.is_state_tooltip_running = False
+
+    def resizeEvent(self, event):
+        # 每次窗口大小改变的时候，都要重新计算一下tooltip的位置
+        if hasattr(self, 'state_tooltip'):
+            self.state_tooltip.move(self.state_tooltip.getSuitablePos())
 
 
 if __name__ == '__main__':

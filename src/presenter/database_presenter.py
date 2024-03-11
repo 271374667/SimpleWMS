@@ -1,12 +1,14 @@
+from pathlib import Path
 from typing import Optional
 
 import loguru
-from PySide6.QtWidgets import QApplication, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QFileDialog, QVBoxLayout
 
 from src.common.plugins.plugin_base import DatabasePluginBase
 from src.common.plugins.plugin_manager import DatabasePluginManager
 from src.model.database_model import DatabaseModel
 from src.table_handler import TableHandler
+from src.utils.run_in_thread import RunInThread
 from src.view.database_view import DatabaseView
 
 
@@ -79,7 +81,6 @@ class DatabasePresenter:
 
         inner_layout = custom_widget.layout()
         inner_layout.addWidget(current_plugin.get_custom_widget())
-        # print(custom_widget.layout())
 
         # 设置表格
         self._table_handler.set_show_headers(current_plugin.table_show_headers)
@@ -97,11 +98,37 @@ class DatabasePresenter:
         self._table_handler.set_data(current_plugin.get_data())
         self._table_handler.scroll_to_row(0)
 
+    def _reflesh(self) -> None:
+        self.get_view().show_success_infobar("刷新成功", "所有的数据已经重新从数据库获取", 3000)
+        self._submit()
+
+    def _export_table(self) -> None:
+        self._run_in_thread = RunInThread()
+
+        file_path = QFileDialog.getSaveFileName(self.get_view(), "保存文件", "", "Excel Files (*.xlsx)")
+        if not file_path:
+            return
+
+        loguru.logger.debug(f'当前选择的文件路径为{file_path[0]},类型为{file_path[1]}')
+        self.get_view().show_state_tooltip("正在导出数据...", f'正在导出数据到{file_path[0]}')
+
+        def run():
+            self._table_handler.export_data(Path(file_path[0]))
+
+        def finish() -> None:
+            self.get_view().finish_state_tooltip('成功', f'数据已经成功导出到{file_path[0]}')
+
+        self._run_in_thread.set_start_func(run)
+        self._run_in_thread.set_finished_func(finish)
+        self._run_in_thread.start()
+
     def _connect_signal(self) -> None:
         ui = self.get_view()
         submit_btn = ui.get_submit_button()
         submit_btn.clicked.connect(self._submit)
         ui.get_plugin_select_comboBox().currentIndexChanged.connect(self._plugin_changed)
+        ui.get_refresh_action().triggered.connect(self._reflesh)
+        ui.get_export_action().triggered.connect(self._export_table)
 
 
 if __name__ == "__main__":

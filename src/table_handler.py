@@ -7,9 +7,11 @@
 3. 表格数据的删除
 4. 表格数据的判断
 """
-from typing import Optional
+from pathlib import Path
+from typing import Optional, Union
 from typing import Union
 
+import pandas as pd
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QTableWidgetItem
 from qfluentwidgets.components import TableWidget
@@ -55,9 +57,17 @@ class TableHandler(QObject):
             data.append(current_row_data)
         return data
 
+    def export_data(self, file_path: Union[Path, str]) -> None:
+        """导出表格数据"""
+        data = self.get_data()
+        df = pd.DataFrame(data)
+        # 重新设置列名
+        df.columns = self.show_headers
+        df.to_excel(file_path, index=False)
+
     def get_last_row_index(self) -> int:
         """获取最后一行的索引, 如果有空值那么直接返回上一行的索引"""
-        for i in range(0, self._table.rowCount() - 1):
+        for i in range(self._table.rowCount() - 1):
             if self.is_null(i):
                 return i
         return self._table.rowCount() - 1
@@ -136,12 +146,10 @@ class TableHandler(QObject):
                 if not self._table.item(row_index, column_index_loop):
                     self.null_skip_signal.emit(row_index, column_index)
                     return True
-            return False
-        else:
-            if not self._table.item(row_index, column_index):
-                self.null_skip_signal.emit(row_index, column_index)
-                return True
-            return False
+        elif not self._table.item(row_index, column_index):
+            self.null_skip_signal.emit(row_index, column_index)
+            return True
+        return False
 
     def _get_header_index(self, header: str) -> Union[int, None]:
         """获取表头的索引"""

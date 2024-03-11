@@ -216,14 +216,26 @@
            <height>16777209</height>
           </size>
          </property>
+         <property name="tabletTracking">
+          <bool>false</bool>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
+          <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
+         </property>
+         <property name="showGrid">
+          <bool>false</bool>
          </property>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
          <property name="rowCount">
           <number>20</number>
+         </property>
+         <property name="selectRightClickedRow">
+          <bool>false</bool>
          </property>
          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
           <bool>true</bool>

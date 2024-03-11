@@ -19,29 +19,32 @@ class SettingPresenter:
         return self._model
 
     def _backup_path_card_clicked(self) -> None:
-        path = QFileDialog.getExistingDirectory(self.get_view(), "选择一个文件夹来保存备份")
-        if path:
+        if path := QFileDialog.getExistingDirectory(
+                self.get_view(), "选择一个文件夹来保存备份"
+                ):
             self.get_view().backup_path_card.setContent(path)
             self.get_model().set_backup_path(path)
             self.get_view().show_success_infobar("设置成功", f'备份路径已经设置为{path}', duration=5000)
 
     def _retrieval_path_card_clicked(self) -> None:
-        path = QFileDialog.getExistingDirectory(self.get_view(), "选择一个文件夹来保存备份")
-        if path:
+        if path := QFileDialog.getExistingDirectory(
+                self.get_view(), "选择一个文件夹来保存备份"
+                ):
             self.get_view().retrieval_path_card.setContent(path)
             self.get_model().set_retrieval_path(path)
             self.get_view().show_success_infobar("设置成功", f'出库文件保存路径已经设置为{path}', duration=5000)
 
     def _storage_path_card_clicked(self) -> None:
-        path = QFileDialog.getExistingDirectory(self.get_view(), "选择一个文件夹来保存入库的excel文件")
-        if path:
+        if path := QFileDialog.getExistingDirectory(
+                self.get_view(), "选择一个文件夹来保存入库的excel文件"
+                ):
             self.get_view().storage_path_card.setContent(path)
             self.get_model().set_storage_path(path)
             self.get_view().show_success_infobar("设置成功", f'入库文件保存路径已经设置为{path}', duration=5000)
 
     def _font_card_value_changed(self, value: str) -> None:
         self.get_model().set_font(value)
-        self.get_view().show_success_infobar("设置成功", f'字体已经设置', duration=5000)
+        self.get_view().show_success_infobar("设置成功", '字体已经设置', duration=5000)
 
     def _log_rotation_days_card_value_changed(self, value: int) -> None:
         self.get_model().set_log_rotation_days(value)
@@ -60,7 +63,7 @@ class SettingPresenter:
         self.get_model().set_email_secret_key(secret_key)
         loguru.logger.info(f'设置邮箱账号为{account}')
 
-        self.get_view().show_success_infobar("设置成功", f'邮箱设置成功', duration=5000)
+        self.get_view().show_success_infobar("设置成功", '邮箱设置成功', duration=5000)
 
     def _connect_singal(self) -> None:
         ui = self.get_view()
