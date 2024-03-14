@@ -1,6 +1,6 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QFrame, QWidget
-from qfluentwidgets import (OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard,
+from qfluentwidgets import (FluentIcon, Icon, OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard,
                             RangeSettingCard, SettingCardGroup)
 from qfluentwidgets.components import (ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter)
 
@@ -11,6 +11,11 @@ from src.view.message_base_view import MessageBaseView
 class SettingView(SmoothScrollArea, MessageBaseView):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+
+        # 这里是一个补丁,因为不知道为什么MessageBaseView没有调用父类的构造函数
+        # 所以这里手动初始化一下
+        self.is_state_tooltip_running: bool = False
+
         self.scroll_widget = QWidget()
         self.expand_layout = ExpandLayout(self.scroll_widget)
 
@@ -82,6 +87,18 @@ class SettingView(SmoothScrollArea, MessageBaseView):
                                                          "设置您的邮箱账号和密钥,用于发送邮件,如果您不需要发送邮件,可以不设置",
                                                          self.general_group)
 
+        self.export_database_card = PushSettingCard("导出数据库",
+                                                    Icon(FluentIcon.EMBED),
+                                                    "导出数据库",
+                                                    "导出数据库为xlsx文件,请注意导出的文件可能会很大,请耐心等待",
+                                                    self.storage_group)
+
+        self.import_database_card = PushSettingCard("导入数据库",
+                                                    Icon(FluentIcon.DOWNLOAD),
+                                                    "导入数据库",
+                                                    "导入数据库,请注意导入的文件可能会很大,请耐心等待",
+                                                    self.storage_group)
+
     def _set_up_tooltip(self) -> None:
         """设置卡片的提示"""
         self.log_rotation_days_card.setToolTip("日志归档天数越小,日志文件越多,但是每个日志文件的大小越小,默认为7天")
@@ -90,6 +107,8 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.storage_path_card.setToolTip("入库excel文件保存路径,默认为storage文件夹,文件夹下请不要存放其他文件")
         self.retrieval_path_card.setToolTip("出库excel文件保存路径,默认为retrieve文件夹,文件夹下请不要存放其他文件")
         self.email_account_card.setToolTip("您需要设置您邮箱的账号和密钥(注意这里密钥不等于密码)")
+        self.export_database_card.setToolTip("导出数据库为xlsx文件,请注意导出之后不要修改文件内容,否则无法导入")
+        self.import_database_card.setToolTip("导入指定的xlsx文件,请注意只能导入由本软件导出的xlsx文件,否则无法导入")
 
     def _set_up_layout(self) -> None:
         """设置布局"""
@@ -112,6 +131,8 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.storage_group.addSettingCard(self.backup_path_card)
         self.storage_group.addSettingCard(self.storage_path_card)
         self.storage_group.addSettingCard(self.retrieval_path_card)
+        self.storage_group.addSettingCard(self.export_database_card)
+        self.storage_group.addSettingCard(self.import_database_card)
 
     def _initialize(self) -> None:
         """初始化窗体"""

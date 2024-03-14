@@ -1,8 +1,11 @@
+from pathlib import Path
+
 import loguru
 from PySide6.QtWidgets import QFileDialog
 
 from src.component.email_setting_component import EmailSettingComponent
 from src.model.setting_model import SettingModel
+from src.utils.run_in_thread import RunInThread
 from src.view.setting_view import SettingView
 
 
@@ -65,6 +68,29 @@ class SettingPresenter:
 
         self.get_view().show_success_infobar("设置成功", '邮箱设置成功', duration=5000)
 
+    def _export_database_card_clicked(self) -> None:
+        path = QFileDialog.getSaveFileName(
+                self.get_view(), "导出数据库", "", "Excel Files (*.xlsx)"
+                )[0]
+        if not path:
+            self.get_view().show_info_infobar("导出取消", "您没有选择任何路径,已经取消导出数据库", duration=5000)
+            return
+
+        self.get_view().show_state_tooltip("导出数据库中……", f'正在导出数据到{path}')
+
+        def run():
+            self.get_model().export_database(Path(path))
+
+        def finished():
+            self.get_view().finish_state_tooltip()
+            self.get_view().show_success_infobar("导出成功", f'数据库已经导出到{path}', duration=5000)
+            loguru.logger.success(f'导出数据库到{path}成功')
+
+        self._run_in_thread = RunInThread()
+        self._run_in_thread.set_start_func(run)
+        self._run_in_thread.set_finished_func(finished)
+        self._run_in_thread.start()
+
     def _connect_singal(self) -> None:
         ui = self.get_view()
         ui.backup_path_card.clicked.connect(self._backup_path_card_clicked)
@@ -74,6 +100,7 @@ class SettingPresenter:
         ui.log_rotation_days_card.valueChanged.connect(self._log_rotation_days_card_value_changed)
         ui.log_retention_days_card.valueChanged.connect(self._log_retention_days_card_value_changed)
         ui.email_account_card.clicked.connect(lambda: self._email_setting_component_clicked())
+        ui.export_database_card.clicked.connect(self._export_database_card_clicked)
 
 
 if __name__ == '__main__':

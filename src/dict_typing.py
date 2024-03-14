@@ -96,6 +96,27 @@ class BasicSearchParameterDict(CustomBaseDict):
     hide_has_return_item: NotRequired[bool]
 
 
+class AllInventoryDict(CustomBaseDict):
+    """所有的数据,用于导出和导入"""
+    ean13: Required[str]
+    name: Required[str]
+    brand: Required[str]
+    price: Required[float]
+    is_sold: Required[int]
+    return_times: Required[int]
+    is_inventory_active: Required[int]
+    batch_id: Required[int]
+    batch_name: Required[str]
+    batch_serial_number: Required[str]
+    batch_created_time: Required[datetime]
+    is_batch_active: Required[int]
+    wave_id: NotRequired[int]
+    wave_name: NotRequired[str]
+    wave_serial_number: NotRequired[str]
+    wave_created_time: NotRequired[datetime]
+    is_wave_active: NotRequired[int]
+
+
 # 下面是 home 页面里面 card 表格的字典
 class BatchCardDict(CustomBaseDict):
     batch_serial_number: Required[str]
