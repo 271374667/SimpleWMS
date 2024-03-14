@@ -391,6 +391,9 @@ class Ui_Form(object):
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_6.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.SwitchButton.setHidden)
         self.SwitchButton_2.checkedChanged.connect(self.BodyLabel_5.setHidden)
+        self.SwitchButton_2.checkedChanged.connect(self.CompactDoubleSpinBox.setHidden)
+        self.SwitchButton_2.checkedChanged.connect(self.CompactSpinBox.setHidden)
+        self.SwitchButton_2.checkedChanged.connect(self.CompactSpinBox_2.setHidden)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi

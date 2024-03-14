@@ -972,5 +972,53 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactDoubleSpinBox</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>271</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>247</x>
+     <y>343</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactSpinBox</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>512</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>234</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SwitchButton_2</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactSpinBox_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>517</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>441</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
