@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 import loguru
 import pandas as pd
@@ -62,7 +62,8 @@ class RetrievalModel:
         df = pd.DataFrame({'名称': [each['name'] for each in data],
                                   '品牌': [each['brand'] for each in data],
                                   '价格': [each['price'] for each in data],
-                                  '波次名称': [self._db_controller.convert_wave_serial_number_to_wave_name(each['wave_serial_number']) for
+                                  '波次名称': [self._db_controller.convert_wave_serial_number_to_wave_name(
+                                          each['wave_serial_number']) for
                                           each in data],
                                   '入库时间': [each['storage_time'] for each in data],
                                   'EAN13': [each['ean13'] for each in data],

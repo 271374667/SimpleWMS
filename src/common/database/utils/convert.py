@@ -4,7 +4,8 @@ from datetime import datetime
 
 from barcode import EAN13
 
-locale.setlocale(locale.LC_CTYPE, 'Chinese')
+# locale.setlocale(locale.LC_CTYPE, 'Chinese')
+locale.setlocale(locale.LC_ALL, 'zh_CN.UTF-8')
 
 
 class Converter:
