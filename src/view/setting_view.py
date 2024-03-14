@@ -1,6 +1,6 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QFrame, QWidget
-from qfluentwidgets import (FluentIcon, Icon, OptionsSettingCard, PrimaryPushSettingCard, PushSettingCard,
+from qfluentwidgets import (FluentIcon, Icon, OptionsSettingCard, PrimaryPushSettingCard, ProgressBar, PushSettingCard,
                             RangeSettingCard, SettingCardGroup)
 from qfluentwidgets.components import (ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter)
 
@@ -20,12 +20,17 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.expand_layout = ExpandLayout(self.scroll_widget)
 
         self.setting_title = LargeTitleLabel("设置", self)
+        self.progress_bar = ProgressBar()
+        self.progress_bar.setTextVisible(True)
 
         self._create_card_group()
         self._create_card()
         self._set_up_tooltip()
         self._set_up_layout()
         self._initialize()
+
+    def get_progress_bar(self) -> ProgressBar:
+        return self.progress_bar
 
     def scroll_to_general_group(self) -> None:
         """滚动到一般的卡片组"""
@@ -96,7 +101,7 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.import_database_card = PushSettingCard("导入数据库",
                                                     Icon(FluentIcon.DOWNLOAD),
                                                     "导入数据库",
-                                                    "导入数据库,请注意导入的文件可能会很大,请耐心等待",
+                                                    "导入数据库,请注意导入数据库之前需要先确保自己的数据库是空的",
                                                     self.storage_group)
 
     def _set_up_tooltip(self) -> None:
@@ -132,6 +137,7 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.storage_group.addSettingCard(self.storage_path_card)
         self.storage_group.addSettingCard(self.retrieval_path_card)
         self.storage_group.addSettingCard(self.export_database_card)
+        self.storage_group.addSettingCard(self.progress_bar)
         self.storage_group.addSettingCard(self.import_database_card)
 
     def _initialize(self) -> None:

@@ -91,6 +91,37 @@ class SettingPresenter:
         self._run_in_thread.set_finished_func(finished)
         self._run_in_thread.start()
 
+    def _import_database_card_clicked(self) -> None:
+        path = QFileDialog.getOpenFileName(
+                self.get_view(), "导入数据库", "", "Excel Files (*.xlsx)"
+                )[0]
+        if not path:
+            self.get_view().show_info_infobar("导入取消", "您没有选择任何文件,已经取消导入数据库", duration=5000)
+            return
+
+        confirm = self.get_view().show_mask_dialog("警告", "导入数据库会清空当前数据库,是否继续?")
+        if not confirm:
+            self.get_view().show_info_infobar("导入取消", "您取消了导入数据库", duration=5000)
+            return
+
+        self.get_view().show_state_tooltip("导入数据库中……", f'正在导入数据从{path}')
+        self.get_view().get_progress_bar().setVal(0)
+
+        def run():
+            self.get_model().clear_database()
+            self.get_model().import_database(Path(path))
+
+        def finished():
+            self.get_view().finish_state_tooltip()
+            self.get_view().show_success_infobar("导入成功", f'数据库已经导入从{path}', duration=5000)
+            loguru.logger.success(f'导入数据库从{path}成功')
+            self.get_view().get_progress_bar().setVal(100)
+
+        self._run_in_thread = RunInThread()
+        self._run_in_thread.set_start_func(run)
+        self._run_in_thread.set_finished_func(finished)
+        self._run_in_thread.start()
+
     def _connect_singal(self) -> None:
         ui = self.get_view()
         ui.backup_path_card.clicked.connect(self._backup_path_card_clicked)
@@ -101,6 +132,10 @@ class SettingPresenter:
         ui.log_retention_days_card.valueChanged.connect(self._log_retention_days_card_value_changed)
         ui.email_account_card.clicked.connect(lambda: self._email_setting_component_clicked())
         ui.export_database_card.clicked.connect(self._export_database_card_clicked)
+        ui.import_database_card.clicked.connect(self._import_database_card_clicked)
+
+        # 绑定一下进度条信号
+        self.get_model().get_progress_signal().connect(ui.get_progress_bar().setVal)
 
 
 if __name__ == '__main__':

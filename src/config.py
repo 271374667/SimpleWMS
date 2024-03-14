@@ -6,6 +6,8 @@ from qfluentwidgets import (ConfigItem, EnumSerializer, FolderValidator, Options
 from src.constant import (BACKUP_DIR, BOLD_FONT, CONFIG_FILE, HEAVY_FONT, LIGHT_FONT, MEDIUM_FONT, REGULAR_FONT,
                           RETRIEVE_DIR, STORAGE_DIR)
 
+__version__ = "0.0.7"
+
 
 class Font(Enum):
     LIGHT = str(LIGHT_FONT)
