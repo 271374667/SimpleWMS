@@ -93,6 +93,19 @@ class StorageModel:
         for each in data:
             self._db_controller.set_inventory_return_times_and_is_sold(each['ean13'])
 
+        # 使用 pandas 导出 xlsx
+        # 创建一个DataFrame
+        df = pd.DataFrame(data)
+        # 重命名列以匹配所需的标题
+        df.columns = ['名称', '品牌', '价格', '入库时间', '退货次数', '批次序号', '波次序号', 'EAN13']
+        # 将DataFrame导出为Excel文件
+        save_dir = Path(cfg.get(cfg.storage_path))
+        EXCEL_FILE = (save_dir / f'退货信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx')
+        df.to_excel(EXCEL_FILE, index=False)
+        loguru.logger.debug(f'导出退货数据到Excel文件:{EXCEL_FILE}')
+        loguru.logger.debug(f'本次导出了{len(data)}条数据到Excel文件')
+        os.startfile(save_dir)
+
     def is_real_ean13(self, ean13: str) -> bool:
         """检测是否是真实的EAN13"""
         return self._db_controller.is_real_ean13(ean13)
