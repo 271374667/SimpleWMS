@@ -153,8 +153,8 @@ class StoragePresenter:
 
     def _clear_all_table(self) -> None:
         ui = self.get_view()
-        result = ui.show_mask_dialog(title='清空表格', content='确定要清空表格吗？')
-        if result:
+
+        if ui.show_mask_dialog(title='清空表格', content='确定要清空表格吗？'):
             self._table_handler.clear()
             loguru.logger.debug('清空了表格')
 
@@ -164,8 +164,8 @@ class StoragePresenter:
         if current_row == -1:
             ui.show_warning_infobar(title='没有选中任何行！', content='请选中要删除的行')
             return
-        result = ui.show_mask_dialog(title='删除当前行', content='确定要删除当前行吗？')
-        if result:
+
+        if ui.show_mask_dialog(title='删除当前行', content='确定要删除当前行吗？'):
             ui.get_table_widget().removeRow(current_row)
             loguru.logger.debug(f'删除了一行数据:{current_row}')
 

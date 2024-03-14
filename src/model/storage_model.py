@@ -9,7 +9,7 @@ import pandas as pd
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
 from src.config import cfg
-from src.dict_typing import ReStorageDict, StorageCardDict
+from src.dict_typing import ReStorageDict, StorageDict
 
 
 class StorageModel:
@@ -50,18 +50,23 @@ class StorageModel:
             number: 传入的数字
 
         """
-        today = datetime.today()
+        today = datetime.now()
         return f'{today.year}{today.month:02d}{number:03d}'
 
-    def export_data(self, data: list[StorageCardDict]) -> None:
+    def export_data(self, data: list[StorageDict]) -> None:
         """导出数据到Excel和数据库"""
         # 先获取最新的inventory_id
         latest_inventory_id = self._db_controller.get_latest_inventory_id()
 
-        # 要先导出到数据库才能获取到id和EAN13
-        data_list = []
-        for each in data:
-            data_list.append((each['name'], each['brand'], float(each['price']), each['batch_serial_number']))
+        data_list = [
+                (
+                        each['name'],
+                        each['brand'],
+                        float(each['price']),
+                        each['batch_serial_number'],
+                        )
+                for each in data
+                ]
         self._db_controller.export_to_database(data_list)
 
         new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
@@ -82,7 +87,9 @@ class StorageModel:
 
         # 将DataFrame导出为Excel文件
         save_dir = Path(cfg.get(cfg.storage_path))
-        EXCEL_FILE = save_dir / f'入库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+        EXCEL_FILE = (
+                save_dir / f'入库信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+        )
         df.to_excel(EXCEL_FILE, index=False)
         loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')
         loguru.logger.debug(f'本次导出了{len(dict_list)}条数据到Excel文件')
