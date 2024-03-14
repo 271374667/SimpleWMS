@@ -618,5 +618,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>SwitchButton_3</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>SpinBox_2</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>202</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

@@ -256,6 +256,7 @@ if __name__ == "__main__":
     from PySide6.QtWidgets import QApplication
 
     app = QApplication([])
+
     storage_presenter = StoragePresenter()
     storage_presenter.get_view().show()
     app.exec()

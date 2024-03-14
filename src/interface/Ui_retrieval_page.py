@@ -316,6 +316,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.SwitchButton_3.checkedChanged.connect(self.BodyLabel_5.setHidden)
+        self.SwitchButton_3.checkedChanged.connect(self.SpinBox_2.setHidden)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
