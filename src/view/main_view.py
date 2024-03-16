@@ -46,18 +46,6 @@ class MainView(FluentWindow):
 
         self.addSubInterface(self.settingInterface, FIF.SETTING, '设置', NavigationItemPosition.BOTTOM)
 
-        # add badge to navigation item
-        # item = self.navigationInterface.widget(self.homeInterface.objectName())
-        # InfoBadge.attension(
-        #         text=9,
-        #         parent=item.parent(),
-        #         target=item,
-        #         position=InfoBadgePosition.NAVIGATION_ITEM
-        #         )
-
-        # NOTE: enable acrylic effect
-        # self.navigationInterface.setAcrylicEnabled(True)
-
     def initWindow(self):
         self.resize(1100, 800)
         self.setWindowIcon(QIcon(':/icons/images/icons/area_chart.svg'))
@@ -66,10 +54,7 @@ class MainView(FluentWindow):
         desktop = QApplication.screens()[0].availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
-
-        # set the minimum window width that allows the navigation panel to be expanded
-        # self.navigationInterface.setMinimumExpandWidth(900)
-        # self.navigationInterface.expand(useAni=False)
+        self.setStyleSheet('background-color: #fcfcfc')
 
     def closeEvent(self, event):
         server.stop()
@@ -78,6 +63,13 @@ class MainView(FluentWindow):
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = MainView()
+    w = MainView(
+            home_view.HomeView(),
+            storage_view.StorageView(),
+            retrieval_view.RetrievalView(),
+            database_view.DatabaseView(),
+            chart_view.ChartView(),
+            setting_view.SettingView()
+            )
     w.show()
     app.exec()

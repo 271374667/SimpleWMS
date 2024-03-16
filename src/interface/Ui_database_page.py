@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'database_page.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -55,7 +55,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.setContentsMargins(15, 15, 15, 15)
         self.IconWidget = IconWidget(self.SimpleCardWidget)
         self.IconWidget.setObjectName(u"IconWidget")
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.IconWidget.sizePolicy().hasHeightForWidth())
@@ -77,7 +77,7 @@ class Ui_Form(object):
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.LargeTitleLabel = LargeTitleLabel(self.SimpleCardWidget)
         self.LargeTitleLabel.setObjectName(u"LargeTitleLabel")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.LargeTitleLabel.sizePolicy().hasHeightForWidth())
@@ -103,7 +103,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.BodyLabel_2 = BodyLabel(self.scrollAreaWidgetContents)
         self.BodyLabel_2.setObjectName(u"BodyLabel_2")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.BodyLabel_2.sizePolicy().hasHeightForWidth())
@@ -156,7 +156,7 @@ class Ui_Form(object):
         __qtablewidgetitem7 = QTableWidgetItem()
         self.TableWidget.setVerticalHeaderItem(2, __qtablewidgetitem7)
         self.TableWidget.setObjectName(u"TableWidget")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.TableWidget.sizePolicy().hasHeightForWidth())

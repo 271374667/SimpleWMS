@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'home_page.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -51,7 +51,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.setContentsMargins(15, 15, 15, 15)
         self.IconWidget = IconWidget(self.SimpleCardWidget)
         self.IconWidget.setObjectName(u"IconWidget")
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.IconWidget.sizePolicy().hasHeightForWidth())
@@ -73,7 +73,7 @@ class Ui_Form(object):
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.LargeTitleLabel = LargeTitleLabel(self.SimpleCardWidget)
         self.LargeTitleLabel.setObjectName(u"LargeTitleLabel")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.LargeTitleLabel.sizePolicy().hasHeightForWidth())
@@ -104,7 +104,7 @@ class Ui_Form(object):
 
         self.verticalLayout_16.addWidget(self.ToolButton)
 
-        self.verticalSpacer = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_16.addItem(self.verticalSpacer)
 
@@ -114,7 +114,7 @@ class Ui_Form(object):
 
         self.verticalLayout_48.addWidget(self.SimpleCardWidget)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 15, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_3 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_48.addItem(self.verticalSpacer_3)
 
@@ -137,7 +137,7 @@ class Ui_Form(object):
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.TitleLabel_5 = TitleLabel(self.ElevatedCardWidget_5)
         self.TitleLabel_5.setObjectName(u"TitleLabel_5")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.TitleLabel_5.sizePolicy().hasHeightForWidth())
@@ -340,7 +340,7 @@ class Ui_Form(object):
 
         self.verticalLayout_48.addLayout(self.horizontalLayout)
 
-        self.verticalSpacer_2 = QSpacerItem(22, 119, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(22, 119, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_48.addItem(self.verticalSpacer_2)
 
@@ -563,7 +563,7 @@ class Ui_Form(object):
 
         self.verticalLayout_48.addLayout(self.horizontalLayout_7)
 
-        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_48.addItem(self.verticalSpacer_7)
 

@@ -1,5 +1,5 @@
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QApplication, QFrame, QWidget
+from PySide6.QtWidgets import QApplication, QFrame, QVBoxLayout, QWidget
 from qfluentwidgets import (FluentIcon, Icon, OptionsSettingCard, PrimaryPushSettingCard, ProgressBar, PushSettingCard,
                             RangeSettingCard, SettingCardGroup)
 from qfluentwidgets.components import (ExpandLayout, LargeTitleLabel, SmoothScrollArea, ToolTipFilter)
@@ -8,9 +8,11 @@ from src.config import cfg
 from src.view.message_base_view import MessageBaseView
 
 
-class SettingView(SmoothScrollArea, MessageBaseView):
+class SettingView(MessageBaseView):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.main_layout = QVBoxLayout()
+        self.smooth_scroll_area = SmoothScrollArea()
 
         # 这里是一个补丁,因为不知道为什么MessageBaseView没有调用父类的构造函数
         # 所以这里手动初始化一下
@@ -19,7 +21,9 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.scroll_widget = QWidget()
         self.expand_layout = ExpandLayout(self.scroll_widget)
 
-        self.setting_title = LargeTitleLabel("设置", self)
+        self.setting_title = LargeTitleLabel()
+        self.setting_title.setText("设置")
+
         self.progress_bar = ProgressBar()
         self.progress_bar.setTextVisible(True)
 
@@ -34,15 +38,15 @@ class SettingView(SmoothScrollArea, MessageBaseView):
 
     def scroll_to_general_group(self) -> None:
         """滚动到一般的卡片组"""
-        self.verticalScrollBar().setValue(self.general_group.y())
+        self.smooth_scroll_area.verticalScrollBar().setValue(self.general_group.y())
 
     def scroll_to_appearance_group(self) -> None:
         """滚动到外观的卡片组"""
-        self.verticalScrollBar().setValue(self.appearance_group.y())
+        self.smooth_scroll_area.verticalScrollBar().setValue(self.appearance_group.y())
 
     def scroll_to_storage_group(self) -> None:
         """滚动到存储的卡片组"""
-        self.verticalScrollBar().setValue(self.storage_group.y())
+        self.smooth_scroll_area.verticalScrollBar().setValue(self.storage_group.y())
 
     def _create_card_group(self) -> None:
         """创建卡片组"""
@@ -117,7 +121,7 @@ class SettingView(SmoothScrollArea, MessageBaseView):
 
     def _set_up_layout(self) -> None:
         """设置布局"""
-        self.setWidget(self.scroll_widget)
+        self.smooth_scroll_area.setWidget(self.scroll_widget)
 
         self.expand_layout.addWidget(self.general_group)
         self.expand_layout.addWidget(self.appearance_group)
@@ -145,13 +149,21 @@ class SettingView(SmoothScrollArea, MessageBaseView):
         self.setWindowTitle("设置")
         self.setObjectName("setting_view")
         self.resize(1100, 800)
-        self.setWidgetResizable(True)
-        self.setFrameShape(QFrame.Shape.NoFrame)
-        self.setting_title.move(60, 65)
-        self.setViewportMargins(0, 120, 0, 0)
+        self.smooth_scroll_area.setWidgetResizable(True)
+        self.smooth_scroll_area.setFrameShape(QFrame.Shape.NoFrame)
+        # self.setting_title.move(60, 65)
+        self.setting_title.setMargin(30)
+        self.setting_title.setFixedWidth(200)
+        # self.smooth_scroll_area.setViewportMargins(0, 120, 0, 0)
+
+        self.main_layout.addWidget(self.setting_title)
+        self.main_layout.addWidget(self.smooth_scroll_area)
+        self.setLayout(self.main_layout)
 
         # 这里因为背景色不一样,我手动打个补丁
         self.setStyleSheet('background-color: #fcfcfc')
+        self.smooth_scroll_area.setStyleSheet('background-color: #fcfcfc')
+        # self.setting_title.setStyleSheet('background-color: #fcfcfc')
 
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))

@@ -1020,5 +1020,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>SwitchButton</sender>
+   <signal>checkedChanged(bool)</signal>
+   <receiver>CompactSpinBox</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>470</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>177</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

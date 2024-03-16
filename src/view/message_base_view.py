@@ -16,6 +16,7 @@ class MessageBaseView(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.setParent(parent)
         self.is_state_tooltip_running = False
 
     def show_mask_dialog(self, title: str = 'Title', content: str = 'Content') -> bool:

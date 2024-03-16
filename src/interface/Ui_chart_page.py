@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'chart_page.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -33,7 +33,7 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.SmoothScrollArea = SmoothScrollArea(Form)
         self.SmoothScrollArea.setObjectName(u"SmoothScrollArea")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.SmoothScrollArea.sizePolicy().hasHeightForWidth())
@@ -58,7 +58,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.setContentsMargins(15, 15, 15, 15)
         self.IconWidget = IconWidget(self.SimpleCardWidget)
         self.IconWidget.setObjectName(u"IconWidget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.IconWidget.sizePolicy().hasHeightForWidth())
@@ -80,7 +80,7 @@ class Ui_Form(object):
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.LargeTitleLabel = LargeTitleLabel(self.SimpleCardWidget)
         self.LargeTitleLabel.setObjectName(u"LargeTitleLabel")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.LargeTitleLabel.sizePolicy().hasHeightForWidth())
@@ -107,7 +107,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setSizeConstraint(QLayout.SetMinimumSize)
         self.BodyLabel_2 = BodyLabel(self.scrollAreaWidgetContents)
         self.BodyLabel_2.setObjectName(u"BodyLabel_2")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.BodyLabel_2.sizePolicy().hasHeightForWidth())
@@ -156,7 +156,7 @@ class Ui_Form(object):
 
         self.widget_2 = FramelessWebEngineView(self.scrollAreaWidgetContents)
         self.widget_2.setObjectName(u"widget_2")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.MinimumExpanding)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())

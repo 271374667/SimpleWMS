@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'retrieval_page.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -49,7 +49,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.IconWidget = IconWidget(self.SimpleCardWidget_2)
         self.IconWidget.setObjectName(u"IconWidget")
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.IconWidget.sizePolicy().hasHeightForWidth())
@@ -71,7 +71,7 @@ class Ui_Form(object):
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.LargeTitleLabel = LargeTitleLabel(self.SimpleCardWidget_2)
         self.LargeTitleLabel.setObjectName(u"LargeTitleLabel")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.LargeTitleLabel.sizePolicy().hasHeightForWidth())
@@ -92,7 +92,7 @@ class Ui_Form(object):
 
         self.SubtitleLabel_3 = SubtitleLabel(self.SimpleCardWidget_2)
         self.SubtitleLabel_3.setObjectName(u"SubtitleLabel_3")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.SubtitleLabel_3.sizePolicy().hasHeightForWidth())
@@ -103,7 +103,7 @@ class Ui_Form(object):
 
         self.lcdNumber = QLCDNumber(self.SimpleCardWidget_2)
         self.lcdNumber.setObjectName(u"lcdNumber")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
         sizePolicy3.setHorizontalStretch(51)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.lcdNumber.sizePolicy().hasHeightForWidth())
@@ -205,7 +205,7 @@ class Ui_Form(object):
 
         self.PushButton_2 = PushButton(self.SimpleCardWidget_3)
         self.PushButton_2.setObjectName(u"PushButton_2")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.PushButton_2.sizePolicy().hasHeightForWidth())
@@ -218,7 +218,7 @@ class Ui_Form(object):
 
         self.PlainTextEdit = PlainTextEdit(self.SimpleCardWidget_3)
         self.PlainTextEdit.setObjectName(u"PlainTextEdit")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.PlainTextEdit.sizePolicy().hasHeightForWidth())
