@@ -242,6 +242,15 @@ class StoragePresenter:
         self.get_view().show_state_tooltip('正在导出数据',
                                            '请稍等...')
 
+    def _on_batch_spinbox_value_changed(self, value: int) -> None:
+        """批次号输入框值改变事件"""
+        ui = self.get_view()
+        latest_batch = self.get_model().get_newest_batch_number()
+        if value > latest_batch + 1:
+            ui.show_warning_infobar('批次过大!', '您的批次号不能超过当前最新的批次号+1')
+            ui.get_batch_spinbox().setValue(latest_batch + 1)
+            return
+
     def _connect_signals(self) -> None:
         ui = self.get_view()
         ui.get_confirm_button().clicked.connect(self._on_confirm_button_clicked)
@@ -253,6 +262,7 @@ class StoragePresenter:
         ui.get_return_switch_button().checkedChanged.connect(self._on_return_mode_switch_btn_clicked)
         ui.get_return_lineedit().returnPressed.connect(self._on_return_lineedit_enter)
         ui.get_return_pushbutton().clicked.connect(self._on_return_lineedit_enter)
+        ui.get_batch_spinbox().valueChanged.connect(self._on_batch_spinbox_value_changed)
 
 
 if __name__ == "__main__":

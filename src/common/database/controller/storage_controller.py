@@ -48,14 +48,7 @@ class StorageController:
 
     def get_latest_batch_serial_number(self) -> str:
         """获取最新的批次,如果不存在会自动生成一个"""
-        latest_batch_serial_number = self._get_attribute_service.get_latest_batch_serial_number()
-        if self._is_batch_today(latest_batch_serial_number):
-            return latest_batch_serial_number
-
-        # 如果不是今天的批次,那么批次将会自动 +1
-        new_serial_number = convert.BatchConverter.convert_batch_serial_number_to_int(latest_batch_serial_number)
-        latest_batch_serial_number = convert.BatchConverter.convert_int_to_batch_serial_number(new_serial_number + 1)
-        return latest_batch_serial_number
+        return self._get_attribute_service.get_latest_batch_serial_number()
 
     def get_all_inventory_and_batch_greater_than_id(self, id: int) -> List[StorageData]:
         """获取所有的库存信息

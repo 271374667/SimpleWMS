@@ -1,0 +1,7 @@
+PySide6-Fluent-Widgets[full]==1.5.3
+loguru==0.7.2
+sqlalchemy==2.0.28
+pandas==2.2.1"
+python-barcode==0.15.1
+pyecharts==2.0.5
+openpyxl==3.1.2

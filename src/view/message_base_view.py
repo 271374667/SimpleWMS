@@ -34,7 +34,7 @@ class MessageBaseView(QWidget):
 
     def show_info_infobar(self, title: str = 'Title',
                           content: str = 'Content',
-                          duration: int = 10000,
+                          duration: int = 5000,
                           position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
                           is_closable: bool = True,
                           button_text: Optional[str] = None) -> None:
@@ -65,7 +65,7 @@ class MessageBaseView(QWidget):
 
     def show_success_infobar(self, title: str = 'Title',
                              content: str = 'Content',
-                             duration: int = 5000,
+                             duration: int = 4000,
                              position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
                              is_closable: bool = True) -> None:
         """显示一个成功信息提示框
@@ -90,7 +90,7 @@ class MessageBaseView(QWidget):
 
     def show_warning_infobar(self, title: str = 'Title',
                              content: str = 'Content',
-                             duration: int = 10000,
+                             duration: int = 5000,
                              position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
                              is_closable: bool = False) -> None:
         """显示一个警告信息提示框

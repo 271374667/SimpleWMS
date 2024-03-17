@@ -2,6 +2,7 @@ from datetime import date
 from datetime import datetime
 from typing import Tuple
 
+import loguru
 from sqlalchemy import func
 
 from src.common.database import Session
@@ -51,20 +52,20 @@ class GetAttributeService:
         # 如果本月没有任何批次,那么就自动生成一个
         batchs_this_month = self.get_all_batch_serial_number_this_month()
         if not batchs_this_month:
+            loguru.logger.debug(f'本月没有任何批次,自动生成一个批次号{year}{month:02d}001')
             return f'{year}{month:02d}001'
 
+        latest_batch_query = self._get_model_service.get_all_batch().order_by(model.Batch.id.desc())
+        latest_batch = latest_batch_query.first()
         # 如果最新批次存在而且是今天的批次,那么就返回最新批次
-        current_batch_query = self._get_model_service.get_all_batch()
-        current_batch_query = TimeFilter.batch_created_time(current_batch_query, time_filter_enum=TimeFilterEnum.Today)
-        if current_batch_query.first() is not None:
-            return current_batch_query.first().batch_serial_number
-        else:
-            # 如果最新批次不是今天的批次,那么就在最新批次的基础上+1
-            latest_batch_query = self._get_model_service.get_all_batch().order_by(model.Batch.id.desc())
-            latest_batch = latest_batch_query.first()
-            latest_batch_serial_number = latest_batch.batch_serial_number
-            lastest_batch_int = serial_number.parser_serial_number_to_int(latest_batch_serial_number)
-            return f'{year}{month:02d}{lastest_batch_int + 1:03d}'
+        if latest_batch.created_time.day == today.day:
+            loguru.logger.debug(f'今天已经有一个批次了,批次号为{latest_batch.batch_serial_number}')
+            return latest_batch.batch_serial_number
+
+        # 如果最新批次不是今天的批次,那么就在最新批次的基础上+1
+        latest_batch_serial_number = latest_batch.batch_serial_number
+        lastest_batch_int = serial_number.parser_serial_number_to_int(latest_batch_serial_number)
+        return f'{year}{month:02d}{lastest_batch_int + 1:03d}'
 
     def get_latest_wave_serial_number(self) -> str:
         """获取最新的批次,如果不存在会自动生成一个"""
@@ -75,20 +76,20 @@ class GetAttributeService:
         # 如果本月没有任何批次,那么就自动生成一个
         waves_this_month = self.get_all_wave_serial_number_this_month()
         if not waves_this_month:
+            loguru.logger.debug(f'本月没有任何批次,自动生成一个批次号{year}{month:02d}001')
             return f'{year}{month:02d}001'
 
+        latest_wave_query = self._get_model_service.get_all_wave().order_by(model.Wave.id.desc())
+        latest_wave = latest_wave_query.first()
         # 如果最新批次存在而且是今天的批次,那么就返回最新批次
-        current_wave_query = self._get_model_service.get_all_wave()
-        current_wave_query = TimeFilter.wave_created_time(current_wave_query, time_filter_enum=TimeFilterEnum.Today)
-        if current_wave_query.first() is not None:
-            return current_wave_query.first().wave_serial_number
-        else:
-            # 如果最新批次不是今天的批次,那么就在最新批次的基础上+1
-            latest_wave_query = self._get_model_service.get_all_wave().order_by(model.Wave.id.desc())
-            latest_wave = latest_wave_query.first()
-            latest_wave_serial_number = latest_wave.wave_serial_number
-            lastest_wave_int = serial_number.parser_serial_number_to_int(latest_wave_serial_number)
-            return f'{year}{month:02d}{lastest_wave_int + 1:03d}'
+        if latest_wave.created_time.day == today.day:
+            loguru.logger.debug(f'今天已经有一个批次了,批次号为{latest_wave.wave_serial_number}')
+            return latest_wave.wave_serial_number
+
+        # 如果最新批次不是今天的批次,那么就在最新批次的基础上+1
+        latest_wave_serial_number = latest_wave.wave_serial_number
+        lastest_wave_int = serial_number.parser_serial_number_to_int(latest_wave_serial_number)
+        return f'{year}{month:02d}{lastest_wave_int + 1:03d}'
 
     # 分组获取
     def get_sold_inventory_and_count_group_by_batch_brand_name(self) -> list[tuple[str, str, str, datetime, int, int]]:

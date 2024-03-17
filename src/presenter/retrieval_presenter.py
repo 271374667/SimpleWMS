@@ -141,7 +141,7 @@ class RetrievalPresenter:
         self.get_view().show_state_tooltip('正在出库中...',
                                            '请稍等')
 
-    def _on_batch_spinbox_value_changed(self, value: int) -> None:
+    def _on_wave_spinbox_value_changed(self, value: int) -> None:
         ui = self.get_view()
         latest_wave_number = self.get_model().get_wave_lastest_number()
         if value > latest_wave_number + 1:
@@ -167,7 +167,7 @@ class RetrievalPresenter:
         ui.get_clear_table_button().clicked.connect(self._clear_all_table)
         ui.get_delete_current_row_button().clicked.connect(self._delete_current_row)
         ui.get_output_table_button().clicked.connect(self._export_data)
-        ui.get_wave_spinbox().valueChanged.connect(self._on_batch_spinbox_value_changed)
+        ui.get_wave_spinbox().valueChanged.connect(self._on_wave_spinbox_value_changed)
 
 
 if __name__ == "__main__":
