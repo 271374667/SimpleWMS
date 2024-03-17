@@ -16,6 +16,9 @@ class StoragePresenter:
         self.get_view().get_display_lcd().display(self.get_model().get_newest_batch_number())
         self._connect_signals()
 
+        # 设置自动波次开关默认开启
+        self.get_view().get_auto_switch_button().setChecked(True)
+
     def get_view(self) -> StorageView:
         return self._view
 
@@ -88,20 +91,20 @@ class StoragePresenter:
         """切换模式按钮点击事件"""
         # 清空表格所有内容,并给出提示
         current_mode = self.get_view().get_return_switch_button().isChecked()
-        if current_mode is True:
-            result = self.get_view().show_mask_dialog(title='确定要切换模式吗?', content='如果您切换模式,'
-                                                                                         '表格中的所有数据将会被清空且无法恢复,'
-                                                                                         '同时在该模式下请您不要编辑表格数据'
-                                                                                         '请您在进行操作前先确认!')
-            if result:
-                # 进入退货模式
-                self._table_handler.clear()
-                self.get_view().show_success_infobar(title='切换模式成功!', content='当前模式已经切换为退货模式')
-                self._table_handler.set_headers(ReStorageDict)
-                self._table_handler.set_show_headers(
-                        ['名称', '品牌', '价格', '入库时间', '退货次数', '批次号', '波次号', 'EAN13'])
-                loguru.logger.debug('切换模式成功!')
-                return
+        if current_mode is True and self.get_view().show_mask_dialog(
+                title='确定要切换模式吗?',
+                content='如果您切换模式,'
+                        '表格中的所有数据将会被清空且无法恢复,'
+                        '同时在该模式下请您不要编辑表格数据'
+                        '请您在进行操作前先确认!',
+                ):
+            self._table_handler.clear()
+            self.get_view().show_success_infobar(title='切换模式成功!', content='当前模式已经切换为退货模式')
+            self._table_handler.set_headers(ReStorageDict)
+            self._table_handler.set_show_headers(
+                    ['名称', '品牌', '价格', '入库时间', '退货次数', '批次号', '波次号', 'EAN13'])
+            loguru.logger.debug('切换模式成功!')
+            return
 
         # 切换模式需要更改一些属性,下面为退出退货模式
         self.get_view().get_return_switch_button().setChecked(False)

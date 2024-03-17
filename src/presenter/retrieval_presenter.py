@@ -1,5 +1,6 @@
 import loguru
 
+from src.common.database.utils.convert import WaveConverter
 from src.dict_typing import RetrievalDict
 from src.model.retrieval_model import RetrievalModel
 from src.table_handler import TableHandler
@@ -16,6 +17,9 @@ class RetrievalPresenter:
         self.get_view().get_display_lcd().display(self.get_model().get_wave_lastest_number())
         self._connect_signals()
 
+        # 设置自动波次开关默认开启
+        self.get_view().get_auto_wave_switch_button().setChecked(True)
+
     def get_view(self) -> RetrievalView:
         return self._view
 
@@ -24,8 +28,7 @@ class RetrievalPresenter:
 
     def _clear_all_table(self) -> None:
         ui = self.get_view()
-        result = ui.show_mask_dialog(title='清空表格', content='确定要清空表格吗？')
-        if result:
+        if result := ui.show_mask_dialog(title='清空表格', content='确定要清空表格吗？'):
             self._table_handler.clear()
 
     def _delete_current_row(self) -> None:
@@ -34,8 +37,7 @@ class RetrievalPresenter:
         if current_row == -1:
             ui.show_warning_infobar(title='没有选中任何行！', content='请选中要删除的行')
             return
-        result = ui.show_mask_dialog(title='删除当前行', content='确定要删除当前行吗？')
-        if result:
+        if result := ui.show_mask_dialog(title='删除当前行', content='确定要删除当前行吗？'):
             ui.get_table_widget().removeRow(current_row)
 
     def _new_retrieval(self) -> None:
@@ -85,9 +87,12 @@ class RetrievalPresenter:
             self._append_output_textedit(input_text, '失败')
             return
 
-        self._append_output_textedit(input_text, '成功')
-
-        wave_serial_number = self.get_model().get_wave_lastest_serial_number()
+        # 判断当前是否开启了自动波次
+        if self.get_view().get_auto_wave_switch_button().isChecked():
+            wave_serial_number = self.get_model().get_wave_lastest_serial_number()
+        else:
+            wave_int = self.get_view().get_wave_spinbox().value()
+            wave_serial_number = WaveConverter.convert_int_to_wave_serial_number(wave_int)
 
         new_data: RetrievalDict = {
                 "name": inventory.name,
@@ -97,8 +102,11 @@ class RetrievalPresenter:
                 "storage_time": inventory.storage_time,
                 "ean13": inventory.ean13,
                 }
+
+        self._append_output_textedit(input_text, '成功')
         self._table_handler.add_row(new_data)
         loguru.logger.debug(f'添加了一行数据:{inventory}')
+        return
 
     def _export_data(self) -> None:
         ui = self.get_view()
@@ -144,7 +152,7 @@ class RetrievalPresenter:
     def _append_output_textedit(self, ean13: str, text: str = None) -> None:
         number = f'No.{self._count}'
         ean13 = f'EAN13:{ean13}'
-        status = f'【{text}】' if text else f'【成功】'
+        status = f'【{text}】' if text else '【成功】'
 
         pte = self.get_view().get_output_textedit()
         pte.appendPlainText(status + number + ean13)

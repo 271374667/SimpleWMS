@@ -79,6 +79,17 @@ class WaveConverter(Converter):
         year, month, batch_number = result[0]
         return f'{year}{int(month):02d}{int(batch_number):03d}'
 
+    @staticmethod
+    def convert_int_to_wave_serial_number(wave_number: int) -> str:
+        """将波次数字转换为当天的波次编号"""
+        today = datetime.today()
+        return f'{today.year}{today.month:02d}{wave_number:03d}'
+
+    @staticmethod
+    def convert_wave_serial_number_to_int(wave_serial_number: str) -> int:
+        """将波次序号转换为波次数字"""
+        return int(wave_serial_number[-3:])
+
 
 class EAN13Converter(Converter):
     @staticmethod
@@ -110,4 +121,5 @@ class EAN13Converter(Converter):
 if __name__ == '__main__':
     # print(convert_batch_serial_number_to_datetime('202401001'))
     # print(BatchConverter.convert_batch_name_to_batch_serial_number('2024年01月第040批'))
-    print(EAN13Converter.convert_id_to_ean13(7))
+    # print(EAN13Converter.convert_id_to_ean13(7))
+    print(WaveConverter.convert_int_to_wave_serial_number(1))

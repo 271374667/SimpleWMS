@@ -14,7 +14,6 @@ from src.dict_typing import RetrievalDict
 class RetrievalModel:
     def __init__(self):
         self._db_controller = RetrievalController()
-        self.lastest_wave: Optional[str] = None
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
         result = self._db_controller.get_inventory_by_ean13(ean13)
@@ -30,20 +29,15 @@ class RetrievalModel:
         return self._db_controller.is_real_ean13(ean13)
 
     def get_wave_lastest_serial_number(self) -> str:
-        # 使用缓存，如果缓存中没有，那么就从数据库中获取
-        if self.lastest_wave is None:
-            self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
+        self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
         return self.lastest_wave
 
     def get_wave_lastest_number(self) -> int:
-        # 使用缓存，如果缓存中没有，那么就从数据库中获取
-        if self.lastest_wave is None:
-            self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
+        self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
         return int(self.lastest_wave[-3:])
 
     def get_lastest_wave_name(self) -> str:
-        if self.lastest_wave is None:
-            self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
+        self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
         return self._db_controller.get_lastest_wave_serial_number()
 
     def export_data(self, data: List[RetrievalDict]) -> None:
@@ -51,9 +45,6 @@ class RetrievalModel:
         for each in data:
             # each = ['名称', '品牌', '价格', '波次名称', '入库时间', 'EAN13']
             self._db_controller.set_inventory_sold(each["ean13"], each["wave_serial_number"])
-
-        # 更新缓存
-        self.lastest_wave = self._db_controller.get_lastest_wave_serial_number()
 
         # 将数据导出到xlsx文件
         # 将DataFrame导出为Excel文件
