@@ -12,4 +12,3 @@ class WarnPresenter:
 
     def get_model(self) -> WarnModel:
         return self._model
-

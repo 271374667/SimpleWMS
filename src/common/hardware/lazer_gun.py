@@ -27,7 +27,7 @@ class ClipBoard(QObject):
 
     def __init__(self):
         super().__init__()
-        self.ean13_input: str = ''
+        self.ean13_input: str = ""
 
     def on_release(self, key):
         try:
@@ -35,15 +35,18 @@ class ClipBoard(QObject):
         except Exception:
             try:
                 if key == key.enter:  # 如果扫码枪中的数据是回车enter按键
-                    if len(self.ean13_input) != 13 or self.ean13_input.isdigit() is False:
-                        loguru.logger.debug(f'当前输入的条形码格式错误,重新扫描')
-                        self.ean13_input = ''
+                    if (
+                        len(self.ean13_input) != 13
+                        or self.ean13_input.isdigit() is False
+                    ):
+                        loguru.logger.debug("当前输入的条形码格式错误,重新扫描")
+                        self.ean13_input = ""
                         return
-                    loguru.logger.debug(f'当前输入的条形码为{self.ean13_input}')
+                    loguru.logger.debug(f"当前输入的条形码为{self.ean13_input}")
                     self.message.emit(self.ean13_input)
-                    self.ean13_input = ''
+                    self.ean13_input = ""
             except Exception as e:
-                self.ean13_input = ''
+                self.ean13_input = ""
                 loguru.logger.critical(e)
 
     def start_listen(self):
@@ -62,16 +65,16 @@ class LazerGun(QObject):
     def start(self):
         self.run_in_thread.set_start_func(self.clip_board.start_listen)
         self.run_in_thread.start()
-        loguru.logger.info('扫码枪监听线程启动……')
+        loguru.logger.info("扫码枪监听线程启动……")
 
     def _send2signal_bus(self, message: str):
         SingnalBus().lazer_gun_message.emit(message)
 
 
 if __name__ == "__main__":
-    def show_message(message: list[str]):
-        loguru.logger.debug(f'接收到的消息为{message}')
 
+    def show_message(message: list[str]):
+        loguru.logger.debug(f"接收到的消息为{message}")
 
     app = QApplication([])
     s: SingnalBus = SingnalBus()
@@ -79,4 +82,4 @@ if __name__ == "__main__":
     lazer_gun = LazerGun()
     lazer_gun.start()
     app.exec()
-    print('finish')
+    print("finish")

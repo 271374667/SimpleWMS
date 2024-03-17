@@ -53,10 +53,12 @@ class TimeFilter(Query):
     """
 
     @staticmethod
-    def inventory_created_time(query: Query,
-                               start_time: Optional[date] = None,
-                               end_time: Optional[date] = None,
-                               time_filter_enum: Optional[TimeFilterEnum] = None) -> Query:
+    def inventory_created_time(
+        query: Query,
+        start_time: Optional[date] = None,
+        end_time: Optional[date] = None,
+        time_filter_enum: Optional[TimeFilterEnum] = None,
+    ) -> Query:
         """
         通过时间筛选 Inventory
         Args:
@@ -79,41 +81,53 @@ class TimeFilter(Query):
 
             elif start_time is not None and end_time is not None:
                 return query.filter(
-                        and_(
-                                model.Inventory.batch.has(model.Batch.created_time >= start_time),
-                                model.Inventory.batch.has(model.Batch.created_time <= end_time)
-                                )
-                        )
+                    and_(
+                        model.Inventory.batch.has(
+                            model.Batch.created_time >= start_time
+                        ),
+                        model.Inventory.batch.has(model.Batch.created_time <= end_time),
+                    )
+                )
             elif start_time is not None:
                 return query.filter(
-                        model.Inventory.batch.has(model.Batch.created_time >= start_time)
-                        )
+                    model.Inventory.batch.has(model.Batch.created_time >= start_time)
+                )
             else:
                 return query.filter(
-                        model.Inventory.batch.has(model.Batch.created_time <= end_time)
-                        )
+                    model.Inventory.batch.has(model.Batch.created_time <= end_time)
+                )
 
         elif time_filter_enum == TimeFilterEnum.Today:
-            return query.filter(model.Inventory.batch.has(model.Batch.created_time >= today))
+            return query.filter(
+                model.Inventory.batch.has(model.Batch.created_time >= today)
+            )
         elif time_filter_enum == TimeFilterEnum.Week:
             temp_time = today - timedelta(days=7)
-            return query.filter(model.Inventory.batch.has(model.Batch.created_time >= temp_time))
+            return query.filter(
+                model.Inventory.batch.has(model.Batch.created_time >= temp_time)
+            )
         elif time_filter_enum == TimeFilterEnum.FiftenDays:
             temp_time = today - timedelta(days=15)
-            return query.filter(model.Inventory.batch.has(model.Batch.created_time >= temp_time))
+            return query.filter(
+                model.Inventory.batch.has(model.Batch.created_time >= temp_time)
+            )
         elif time_filter_enum == TimeFilterEnum.Month:
             temp_time = today - timedelta(days=30)
-            return query.filter(model.Inventory.batch.has(model.Batch.created_time >= temp_time))
+            return query.filter(
+                model.Inventory.batch.has(model.Batch.created_time >= temp_time)
+            )
         elif time_filter_enum == TimeFilterEnum.All:
             return query
         else:
             raise ValueError("time_filter_enum 参数错误")
 
     @staticmethod
-    def batch_created_time(query: Query,
-                           start_time: Optional[date] = None,
-                           end_time: Optional[date] = None,
-                           time_filter_enum: Optional[TimeFilterEnum] = None) -> Query:
+    def batch_created_time(
+        query: Query,
+        start_time: Optional[date] = None,
+        end_time: Optional[date] = None,
+        time_filter_enum: Optional[TimeFilterEnum] = None,
+    ) -> Query:
         """
         通过时间筛选 batch
         Args:
@@ -135,11 +149,11 @@ class TimeFilter(Query):
 
             elif start_time is not None and end_time is not None:
                 return query.filter(
-                        and_(
-                                model.Batch.created_time >= start_time,
-                                model.Batch.created_time <= end_time
-                                )
-                        )
+                    and_(
+                        model.Batch.created_time >= start_time,
+                        model.Batch.created_time <= end_time,
+                    )
+                )
             elif start_time is not None:
                 return query.filter(model.Batch.created_time >= start_time)
             else:
@@ -162,10 +176,12 @@ class TimeFilter(Query):
             raise ValueError("time_filter_enum 参数错误")
 
     @staticmethod
-    def wave_created_time(query: Query,
-                          start_time: Optional[date] = None,
-                          end_time: Optional[date] = None,
-                          time_filter_enum: Optional[TimeFilterEnum] = None) -> Query:
+    def wave_created_time(
+        query: Query,
+        start_time: Optional[date] = None,
+        end_time: Optional[date] = None,
+        time_filter_enum: Optional[TimeFilterEnum] = None,
+    ) -> Query:
         """
         通过时间筛选 wave
         Args:
@@ -187,11 +203,11 @@ class TimeFilter(Query):
 
             elif start_time is not None and end_time is not None:
                 return query.filter(
-                        and_(
-                                model.Wave.created_time >= start_time,
-                                model.Wave.created_time <= end_time
-                                )
-                        )
+                    and_(
+                        model.Wave.created_time >= start_time,
+                        model.Wave.created_time <= end_time,
+                    )
+                )
             elif start_time is not None:
                 return query.filter(model.Wave.created_time >= start_time)
             else:
@@ -237,5 +253,5 @@ class AttrFilter(Query):
         return query.filter(model.Wave.wave_serial_number == wave_serial_number)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(datetime.now() > date(2021, 1, 1))

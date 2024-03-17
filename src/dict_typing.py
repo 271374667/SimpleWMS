@@ -11,6 +11,7 @@ class CustomBaseDict(TypedDict):
 
 class StorageDict(CustomBaseDict):
     """入库"""
+
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -19,6 +20,7 @@ class StorageDict(CustomBaseDict):
 
 class ReStorageDict(CustomBaseDict):
     """退货重新入库"""
+
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -31,6 +33,7 @@ class ReStorageDict(CustomBaseDict):
 
 class RetrievalDict(CustomBaseDict):
     """出库"""
+
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -41,6 +44,7 @@ class RetrievalDict(CustomBaseDict):
 
 class UnsalableDict(CustomBaseDict):
     """滞销"""
+
     name: Required[str]
     brand: Required[str]
     batch_serial_number: Required[str]
@@ -56,6 +60,7 @@ OutOfStockDict = UnsalableDict
 
 class ReturnTimesDict(CustomBaseDict):
     """退货次数"""
+
     name: Required[str]
     brand: Required[str]
     batch_serial_number: Required[str]
@@ -66,6 +71,7 @@ class ReturnTimesDict(CustomBaseDict):
 
 class BasicSearchDict(CustomBaseDict):
     """基本查询"""
+
     name: Required[str]
     brand: Required[str]
     price: Required[float]
@@ -81,6 +87,7 @@ class BasicSearchDict(CustomBaseDict):
 
 class BasicSearchParameterDict(CustomBaseDict):
     """基本查询参数"""
+
     ean13: NotRequired[str]
     name: NotRequired[str]
     brand: NotRequired[str]
@@ -98,6 +105,7 @@ class BasicSearchParameterDict(CustomBaseDict):
 
 class AllInventoryDict(CustomBaseDict):
     """所有的数据,用于导出和导入"""
+
     ean13: Required[str]
     name: Required[str]
     brand: Required[str]

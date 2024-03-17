@@ -5,7 +5,7 @@ from datetime import datetime
 from barcode import EAN13
 
 # locale.setlocale(locale.LC_CTYPE, 'Chinese')
-locale.setlocale(locale.LC_ALL, 'zh_CN.UTF-8')
+locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
 
 
 class Converter:
@@ -25,25 +25,26 @@ class BatchConverter(Converter):
     def convert_batch_serial_number_to_batch_name(batch_serial_number: str) -> str:
         """将批次序号转换为批次名称"""
         batch_number = int(batch_serial_number[-3:])
-        return BatchConverter.convert_batch_serial_number_to_datetime(batch_serial_number).strftime(
-                f'%Y年%m月第{batch_number:03d}批')
+        return BatchConverter.convert_batch_serial_number_to_datetime(
+            batch_serial_number
+        ).strftime(f"%Y年%m月第{batch_number:03d}批")
 
     @staticmethod
     def convert_batch_name_to_batch_serial_number(batch_name: str) -> str:
         """将批次名称转换为批次序号"""
         # 根据正则表达式匹配出年月,以及批次序号
-        pattern = re.compile(r'(\d{4})年(\d{2})月第(\d{3})批')
+        pattern = re.compile(r"(\d{4})年(\d{2})月第(\d{3})批")
         result = pattern.findall(batch_name)
         if not result:
             raise ValueError("The input is not a valid batch name.")
         year, month, batch_number = result[0]
-        return f'{year}{int(month):02d}{int(batch_number):03d}'
+        return f"{year}{int(month):02d}{int(batch_number):03d}"
 
     @staticmethod
     def convert_int_to_batch_serial_number(batch_number: int) -> str:
         """将批次数字转换为当天的批次编号"""
         today = datetime.today()
-        return f'{today.year}{today.month:02d}{batch_number:03d}'
+        return f"{today.year}{today.month:02d}{batch_number:03d}"
 
     @staticmethod
     def convert_batch_serial_number_to_int(batch_serial_number: str) -> int:
@@ -52,7 +53,6 @@ class BatchConverter(Converter):
 
 
 class WaveConverter(Converter):
-
     @staticmethod
     def convert_wave_serial_number_to_datetime(wave_serial_number: str) -> datetime:
         """将波次序号转换为时间"""
@@ -65,25 +65,26 @@ class WaveConverter(Converter):
     def convert_wave_serial_number_to_wave_name(wave_serial_number: str) -> str:
         """将波次序号转换为波次名称"""
         batch_number = int(wave_serial_number[-3:])
-        return BatchConverter.convert_batch_serial_number_to_datetime(wave_serial_number).strftime(
-                f'%Y年%m月第{batch_number:03d}批')
+        return BatchConverter.convert_batch_serial_number_to_datetime(
+            wave_serial_number
+        ).strftime(f"%Y年%m月第{batch_number:03d}批")
 
     @staticmethod
     def convert_wave_name_to_wave_serial_number(wave_name: str) -> str:
         """将波次名称转换为波次序号"""
         # 根据正则表达式匹配出年月,以及批次序号
-        pattern = re.compile(r'(\d{4})年(\d{2})月第(\d{3})波')
+        pattern = re.compile(r"(\d{4})年(\d{2})月第(\d{3})波")
         result = pattern.findall(wave_name)
         if not result:
             raise ValueError("The input is not a valid batch name.")
         year, month, batch_number = result[0]
-        return f'{year}{int(month):02d}{int(batch_number):03d}'
+        return f"{year}{int(month):02d}{int(batch_number):03d}"
 
     @staticmethod
     def convert_int_to_wave_serial_number(wave_number: int) -> str:
         """将波次数字转换为当天的波次编号"""
         today = datetime.today()
-        return f'{today.year}{today.month:02d}{wave_number:03d}'
+        return f"{today.year}{today.month:02d}{wave_number:03d}"
 
     @staticmethod
     def convert_wave_serial_number_to_int(wave_serial_number: str) -> int:
@@ -118,7 +119,7 @@ class EAN13Converter(Converter):
         return int(EAN13Converter.convert_ean13_to_length12str(ean13))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # print(convert_batch_serial_number_to_datetime('202401001'))
     # print(BatchConverter.convert_batch_name_to_batch_serial_number('2024年01月第040批'))
     # print(EAN13Converter.convert_id_to_ean13(7))

@@ -27,10 +27,10 @@ def main():
 
     # 将主窗口放到最前面
     main_window.raise_()
-    loguru.logger.success('SimpleWMS 启动!')
+    loguru.logger.success("SimpleWMS 启动!")
     app.exec()
-    loguru.logger.success('SimpleWMS 已退出!')
+    loguru.logger.success("SimpleWMS 已退出!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

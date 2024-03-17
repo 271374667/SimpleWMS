@@ -9,12 +9,15 @@ from src.common.database.query_filter import IdFilter
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.utils import convert
 
+
 class SetModelService:
     def __init__(self):
         self._session = Session
         self._get_model_service = GetModelService()
 
-    def set_wave_for_inventory(self, ean13: Union[str, int], wave: Optional[model.Wave]) -> None:
+    def set_wave_for_inventory(
+        self, ean13: Union[str, int], wave: Optional[model.Wave]
+    ) -> None:
         """设置波次
         Args:
             ean13: 物品的EAN13编码
@@ -54,7 +57,9 @@ class SetModelService:
         inventory_sqlalchemy_model.wave = wave_sqlalchemy_model
         inventory_sqlalchemy_model.is_sold = 1
         self._session.commit()
-        loguru.logger.debug(f"设置 EAN13 为 {ean13} 的商品为波次 {wave.wave_serial_number}")
+        loguru.logger.debug(
+            f"设置 EAN13 为 {ean13} 的商品为波次 {wave.wave_serial_number}"
+        )
 
     def set_inventory_return_and_sold(self, ean13: str) -> None:
         """设置库存为退货和已售出,同时清空他的波次信息"""

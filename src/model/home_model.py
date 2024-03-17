@@ -55,7 +55,9 @@ class HomeModel:
     def get_all_wave_card_data(self) -> list[dict_typing.WaveCardDict]:
         return self._db_controller.get_all_wave_card_data()
 
-    def get_current_item_quantity_card_data(self) -> list[dict_typing.ItemQuantityCardDict]:
+    def get_current_item_quantity_card_data(
+        self,
+    ) -> list[dict_typing.ItemQuantityCardDict]:
         return self._db_controller.get_current_item_quantity_card_data()
 
     def get_all_item_quantity_card_data(self) -> list[dict_typing.ItemQuantityCardDict]:

@@ -32,13 +32,13 @@ class RetrievalController:
             return None
 
         return RetrievalData(
-                name=result.item_name,
-                brand=result.brand,
-                price=result.price,
-                batch_name=result.batch.batch_name,
-                storage_time=result.batch.created_time,
-                ean13=ean13,
-                )
+            name=result.item_name,
+            brand=result.brand,
+            price=result.price,
+            batch_name=result.batch.batch_name,
+            storage_time=result.batch.created_time,
+            ean13=ean13,
+        )
 
     def is_real_ean13(self, ean13: str) -> bool:
         """检测是否是真实的EAN13"""
@@ -57,15 +57,20 @@ class RetrievalController:
         if result is None:
             return
 
-        self._set_model_service.set_wave_for_inventory(ean13=ean13,
-                                                       wave=model.Wave(wave_serial_number=wave_serial_number,
-                                                                       wave_name=convert.WaveConverter.convert_wave_serial_number_to_wave_name(
-                                                                               wave_serial_number)
-                                                                       )
-                                                       )
+        self._set_model_service.set_wave_for_inventory(
+            ean13=ean13,
+            wave=model.Wave(
+                wave_serial_number=wave_serial_number,
+                wave_name=convert.WaveConverter.convert_wave_serial_number_to_wave_name(
+                    wave_serial_number
+                ),
+            ),
+        )
 
     def convert_wave_serial_number_to_wave_name(self, wave_serial_number: str) -> str:
-        return convert.WaveConverter.convert_wave_serial_number_to_wave_name(wave_serial_number)
+        return convert.WaveConverter.convert_wave_serial_number_to_wave_name(
+            wave_serial_number
+        )
 
     def _get_first_inventory_by_ean13(self, ean13):
         query = self._get_model_service.get_all_inventory()

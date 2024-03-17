@@ -3,6 +3,7 @@
 
 因为pyecharts的图表需要使用本地服务器进行渲染,所以需要在本地搭建一个服务器,然后将服务器的地址设置到CurrentConfig.ONLINE_HOST中
 """
+
 import http.server
 import socketserver
 import threading
@@ -25,9 +26,9 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response_only(code, message)
 
     def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         http.server.SimpleHTTPRequestHandler.end_headers(self)
 
 

@@ -1,7 +1,9 @@
 from PySide6.QtWidgets import QGroupBox, QHBoxLayout, QVBoxLayout, QWidget
 from qfluentwidgets import BodyLabel, SpinBox, ToolTipFilter
 
-from src.common.database.controller.database_plugin_controller import DatabasePluginController
+from src.common.database.controller.database_plugin_controller import (
+    DatabasePluginController,
+)
 from src.common.plugins.plugin_base import DatabasePluginBase
 from src.dict_typing import OutOfStockDict
 
@@ -21,23 +23,24 @@ class OutOfStockWidget(QWidget):
         self.first_state_value_spin_box = SpinBox()
 
         # 设置第一阶段的文本框和标签
-        self.first_stage_day_label.setText('轻微脱销天数:')
+        self.first_stage_day_label.setText("轻微脱销天数:")
         self.first_stage_day_spin_box.setValue(3)
         self.first_stage_day_spin_box.setRange(0, 100)
-        self.first_stage_day_spin_box.setSuffix('天')
+        self.first_stage_day_spin_box.setSuffix("天")
         self.first_stage_day_spin_box.setSingleStep(1)
-        self.first_stage_day_spin_box.setToolTip('该天数不能大于中等滞销的天数\n该天数内存货率小于百分比会被标记为脱销')
+        self.first_stage_day_spin_box.setToolTip(
+            "该天数不能大于中等滞销的天数\n该天数内存货率小于百分比会被标记为脱销"
+        )
         self.first_stage_day_label.setBuddy(self.first_stage_day_spin_box)
         self.first_stage_layout.addWidget(self.first_stage_day_label)
         self.first_stage_layout.addWidget(self.first_stage_day_spin_box)
 
-        self.first_state_value_label.setText('轻微脱销百分比:')
+        self.first_state_value_label.setText("轻微脱销百分比:")
         self.first_state_value_spin_box.setValue(50)
         self.first_state_value_spin_box.setRange(0, 100)
-        self.first_state_value_spin_box.setSuffix('%')
+        self.first_state_value_spin_box.setSuffix("%")
         self.first_state_value_spin_box.setSingleStep(1)
-        self.first_state_value_spin_box.setToolTip(
-                '当存货率小于该百分百则会被显示')
+        self.first_state_value_spin_box.setToolTip("当存货率小于该百分百则会被显示")
         self.first_state_value_label.setBuddy(self.first_state_value_spin_box)
         self.first_stage_layout.addWidget(self.first_state_value_label)
         self.first_stage_layout.addWidget(self.first_state_value_spin_box)
@@ -54,24 +57,24 @@ class OutOfStockWidget(QWidget):
         self.second_state_value_spin_box = SpinBox()
 
         # 设置第二阶段的文本框和标签
-        self.second_stage_day_label.setText('中等脱销天数:')
+        self.second_stage_day_label.setText("中等脱销天数:")
         self.second_stage_day_spin_box.setValue(7)
         self.second_stage_day_spin_box.setRange(1, 30)
-        self.second_stage_day_spin_box.setSuffix('天')
+        self.second_stage_day_spin_box.setSuffix("天")
         self.second_stage_day_spin_box.setSingleStep(1)
         self.second_stage_day_spin_box.setToolTip(
-                '设置时需要注意,值不能大于轻微脱销的天数')
+            "设置时需要注意,值不能大于轻微脱销的天数"
+        )
         self.second_stage_day_label.setBuddy(self.second_stage_day_spin_box)
         self.second_stage_layout.addWidget(self.second_stage_day_label)
         self.second_stage_layout.addWidget(self.second_stage_day_spin_box)
 
-        self.second_state_value_label.setText('中等脱销百分比:')
+        self.second_state_value_label.setText("中等脱销百分比:")
         self.second_state_value_spin_box.setValue(30)
         self.second_state_value_spin_box.setRange(0, 100)
-        self.second_state_value_spin_box.setSuffix('%')
+        self.second_state_value_spin_box.setSuffix("%")
         self.second_state_value_spin_box.setSingleStep(1)
-        self.second_state_value_spin_box.setToolTip(
-                '该数值不能大于轻微脱销的百分比')
+        self.second_state_value_spin_box.setToolTip("该数值不能大于轻微脱销的百分比")
         self.second_state_value_label.setBuddy(self.second_state_value_spin_box)
         self.second_stage_layout.addWidget(self.second_state_value_label)
         self.second_stage_layout.addWidget(self.second_state_value_spin_box)
@@ -92,11 +95,21 @@ class OutOfStockWidget(QWidget):
 
     def _validate_rule(self):
         # 首先是两个天数,中等脱销的天数必须大于轻微脱销的天数
-        if self.first_stage_day_spin_box.value() >= self.second_stage_day_spin_box.value():
-            self.second_stage_day_spin_box.setValue(self.first_stage_day_spin_box.value() + 1)
+        if (
+            self.first_stage_day_spin_box.value()
+            >= self.second_stage_day_spin_box.value()
+        ):
+            self.second_stage_day_spin_box.setValue(
+                self.first_stage_day_spin_box.value() + 1
+            )
         # 然后是中等脱销的百分比必须小于轻微脱销的百分比
-        if self.first_state_value_spin_box.value() <= self.second_state_value_spin_box.value():
-            self.second_state_value_spin_box.setValue(self.first_state_value_spin_box.value() - 1)
+        if (
+            self.first_state_value_spin_box.value()
+            <= self.second_state_value_spin_box.value()
+        ):
+            self.second_state_value_spin_box.setValue(
+                self.first_state_value_spin_box.value() - 1
+            )
 
 
 class OutOfStockPlugin(DatabasePluginBase):
@@ -108,8 +121,17 @@ class OutOfStockPlugin(DatabasePluginBase):
 
     上面的这些数据都需要可以直接在界面上设置
     """
-    plugin_name: str = '脱销商品'
-    table_show_headers = ['商品名称', '品牌', '批次', '存放天数', '库存量', '总量', '存货率%']
+
+    plugin_name: str = "脱销商品"
+    table_show_headers = [
+        "商品名称",
+        "品牌",
+        "批次",
+        "存放天数",
+        "库存量",
+        "总量",
+        "存货率%",
+    ]
     table_headers = OutOfStockDict
     has_custom_widget: bool = True
     has_initialize: bool = True
@@ -125,9 +147,12 @@ class OutOfStockPlugin(DatabasePluginBase):
         result = []
         # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
         for each in outofstock_data:
-            level_1_condition = (
-                    (each['storage_time_from_today'] <= level_1_day) and (each['storage_rate'] <= level_1_value))
-            level_2_condition = ((each['storage_time_from_today'] <= level_2_day) and (each['storage_rate'] <= level_2_value))
+            level_1_condition = (each["storage_time_from_today"] <= level_1_day) and (
+                each["storage_rate"] <= level_1_value
+            )
+            level_2_condition = (each["storage_time_from_today"] <= level_2_day) and (
+                each["storage_rate"] <= level_2_value
+            )
             if level_1_condition or level_2_condition:
                 result.append(each)
         return result
@@ -135,8 +160,10 @@ class OutOfStockPlugin(DatabasePluginBase):
     get_data.__doc__ = DatabasePluginBase.get_data.__doc__
 
     def get_description(self) -> str:
-        return ('该插件用于筛选脱销商品,逻辑为根据批次,品牌,商品名称进行分组筛选\n'
-                '其中存货率为(库存量/总量)的百分比,存放天数为从入库开始到今天为止的天数')
+        return (
+            "该插件用于筛选脱销商品,逻辑为根据批次,品牌,商品名称进行分组筛选\n"
+            "其中存货率为(库存量/总量)的百分比,存放天数为从入库开始到今天为止的天数"
+        )
 
     get_description.__doc__ = DatabasePluginBase.get_description.__doc__
 
@@ -150,8 +177,7 @@ class OutOfStockPlugin(DatabasePluginBase):
         self._custom_widget = OutOfStockWidget()
         self._database_plugin_controller = DatabasePluginController()
 
-    def _connect_signals(self) -> None:
-        ...
+    def _connect_signals(self) -> None: ...
 
 
 if __name__ == "__main__":

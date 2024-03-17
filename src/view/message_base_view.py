@@ -7,11 +7,18 @@ from typing import Optional
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import MessageBox
-from qfluentwidgets.components import InfoBar, InfoBarIcon, InfoBarPosition, PushButton, StateToolTip
+from qfluentwidgets.components import (
+    InfoBar,
+    InfoBarIcon,
+    InfoBarPosition,
+    PushButton,
+    StateToolTip,
+)
 
 
 class MessageBaseView(QWidget):
     """这个类负责让其他的View继承，实现一些一些常用的信息提示的功能"""
+
     info_button_clicked = Signal()
 
     def __init__(self, parent=None):
@@ -19,7 +26,7 @@ class MessageBaseView(QWidget):
         self.setParent(parent)
         self.is_state_tooltip_running = False
 
-    def show_mask_dialog(self, title: str = 'Title', content: str = 'Content') -> bool:
+    def show_mask_dialog(self, title: str = "Title", content: str = "Content") -> bool:
         """显示一个遮罩式的对话框
 
         Args:
@@ -32,12 +39,15 @@ class MessageBaseView(QWidget):
         w = MessageBox(title, content, self)
         return bool(w.exec())
 
-    def show_info_infobar(self, title: str = 'Title',
-                          content: str = 'Content',
-                          duration: int = 5000,
-                          position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-                          is_closable: bool = True,
-                          button_text: Optional[str] = None) -> None:
+    def show_info_infobar(
+        self,
+        title: str = "Title",
+        content: str = "Content",
+        duration: int = 5000,
+        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+        is_closable: bool = True,
+        button_text: Optional[str] = None,
+    ) -> None:
         """显示一个信息提示框
 
         Args:
@@ -48,14 +58,16 @@ class MessageBaseView(QWidget):
             is_closable (bool, optional): 是否可以被关闭. Defaults to True.
             button_text: (str, optional): 按钮的文本. Defaults to None.
         """
-        w = InfoBar(icon=InfoBarIcon.INFORMATION,
-                    title=title,
-                    content=content,
-                    orient=Qt.Vertical,  # vertical layout
-                    isClosable=is_closable,
-                    position=position,
-                    duration=duration,
-                    parent=self)
+        w = InfoBar(
+            icon=InfoBarIcon.INFORMATION,
+            title=title,
+            content=content,
+            orient=Qt.Vertical,  # vertical layout
+            isClosable=is_closable,
+            position=position,
+            duration=duration,
+            parent=self,
+        )
         if button_text:
             inner_button = PushButton(button_text)
             w.addWidget(inner_button)
@@ -63,11 +75,14 @@ class MessageBaseView(QWidget):
 
         w.show()
 
-    def show_success_infobar(self, title: str = 'Title',
-                             content: str = 'Content',
-                             duration: int = 4000,
-                             position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-                             is_closable: bool = True) -> None:
+    def show_success_infobar(
+        self,
+        title: str = "Title",
+        content: str = "Content",
+        duration: int = 4000,
+        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+        is_closable: bool = True,
+    ) -> None:
         """显示一个成功信息提示框
 
         Args:
@@ -78,21 +93,24 @@ class MessageBaseView(QWidget):
             is_closable (bool, optional): 是否可以被关闭. Defaults to True.
         """
         w = InfoBar.success(
-                title=title,
-                content=content,
-                orient=Qt.Vertical,  # vertical layout
-                isClosable=is_closable,
-                position=position,
-                duration=duration,
-                parent=self
-                )
+            title=title,
+            content=content,
+            orient=Qt.Vertical,  # vertical layout
+            isClosable=is_closable,
+            position=position,
+            duration=duration,
+            parent=self,
+        )
         w.show()
 
-    def show_warning_infobar(self, title: str = 'Title',
-                             content: str = 'Content',
-                             duration: int = 5000,
-                             position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-                             is_closable: bool = False) -> None:
+    def show_warning_infobar(
+        self,
+        title: str = "Title",
+        content: str = "Content",
+        duration: int = 5000,
+        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+        is_closable: bool = False,
+    ) -> None:
         """显示一个警告信息提示框
 
         Args:
@@ -103,21 +121,24 @@ class MessageBaseView(QWidget):
             is_closable (bool, optional): 是否可以被关闭. Defaults to False.
         """
         w = InfoBar.warning(
-                title=title,
-                content=content,
-                orient=Qt.Vertical,  # vertical layout
-                isClosable=is_closable,
-                position=position,
-                duration=duration,
-                parent=self
-                )
+            title=title,
+            content=content,
+            orient=Qt.Vertical,  # vertical layout
+            isClosable=is_closable,
+            position=position,
+            duration=duration,
+            parent=self,
+        )
         w.show()
 
-    def show_error_infobar(self, title: str = 'Title',
-                           content: str = 'Content',
-                           duration: int = -1,
-                           position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-                           is_closable: bool = False) -> None:
+    def show_error_infobar(
+        self,
+        title: str = "Title",
+        content: str = "Content",
+        duration: int = -1,
+        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+        is_closable: bool = False,
+    ) -> None:
         """显示一个错误信息提示框
 
         Args:
@@ -128,19 +149,21 @@ class MessageBaseView(QWidget):
             is_closable (bool, optional): 是否可以被关闭. Defaults to False.
         """
         w = InfoBar.error(
-                title=title,
-                content=content,
-                orient=Qt.Vertical,  # vertical layout
-                isClosable=is_closable,
-                position=position,
-                duration=duration,
-                parent=self
-                )
+            title=title,
+            content=content,
+            orient=Qt.Vertical,  # vertical layout
+            isClosable=is_closable,
+            position=position,
+            duration=duration,
+            parent=self,
+        )
         w.show()
 
-    def show_state_tooltip(self, title: str,
-                           content: str,
-                           ) -> None:
+    def show_state_tooltip(
+        self,
+        title: str,
+        content: str,
+    ) -> None:
         """显示一个状态提示框
 
         Args:
@@ -171,11 +194,11 @@ class MessageBaseView(QWidget):
 
     def resizeEvent(self, event):
         # 每次窗口大小改变的时候，都要重新计算一下tooltip的位置
-        if hasattr(self, 'state_tooltip'):
+        if hasattr(self, "state_tooltip"):
             self.state_tooltip.move(self.state_tooltip.getSuitablePos())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     w = MessageBaseView()
     w.show()

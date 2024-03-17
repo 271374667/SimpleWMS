@@ -22,7 +22,8 @@ class SettingController(QObject):
         data = self._get_model_service.get_all_data().all()
         result: List[AllInventoryDict] = []
         for inventory, batch, wave in data:
-            result.append({
+            result.append(
+                {
                     "ean13": convert.EAN13Converter.convert_id_to_ean13(inventory.id),
                     "name": inventory.item_name,
                     "brand": inventory.brand,
@@ -39,8 +40,9 @@ class SettingController(QObject):
                     "wave_name": wave.wave_name if wave else None,
                     "wave_serial_number": wave.wave_serial_number if wave else None,
                     "wave_created_time": wave.created_time if wave else None,
-                    "is_wave_active": wave.is_active if wave else None
-                    })
+                    "is_wave_active": wave.is_active if wave else None,
+                }
+            )
         return result
 
     def import_database(self, data: List[AllInventoryDict]) -> None:
@@ -55,34 +57,34 @@ class SettingController(QObject):
             count += 1
             self.import_database_progress.emit(count / data_length * 100)
             batch = Batch(
-                    id=item["batch_id"],
-                    batch_name=item["batch_name"],
-                    batch_serial_number=item["batch_serial_number"],
-                    created_time=item["batch_created_time"],
-                    is_active=item["is_batch_active"]
-                    )
+                id=item["batch_id"],
+                batch_name=item["batch_name"],
+                batch_serial_number=item["batch_serial_number"],
+                created_time=item["batch_created_time"],
+                is_active=item["is_batch_active"],
+            )
 
             if item["batch_serial_number"] not in batch_cache:
                 batch_cache[item["batch_serial_number"]] = batch
 
             inventory = Inventory(
-                    id=convert.EAN13Converter.convert_ean13_to_id(item["ean13"]),
-                    item_name=item["name"],
-                    price=item["price"],
-                    brand=item["brand"],
-                    is_sold=item["is_sold"],
-                    return_times=item["return_times"],
-                    is_active=item["is_inventory_active"]
-                    )
+                id=convert.EAN13Converter.convert_ean13_to_id(item["ean13"]),
+                item_name=item["name"],
+                price=item["price"],
+                brand=item["brand"],
+                is_sold=item["is_sold"],
+                return_times=item["return_times"],
+                is_active=item["is_inventory_active"],
+            )
 
             if item["wave_id"]:
                 wave = Wave(
-                        id=item["wave_id"],
-                        wave_name=item["wave_name"],
-                        wave_serial_number=item["wave_serial_number"],
-                        created_time=item["wave_created_time"],
-                        is_active=item["is_wave_active"]
-                        )
+                    id=item["wave_id"],
+                    wave_name=item["wave_name"],
+                    wave_serial_number=item["wave_serial_number"],
+                    created_time=item["wave_created_time"],
+                    is_active=item["is_wave_active"],
+                )
 
                 if item["wave_serial_number"] not in wave_cache:
                     wave_cache[item["wave_serial_number"]] = wave
@@ -96,7 +98,7 @@ class SettingController(QObject):
         self._clear_service.clear_all()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pprint import pprint
 
     setting_controller = SettingController()

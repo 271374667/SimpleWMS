@@ -38,13 +38,20 @@ class StorageController:
     def export_to_database(self, data: List[Tuple[str, str, float, str]]) -> None:
         """导出数据到数据库"""
         for item_name, brand, price, batch_serial_number in data:
-            batch_name = convert.BatchConverter.convert_batch_serial_number_to_batch_name(batch_serial_number)
-            batch_sqlalchemy_model = model.Batch(batch_serial_number=batch_serial_number,
-                                                 batch_name=batch_name)
-            self._add_model_service.add_inventory(item_name=item_name,
-                                                  price=price,
-                                                  brand=brand,
-                                                  batch=batch_sqlalchemy_model)
+            batch_name = (
+                convert.BatchConverter.convert_batch_serial_number_to_batch_name(
+                    batch_serial_number
+                )
+            )
+            batch_sqlalchemy_model = model.Batch(
+                batch_serial_number=batch_serial_number, batch_name=batch_name
+            )
+            self._add_model_service.add_inventory(
+                item_name=item_name,
+                price=price,
+                brand=brand,
+                batch=batch_sqlalchemy_model,
+            )
 
     def get_latest_batch_serial_number(self) -> str:
         """获取最新的批次,如果不存在会自动生成一个"""
@@ -61,17 +68,17 @@ class StorageController:
         query = IdFilter.inventory_id_greater_than(query, id)
         inventory_list = query.all()
         result = [
-                StorageData(
-                        item_id=inventory.id,
-                        item_name=inventory.item_name,
-                        brand=inventory.brand,
-                        price=inventory.price,
-                        batch_name=inventory.batch.batch_name,
-                        batch_serial_number=inventory.batch.batch_serial_number,
-                        created_time=inventory.batch.created_time,
-                        )
-                for inventory in inventory_list
-                ]
+            StorageData(
+                item_id=inventory.id,
+                item_name=inventory.item_name,
+                brand=inventory.brand,
+                price=inventory.price,
+                batch_name=inventory.batch.batch_name,
+                batch_serial_number=inventory.batch.batch_serial_number,
+                created_time=inventory.batch.created_time,
+            )
+            for inventory in inventory_list
+        ]
         # 按照 id 字段排序
         result = sorted(result, key=lambda x: x.item_id)
         return result
@@ -106,10 +113,14 @@ class StorageController:
         if not batch_sqalchemy_model:
             return True
         batch_time = batch_sqalchemy_model.created_time
-        return batch_time.year == today.year and batch_time.month == today.month and batch_time.day == today.day
+        return (
+            batch_time.year == today.year
+            and batch_time.month == today.month
+            and batch_time.day == today.day
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     s = StorageController()
-    a = ['202401001', '202401002', '202401001']
+    a = ["202401001", "202401002", "202401001"]
     # print(SType.get_latest_batch_serial_number())

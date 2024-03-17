@@ -23,7 +23,10 @@ def cv2AddChineseText(img, text, position, textColor=(0, 0, 0), textSize=23):
     # fontStyle = ImageFont.truetype(
     #     cfg.get('font', 'font_path'), textSize, encoding="utf-8")
     fontStyle = ImageFont.truetype(
-            r'E:\load\python\Project\SimpleWMS\assets\fonts\Alibaba-PuHuiTi-Regular.ttf', textSize, encoding="utf-8")
+        r"E:\load\python\Project\SimpleWMS\assets\fonts\Alibaba-PuHuiTi-Regular.ttf",
+        textSize,
+        encoding="utf-8",
+    )
     # 绘制文本
     draw.text(position, text, textColor, font=fontStyle)
     # 转换回OpenCV格式
@@ -53,7 +56,9 @@ def get_image(ean13: str, batch_info: str, item_name: str) -> np.ndarray:
 
     # 图片的生成和svg转png
     barcode = EAN13(ean13)
-    barcode_png = cairosvg.svg2png(bytestring=barcode.render(writer_options={"module_width": 0.5}))
+    barcode_png = cairosvg.svg2png(
+        bytestring=barcode.render(writer_options={"module_width": 0.5})
+    )
     barcode_png = PIL.Image.open(io.BytesIO(barcode_png))
     barcode_png = np.array(barcode_png)
 
@@ -61,9 +66,15 @@ def get_image(ean13: str, batch_info: str, item_name: str) -> np.ndarray:
     barcode_png = cv2.cvtColor(barcode_png, cv2.COLOR_RGB2BGR)
     barcode_png = cv2.resize(barcode_png, (0, 0), fx=3, fy=3)
     barcode_png = barcode_utils.remove_picture_on_y(barcode_png, 195)
-    barcode_png = barcode_utils.cv2AddChineseText(barcode_png, f'名称:{item_name}', (100, 205))
-    barcode_png = barcode_utils.cv2AddChineseText(barcode_png, f'批次:{batch_info}', (100, 230))
-    barcode_png = barcode_utils.cv2AddChineseText(barcode_png, f'EAN13:{barcode.get_fullcode()}', (400, 230))
+    barcode_png = barcode_utils.cv2AddChineseText(
+        barcode_png, f"名称:{item_name}", (100, 205)
+    )
+    barcode_png = barcode_utils.cv2AddChineseText(
+        barcode_png, f"批次:{batch_info}", (100, 230)
+    )
+    barcode_png = barcode_utils.cv2AddChineseText(
+        barcode_png, f"EAN13:{barcode.get_fullcode()}", (400, 230)
+    )
     return barcode_png
 
 

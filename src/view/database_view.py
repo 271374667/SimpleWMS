@@ -2,7 +2,13 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QCursor
 from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import FluentIcon, Icon, MenuAnimationType, RoundMenu
-from qfluentwidgets.components import ComboBox, PrimaryPushButton, StrongBodyLabel, TableWidget, ToolTipFilter
+from qfluentwidgets.components import (
+    ComboBox,
+    PrimaryPushButton,
+    StrongBodyLabel,
+    TableWidget,
+    ToolTipFilter,
+)
 
 from src.interface.Ui_database_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
@@ -52,11 +58,11 @@ class DatabaseView(MessageBaseView):
         tb.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
 
         self._round_menu = RoundMenu(parent=tb)
-        self._refresh_action = QAction('刷新')
+        self._refresh_action = QAction("刷新")
         self._refresh_action.setIcon(Icon(FluentIcon.SYNC))
         self._round_menu.addAction(self._refresh_action)
 
-        self._export_action = QAction('导出')
+        self._export_action = QAction("导出")
         self._export_action.setIcon(Icon(FluentIcon.EMBED))
         self._round_menu.addAction(self._export_action)
 

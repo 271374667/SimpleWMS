@@ -7,6 +7,7 @@
 3. 表格数据的删除
 4. 表格数据的判断
 """
+
 from pathlib import Path
 from typing import Optional
 from typing import Union
@@ -23,7 +24,12 @@ class TableHandler(QObject):
     # 如果出现空行，那么就会发出这个信号,第一个参数是行数，第二个参数是列数
     null_skip_signal = Signal(int, int)
 
-    def __init__(self, table: TableWidget, headers: Optional[CustomBaseDict] = None, show_headers: list[str] = None):
+    def __init__(
+        self,
+        table: TableWidget,
+        headers: Optional[CustomBaseDict] = None,
+        show_headers: list[str] = None,
+    ):
         super().__init__()
         self._table: TableWidget = table
 
@@ -52,7 +58,9 @@ class TableHandler(QObject):
             if self.is_null(row_index):
                 continue
             for column_index in range(len(self._headers)):
-                current_row_data[self._headers[column_index]] = self._table.item(row_index, column_index).text()
+                current_row_data[self._headers[column_index]] = self._table.item(
+                    row_index, column_index
+                ).text()
 
             data.append(current_row_data)
         return data
@@ -77,9 +85,7 @@ class TableHandler(QObject):
         if len(row_data) != len(self._headers):
             raise ValueError("数据长度和表头长度不一致")
 
-        if ((row_data is None)
-                or (not isinstance(row_data, dict))
-                or (row_data == {})):
+        if (row_data is None) or (not isinstance(row_data, dict)) or (row_data == {}):
             return None
 
         last_row_index = self.get_last_row_index()
@@ -89,8 +95,11 @@ class TableHandler(QObject):
             self._table.setRowCount(max_row_count + 1)
 
         for key in row_data:
-            self._table.setItem(last_row_index, self._get_header_index(key),
-                                QTableWidgetItem(str(row_data[key])))
+            self._table.setItem(
+                last_row_index,
+                self._get_header_index(key),
+                QTableWidgetItem(str(row_data[key])),
+            )
 
     def add_rows(self, rows_data: list[CustomBaseDict]) -> None:
         """添加多行数据"""
@@ -106,8 +115,11 @@ class TableHandler(QObject):
 
         for row_index in range(data_length):
             for key in rows_data[row_index]:
-                self._table.setItem(last_row_index + row_index, self._get_header_index(key),
-                                    QTableWidgetItem(str(rows_data[row_index][key])))
+                self._table.setItem(
+                    last_row_index + row_index,
+                    self._get_header_index(key),
+                    QTableWidgetItem(str(rows_data[row_index][key])),
+                )
 
     def set_data(self, data: list[CustomBaseDict]) -> None:
         """设置表格数据"""

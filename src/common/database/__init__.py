@@ -1,6 +1,6 @@
 from sqlalchemy import (
     create_engine,
-    )
+)
 from sqlalchemy.orm import Session as SType, sessionmaker
 
 from src.constant import DATABASE_FILE

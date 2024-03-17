@@ -22,6 +22,7 @@ class QtFutures(QRunnable, QObject):
     该类的接口和concurrent.futures.Future类似,使用方法可以直接参考官方文档
     https://docs.python.org/zh-cn/3.10/library/concurrent.futures.html?highlight=threadpool#future-objects
     """
+
     finished = Signal(object)
 
     def __init__(self, func, *args, **kwargs):
@@ -153,9 +154,15 @@ class QtThreadPoolExecutor:
         return False
 
 
-if __name__ == '__main__':
-    from PySide6.QtWidgets import QWidget, QApplication, QPushButton, QVBoxLayout, QLabel, QPlainTextEdit
-
+if __name__ == "__main__":
+    from PySide6.QtWidgets import (
+        QWidget,
+        QApplication,
+        QPushButton,
+        QVBoxLayout,
+        QLabel,
+        QPlainTextEdit,
+    )
 
     class MyWindow(QWidget):
         def __init__(self):
@@ -177,14 +184,15 @@ if __name__ == '__main__':
             self.pte.clear()
             self.lb.setText("任务开始")
             for i in range(6):
-                print(f'添加了一个任务{i}')
+                print(f"添加了一个任务{i}")
                 future = self.e.submit(self.do_something, i)
                 future.add_done_callback(self.done_callback)
 
         def do_something(self, name):
             import time
+
             time.sleep(2)
-            print(f'完成了一个任务{name}')
+            print(f"完成了一个任务{name}")
             self.pte.appendPlainText(str(name))
             self.lb.setText("任务完成")
             return f"任务完成 {name}"
@@ -192,8 +200,7 @@ if __name__ == '__main__':
         def done_callback(self, future):
             self.lb.setText("任务完成")
             self.pte.appendPlainText(future.result)
-            print(f'完成了一个任务{future.result}')
-
+            print(f"完成了一个任务{future.result}")
 
     app = QApplication([])
     w = MyWindow()

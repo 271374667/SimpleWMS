@@ -16,7 +16,7 @@ from src.enums import TimeFilterEnum
 
 class BrandChart1(Chart):
     chart_title: str = "全部库存中各个品牌占比"
-    chart_subtilte: str = '统计当前库存中所有的商品的品牌占比百分百饼图'
+    chart_subtilte: str = "统计当前库存中所有的商品的品牌占比百分百饼图"
 
     def __init__(self):
         self._controller = ChartPluginController()
@@ -33,14 +33,16 @@ class BrandChart1(Chart):
 
 
 class BrandChart2(Chart):
-    chart_title = '本月库存中各个品牌占比'
-    chart_subtilte = '统计当前库存中所有的商品的品牌占比百分百饼图'
+    chart_title = "本月库存中各个品牌占比"
+    chart_subtilte = "统计当前库存中所有的商品的品牌占比百分百饼图"
 
     def __init__(self):
         self._controller = ChartPluginController()
 
     def get_html(self) -> str:
-        self._data = self._controller.get_count_groupby_brand(statistic_time=TimeFilterEnum.Month)
+        self._data = self._controller.get_count_groupby_brand(
+            statistic_time=TimeFilterEnum.Month
+        )
         self._pie_chart = PieChart(self._data, self.chart_title, self.chart_subtilte)
 
         if self._data:
@@ -49,14 +51,16 @@ class BrandChart2(Chart):
 
 
 class BrandChart3(Chart):
-    chart_title = '过往售出商品中各个品牌占比'
-    chart_subtilte = '统计过往全部卖出的商品的品牌占比百分百饼图'
+    chart_title = "过往售出商品中各个品牌占比"
+    chart_subtilte = "统计过往全部卖出的商品的品牌占比百分百饼图"
 
     def __init__(self):
         self._controller = ChartPluginController()
 
     def get_html(self) -> str:
-        self._data = self._controller.get_count_groupby_brand(is_sold=1, statistic_time=TimeFilterEnum.All)
+        self._data = self._controller.get_count_groupby_brand(
+            is_sold=1, statistic_time=TimeFilterEnum.All
+        )
         self._pie_chart = PieChart(self._data, self.chart_title, self.chart_subtilte)
 
         if self._data:
@@ -65,14 +69,16 @@ class BrandChart3(Chart):
 
 
 class BrandChart4(Chart):
-    chart_title = '本月售出商品中各个品牌占比'
-    chart_subtilte = '统计本月卖出的商品的品牌占比百分百饼图'
+    chart_title = "本月售出商品中各个品牌占比"
+    chart_subtilte = "统计本月卖出的商品的品牌占比百分百饼图"
 
     def __init__(self):
         self._controller = ChartPluginController()
 
     def get_html(self) -> str:
-        self._data = self._controller.get_count_groupby_brand(is_sold=1, statistic_time=TimeFilterEnum.Month)
+        self._data = self._controller.get_count_groupby_brand(
+            is_sold=1, statistic_time=TimeFilterEnum.Month
+        )
         self._pie_chart = PieChart(self._data, self.chart_title, self.chart_subtilte)
 
         if self._data:
@@ -82,7 +88,8 @@ class BrandChart4(Chart):
 
 class BrandChartSet(ChartSet):
     """用于存放所有的品牌统计图"""
-    plugin_name: str = '商品相关数据的统计'
+
+    plugin_name: str = "商品相关数据的统计"
 
     def _initialize(self) -> None:
         self.chart_list.append(BrandChart1())

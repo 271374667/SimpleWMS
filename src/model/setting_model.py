@@ -49,10 +49,10 @@ class SettingModel:
         data = self._setting_controller.export_database()
 
         df = pd.DataFrame(data)
-        loguru.logger.debug(f'一共有{len(df)}条数据')
+        loguru.logger.debug(f"一共有{len(df)}条数据")
 
         df.to_excel(file_path, index=False)
-        loguru.logger.debug(f'导出数据库到{file_path}完成')
+        loguru.logger.debug(f"导出数据库到{file_path}完成")
 
         # 打开保存的文件夹
         os.startfile(file_path.parent)
@@ -61,11 +61,13 @@ class SettingModel:
         """导入数据库"""
         # TODO: 当前的数据库非常耗时,需要优化
         result = pd.read_excel(file_path)
-        loguru.logger.debug(f'一共有{len(result)}条数据')
+        loguru.logger.debug(f"一共有{len(result)}条数据")
         # 将所有的ean13从id转换成ean13
-        result['ean13'] = result['ean13'].apply(convert.EAN13Converter.convert_id_to_ean13)
+        result["ean13"] = result["ean13"].apply(
+            convert.EAN13Converter.convert_id_to_ean13
+        )
 
-        data: List[AllInventoryDict] = result.to_dict(orient='records')
+        data: List[AllInventoryDict] = result.to_dict(orient="records")
         # 把所有的nan转换成None,同时把timestamp转换成datetime
         for item in data:
             for key, value in item.items():
@@ -75,14 +77,16 @@ class SettingModel:
                     item[key] = value.to_pydatetime()
 
         self._setting_controller.import_database(data)
-        loguru.logger.debug(f'导入数据库完成')
+        loguru.logger.debug("导入数据库完成")
 
     def clear_database(self) -> None:
         """清空数据库"""
         self._setting_controller.clear_database()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     s = SettingModel()
     # s.export_database(Path(r'E:\load\即将删除\文档\一些测试\新建文件夹\新建文件夹1.xlsx'))
-    s.import_database(Path(r'E:\load\即将删除\文档\一些测试\新建文件夹\新建文件夹1.xlsx'))
+    s.import_database(
+        Path(r"E:\load\即将删除\文档\一些测试\新建文件夹\新建文件夹1.xlsx")
+    )

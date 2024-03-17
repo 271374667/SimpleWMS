@@ -11,8 +11,8 @@ class HomeView(MessageBaseView):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-        self.setWindowTitle('Home Page')
-        self.setObjectName('HomePage')
+        self.setWindowTitle("Home Page")
+        self.setObjectName("HomePage")
 
         # self.get_current_batch_card().setClickEnabled(True)
 
@@ -92,7 +92,7 @@ class HomeView(MessageBaseView):
         return self.ui.ToolButton
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     window = HomeView()
     window.show()

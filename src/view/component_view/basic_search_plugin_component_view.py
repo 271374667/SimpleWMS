@@ -1,6 +1,14 @@
 from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import ToolTipFilter
-from qfluentwidgets.components import (CheckBox, ComboBox, DoubleSpinBox, LineEdit, PushButton, SpinBox, SwitchButton)
+from qfluentwidgets.components import (
+    CheckBox,
+    ComboBox,
+    DoubleSpinBox,
+    LineEdit,
+    PushButton,
+    SpinBox,
+    SwitchButton,
+)
 
 from src.enums import BasicSearchCombboxOperationEnum
 from src.interface.Ui_basic_search_plugin_component import Ui_Form
@@ -13,7 +21,7 @@ class BasicSearchPluginComponentView(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-        operation = ['等于', '大于', '小于']
+        operation = ["等于", "大于", "小于"]
 
         for each in BasicSearchCombboxOperationEnum:
             self.get_price_operation_cb().addItem(operation[each.value])
@@ -75,7 +83,7 @@ class BasicSearchPluginComponentView(QWidget):
         self.get_storage_days_enable_sb().setChecked(False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     w = BasicSearchPluginComponentView()
     w.show()

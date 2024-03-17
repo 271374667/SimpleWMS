@@ -20,8 +20,10 @@ class PluginManagerBase:
 
     def _load_plugins(self):
         for each in self.plugins_dir.iterdir():
-            if each.is_file() and each.suffix == '.py':
-                importlib.import_module(f'src.common.plugins.{self.plugins_dir.name}.{each.stem}')
+            if each.is_file() and each.suffix == ".py":
+                importlib.import_module(
+                    f"src.common.plugins.{self.plugins_dir.name}.{each.stem}"
+                )
 
     @classmethod
     def register(cls, plugin: PluginBase):
@@ -70,5 +72,5 @@ class ChartPluginManager(PluginManagerBase):
         return cls.plugins.get(name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(DatabasePluginManager.get_all_plugins())

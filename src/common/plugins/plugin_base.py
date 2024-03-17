@@ -8,7 +8,7 @@ from src.dict_typing import CustomBaseDict
 
 
 class PluginBase:
-    plugin_name: str = 'PluginBase'
+    plugin_name: str = "PluginBase"
     has_initialize: bool = True
 
     def __call__(self) -> Self:
@@ -24,7 +24,7 @@ class PluginBase:
 
 
 class DatabasePluginBase(PluginBase):
-    plugin_name: str = 'DatabasePluginBase'
+    plugin_name: str = "DatabasePluginBase"
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_show_headers: list[str] = []
@@ -61,17 +61,19 @@ class DatabasePluginBase(PluginBase):
 
 class Chart:
     """具体的图表"""
+
     chart_title: str = "chart_title"
-    chart_subtilte: str = 'chart_subtilte'
+    chart_subtilte: str = "chart_subtilte"
 
     def get_html(self) -> str:
         """获取图表的 html"""
-        raise NotImplementedError('请在子类中实现该方法')
+        raise NotImplementedError("请在子类中实现该方法")
 
 
 class ChartSet(PluginBase):
     """图表集合,负责存储上面的Chart"""
-    plugin_name: str = ''
+
+    plugin_name: str = ""
     chart_list: list[Chart] = []
     has_initialize: bool = True
 

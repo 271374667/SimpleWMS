@@ -1,5 +1,10 @@
 from PySide6.QtWidgets import QApplication, QWidget
-from qfluentwidgets.components import ComboBox, PrimaryPushButton, StrongBodyLabel, ToolTipFilter
+from qfluentwidgets.components import (
+    ComboBox,
+    PrimaryPushButton,
+    StrongBodyLabel,
+    ToolTipFilter,
+)
 from qframelesswindow.webengine import FramelessWebEngineView
 
 from src.interface.Ui_chart_page import Ui_Form

@@ -17,8 +17,7 @@ from typing import Callable, Optional
 
 import loguru
 from PySide6.QtCore import QObject, QThread, Signal
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QVBoxLayout,
-                               QWidget)
+from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget
 
 
 class WorkThread(QObject):
@@ -41,12 +40,12 @@ class WorkThread(QObject):
             func_return = self.func(*self.args, **self.kwargs)
         else:
             func_return = self.func()
-        loguru.logger.debug(f'线程函数执行完毕, 返回值为{func_return}')
+        loguru.logger.debug(f"线程函数执行完毕, 返回值为{func_return}")
         self.result.emit(func_return)
         self.finished_signal.emit()
 
     def __del__(self):
-        loguru.logger.debug('线程对象被删除了,内存已经释放')
+        loguru.logger.debug("线程对象被删除了,内存已经释放")
 
 
 class RunInThread(QObject):
@@ -94,16 +93,16 @@ class MyWindow(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.btn = QPushButton('按钮')
+        self.btn = QPushButton("按钮")
         self.btn.clicked.connect(self.run)
 
-        self.lb = QLabel('标签')
+        self.lb = QLabel("标签")
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.btn)
         self.main_layout.addWidget(self.lb)
         self.setLayout(self.main_layout)
-        loguru.logger.debug('窗口对象被创建了')
+        loguru.logger.debug("窗口对象被创建了")
 
     def run(self):
         self.a = RunInThread()
@@ -113,21 +112,21 @@ class MyWindow(QWidget):
 
     def waste_time_func(self):
         self.btn.setEnabled(False)
-        self.lb.setText('开始等待3秒')
-        loguru.logger.debug('开始等待3秒')
+        self.lb.setText("开始等待3秒")
+        loguru.logger.debug("开始等待3秒")
         time.sleep(3)
-        loguru.logger.debug('等待结束')
+        loguru.logger.debug("等待结束")
         # 注意此处使用了返回值
-        return '欢迎使用', '你好'
+        return "欢迎使用", "你好"
 
     def over(self, result):
         # 注意这里需要传递一个参数 _result
-        loguru.logger.debug(f'slot: {result}')
-        self.lb.setText('线程结束')
+        loguru.logger.debug(f"slot: {result}")
+        self.lb.setText("线程结束")
         self.btn.setEnabled(True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     window = MyWindow()
     window.show()

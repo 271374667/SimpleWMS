@@ -22,14 +22,17 @@ class GetModelService:
         return self._session.query(model.Wave)
 
     def get_all_data(self) -> Query[Tuple[model.Inventory, model.Batch, model.Wave]]:
-        return self._session.query(model.Inventory, model.Batch, model.Wave).join(model.Batch, isouter=True).join(
-                model.Wave, isouter=True)
+        return (
+            self._session.query(model.Inventory, model.Batch, model.Wave)
+            .join(model.Batch, isouter=True)
+            .join(model.Wave, isouter=True)
+        )
 
     def get_custom_query(self, *query_list) -> Query:
         return self._session.query(*query_list)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pprint import pprint
 
     g = GetModelService()

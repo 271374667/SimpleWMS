@@ -5,11 +5,13 @@ from pyecharts.globals import ThemeType
 
 class ChartBase:
     """未来可能会接入其他的绘图三方库"""
+
     ...
 
 
 class PyEChartsBase(ChartBase, QObject):
     """PyECharts的基类"""
+
     # 默认将使用 WALDEN 主题, 这个主题贴近 Fluent
     echarts_theme = ThemeType.WALDEN
 

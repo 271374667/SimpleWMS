@@ -15,7 +15,10 @@ def cv2AddChineseText(img, text, position, textColor=(0, 0, 0), textSize=23):
     # fontStyle = ImageFont.truetype(
     #     cfg.get('font', 'font_path'), textSize, encoding="utf-8")
     fontStyle = ImageFont.truetype(
-            r'E:\load\python\Project\SimpleWMS\assets\fonts\Alibaba-PuHuiTi-Regular.ttf', textSize, encoding="utf-8")
+        r"E:\load\python\Project\SimpleWMS\assets\fonts\Alibaba-PuHuiTi-Regular.ttf",
+        textSize,
+        encoding="utf-8",
+    )
     # 绘制文本
     draw.text(position, text, textColor, font=fontStyle)
     # 转换回OpenCV格式

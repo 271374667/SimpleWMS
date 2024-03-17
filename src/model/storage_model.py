@@ -20,15 +20,15 @@ class StorageModel:
         """根据EAN13获取库存信息"""
         data = self._db_controller.get_inventory_by_ean13(ean13)
         row: ReStorageDict = {
-                'name': str(data.item_name),
-                'brand': str(data.brand),
-                'price': float(data.price),
-                'storage_time': data.batch.created_time,
-                'return_times': int(data.return_times),
-                'batch_serial_number': data.batch.batch_serial_number,
-                'wave_serial_number': data.wave.wave_serial_number,
-                'ean13': convert.EAN13Converter.convert_id_to_ean13(data.id),
-                }
+            "name": str(data.item_name),
+            "brand": str(data.brand),
+            "price": float(data.price),
+            "storage_time": data.batch.created_time,
+            "return_times": int(data.return_times),
+            "batch_serial_number": data.batch.batch_serial_number,
+            "wave_serial_number": data.wave.wave_serial_number,
+            "ean13": convert.EAN13Converter.convert_id_to_ean13(data.id),
+        }
         return row
 
     def get_newest_batch_serial_number(self) -> str:
@@ -51,7 +51,7 @@ class StorageModel:
 
         """
         today = datetime.now()
-        return f'{today.year}{today.month:02d}{number:03d}'
+        return f"{today.year}{today.month:02d}{number:03d}"
 
     def export_data(self, data: list[StorageDict]) -> None:
         """导出数据到Excel和数据库"""
@@ -59,17 +59,19 @@ class StorageModel:
         latest_inventory_id = self._db_controller.get_latest_inventory_id()
 
         data_list = [
-                (
-                        each['name'],
-                        each['brand'],
-                        float(each['price']),
-                        each['batch_serial_number'],
-                        )
-                for each in data
-                ]
+            (
+                each["name"],
+                each["brand"],
+                float(each["price"]),
+                each["batch_serial_number"],
+            )
+            for each in data
+        ]
         self._db_controller.export_to_database(data_list)
 
-        new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(latest_inventory_id)
+        new_data = self._db_controller.get_all_inventory_and_batch_greater_than_id(
+            latest_inventory_id
+        )
         # 将数据类对象转换为字典列表
         dict_list = [asdict(item) for item in new_data]
 
@@ -77,40 +79,69 @@ class StorageModel:
         df = pd.DataFrame(dict_list)
 
         # 重新排序列以匹配所需的顺序
-        df = df[['item_id', 'item_name', 'brand', 'price', 'batch_name', 'batch_serial_number', 'created_time']]
+        df = df[
+            [
+                "item_id",
+                "item_name",
+                "brand",
+                "price",
+                "batch_name",
+                "batch_serial_number",
+                "created_time",
+            ]
+        ]
 
         # 对其中的item_id列全部调用函数转换成EAN13
-        df['item_id'] = df['item_id'].apply(convert.EAN13Converter.convert_id_to_ean13)
+        df["item_id"] = df["item_id"].apply(convert.EAN13Converter.convert_id_to_ean13)
 
         # 重命名列以匹配所需的标题
-        df.columns = ['EAN13', '名称', '品牌', '价格', '批次名', '批次序号', '批次创建时间']
+        df.columns = [
+            "EAN13",
+            "名称",
+            "品牌",
+            "价格",
+            "批次名",
+            "批次序号",
+            "批次创建时间",
+        ]
 
         # 将DataFrame导出为Excel文件
         save_dir = Path(cfg.get(cfg.storage_path))
         EXCEL_FILE = (
-                save_dir / f'入库信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+            save_dir / f'入库信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         )
         df.to_excel(EXCEL_FILE, index=False)
-        loguru.logger.debug(f'导出数据到Excel文件:{EXCEL_FILE}')
-        loguru.logger.debug(f'本次导出了{len(dict_list)}条数据到Excel文件')
+        loguru.logger.debug(f"导出数据到Excel文件:{EXCEL_FILE}")
+        loguru.logger.debug(f"本次导出了{len(dict_list)}条数据到Excel文件")
         os.startfile(save_dir)
 
     def export_return_data(self, data: list[ReStorageDict]) -> None:
         """前往数据库中将他们的EAN13的return_times+1,同时将is_sold设置为0"""
         for each in data:
-            self._db_controller.set_inventory_return_times_and_is_sold(each['ean13'])
+            self._db_controller.set_inventory_return_times_and_is_sold(each["ean13"])
 
         # 使用 pandas 导出 xlsx
         # 创建一个DataFrame
         df = pd.DataFrame(data)
         # 重命名列以匹配所需的标题
-        df.columns = ['名称', '品牌', '价格', '入库时间', '退货次数', '批次序号', '波次序号', 'EAN13']
+        df.columns = [
+            "名称",
+            "品牌",
+            "价格",
+            "入库时间",
+            "退货次数",
+            "批次序号",
+            "波次序号",
+            "EAN13",
+        ]
         # 将DataFrame导出为Excel文件
         save_dir = Path(cfg.get(cfg.storage_path))
-        EXCEL_FILE = (save_dir / f'退货信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx')
+        EXCEL_FILE = (
+            save_dir / f'退货信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+        )
         df.to_excel(EXCEL_FILE, index=False)
-        loguru.logger.debug(f'导出退货数据到Excel文件:{EXCEL_FILE}')
-        loguru.logger.debug(f'本次导出了{len(data)}条数据到Excel文件')
+        loguru.logger.debug(f"导出退货数据到Excel文件:{EXCEL_FILE}")
+        loguru.logger.debug(f"本次导出了{len(data)}条数据到Excel文件")
         os.startfile(save_dir)
 
     def is_real_ean13(self, ean13: str) -> bool:
@@ -123,4 +154,4 @@ class StorageModel:
 
 if __name__ == "__main__":
     s = StorageModel()
-    print(s.get_inventory_by_ean13('0000000000017'))
+    print(s.get_inventory_by_ean13("0000000000017"))

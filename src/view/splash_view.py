@@ -20,12 +20,15 @@ class SplashView(QSplashScreen):
         pass
 
     def show_message(self, message: str):
-        self.showMessage(message, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignCenter,
-                         color=QColor(173, 216, 255))
+        self.showMessage(
+            message,
+            alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignCenter,
+            color=QColor(173, 216, 255),
+        )
         QApplication.instance().processEvents()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import time
 
     app = QApplication([])
@@ -33,6 +36,6 @@ if __name__ == '__main__':
     splash_view.show()
     splash_view.show_message("正在加载程序...")
     time.sleep(2)
-    splash_view.show_message('加载完成...')
+    splash_view.show_message("加载完成...")
 
     app.exec()
