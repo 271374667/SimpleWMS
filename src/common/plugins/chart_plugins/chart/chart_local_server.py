@@ -39,27 +39,33 @@ class ChartLocalServer:
         self.local_dir = local_dir
         self.httpd = None
         self.server_thread = None
+        self.is_running = False
 
     def run(self):
         # handler = partial(http.server.SimpleHTTPRequestHandler, directory=self.local_dir)
         handler = partial(CustomHTTPRequestHandler, directory=self.local_dir)
         handler.directory = str(self.local_dir)
         loguru.logger.debug(f"获取图表资源的路径: {self.local_dir}")
-        try:
-            self.httpd = socketserver.TCPServer((self.host, self.port), handler)
-            self.server_thread = threading.Thread(target=self.httpd.serve_forever)
-            self.server_thread.start()
-            loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
-            CurrentConfig.ONLINE_HOST = f"http://127.0.0.1:{self.port}/"
+        while not self.is_running:
+            try:
+                self._start_server(handler)
+                self.is_running = True
 
-        except OSError as e:
-            loguru.logger.error(f"图表线程启动失败,正在切换端口,错误信息: {e}")
-            self.port += 1
-            self.httpd = socketserver.TCPServer((self.host, self.port), handler)
-            self.server_thread = threading.Thread(target=self.httpd.serve_forever)
-            self.server_thread.start()
-            loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
-            CurrentConfig.ONLINE_HOST = f"http://127.0.0.1:{self.port}/"
+            except OSError as e:
+                self._retry_server(e, handler)
+
+    # 本来不是很想把逻辑拆分成这么多个函数,但是Sourcey一直给我警告,所以我就拆分了
+    def _retry_server(self, e, handler):
+        loguru.logger.error(f"图表线程启动失败,正在切换端口,错误信息: {e}")
+        self.port += 1
+        self._start_server(handler)
+
+    def _start_server(self, handler):
+        self.httpd = socketserver.TCPServer((self.host, self.port), handler)
+        self.server_thread = threading.Thread(target=self.httpd.serve_forever)
+        self.server_thread.start()
+        loguru.logger.info(f"图表线程启动在 {self.host}:{self.port} 上")
+        CurrentConfig.ONLINE_HOST = f"http://127.0.0.1:{self.port}/"
 
     def stop(self):
         if self.httpd is not None:

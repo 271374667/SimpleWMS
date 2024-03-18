@@ -62,7 +62,7 @@ class MessageBaseView(QWidget):
             icon=InfoBarIcon.INFORMATION,
             title=title,
             content=content,
-            orient=Qt.Vertical,  # vertical layout
+            orient=Qt.Orientation.Vertical,  # vertical layout
             isClosable=is_closable,
             position=position,
             duration=duration,
@@ -95,7 +95,7 @@ class MessageBaseView(QWidget):
         w = InfoBar.success(
             title=title,
             content=content,
-            orient=Qt.Vertical,  # vertical layout
+            orient=Qt.Orientation.Vertical,  # vertical layout
             isClosable=is_closable,
             position=position,
             duration=duration,
@@ -123,7 +123,7 @@ class MessageBaseView(QWidget):
         w = InfoBar.warning(
             title=title,
             content=content,
-            orient=Qt.Vertical,  # vertical layout
+            orient=Qt.Orientation.Vertical,  # vertical layout
             isClosable=is_closable,
             position=position,
             duration=duration,
@@ -151,7 +151,7 @@ class MessageBaseView(QWidget):
         w = InfoBar.error(
             title=title,
             content=content,
-            orient=Qt.Vertical,  # vertical layout
+            orient=Qt.Orientation.Vertical,  # vertical layout
             isClosable=is_closable,
             position=position,
             duration=duration,
