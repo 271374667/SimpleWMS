@@ -5,6 +5,7 @@
 """
 
 import http.server
+import socket
 import socketserver
 import threading
 from functools import partial
@@ -14,6 +15,15 @@ import loguru
 from pyecharts.globals import CurrentConfig
 
 from src.constant import PYECHART_ASSETS
+
+
+def is_port_available(port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(("localhost", port))
+            return True
+        except OSError:
+            return False
 
 
 class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -46,20 +56,13 @@ class ChartLocalServer:
         handler = partial(CustomHTTPRequestHandler, directory=self.local_dir)
         handler.directory = str(self.local_dir)
         loguru.logger.debug(f"获取图表资源的路径: {self.local_dir}")
-        while not self.is_running:
-            try:
-                self._start_server(handler)
-                self.is_running = True
-
-            except OSError as e:
-                self._retry_server(e, handler)
-
-    # 本来不是很想把逻辑拆分成这么多个函数,但是Sourcey一直给我警告,所以我就拆分了
-    def _retry_server(self, e, handler):
-        loguru.logger.error(f"图表线程启动失败,正在切换端口,错误信息: {e}")
-        self.port += 1
+        # 获取可用端口
+        while not is_port_available(self.port):
+            loguru.logger.error(f"图表线程启动失败,端口被占用 {self.port}")
+            self.port += 1
         self._start_server(handler)
 
+    # 本来不是很想把逻辑拆分成这么多个函数,但是Sourcey一直给我警告,所以我就拆分了
     def _start_server(self, handler):
         self.httpd = socketserver.TCPServer((self.host, self.port), handler)
         self.server_thread = threading.Thread(target=self.httpd.serve_forever)
