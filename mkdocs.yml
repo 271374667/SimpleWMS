@@ -1,0 +1,146 @@
+theme:
+    icon:
+        logo: material/home
+    name: material
+    language: zh
+    palette:
+        # 切换到亮色
+        - media: "(prefers-color-scheme: light)" # 根据系统的颜色模式自动切换
+          scheme: default
+          primary: pink
+          accent: pink
+          toggle:
+              icon: material/weather-night
+              name: 切换到暗色模式
+
+        # 切换到暗色
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: pink
+          accent: pink
+          toggle:
+              icon: material/weather-sunny
+              name: 切换到亮色模式
+    features:
+        # - navigation.instant # 现在页面不会跳转,而是类似单页应用,搜索和各种跳转都是在当前页面完成,对美观有很大帮助
+        - navigation.tabs # 页面上方的标签页
+        - navigation.tracking # 页面滚动时，导航栏高亮当前页面
+        - navigation.sections # 使导航栏分块
+        - navigation.expand # 默认展开导航
+        - navigation.prune # 只渲染当前页面的导航
+        - toc.follow # 滚动的时候侧边栏自动跟随
+        - navigation.top # 返回顶部按钮
+        - search.suggest # 补全建议
+        - search.highlight # 搜索结果高亮
+        - search.share # 搜索结果分享
+        - navigation.footer # 页脚提示下一章
+        - content.code.copy # 代码段上的赋值按钮
+
+markdown_extensions:
+    - admonition # 警告语法
+    - def_list
+    - footnotes
+    - abbr
+    - pymdownx.caret
+    - pymdownx.mark
+    - pymdownx.tilde
+    - md_in_html
+    - pymdownx.arithmatex: # latex支持
+          generic: true
+    - toc:
+          permalink: true # 固定标题位置为当前位置
+          toc_depth: 3 # 目录深度
+    - pymdownx.highlight: # 代码块高亮
+          anchor_linenums: true
+          linenums: true # 显示行号
+          use_pygments: true # 代码高亮
+          pygments_lang_class: true
+          auto_title: true # 显示编程语言名称
+          linenums_style: pymdownx-inline # 行号样式,防止复制的时候复制行号
+    - pymdownx.betterem # 强调美化,比如**text**会被美化
+    - pymdownx.caret # 上标和下标
+    - pymdownx.mark # 上标和下标
+    - pymdownx.tilde # 上标和下标
+    - pymdownx.keys # 显示按键组合
+    - pymdownx.critic
+    - pymdownx.details # 可以折叠的代码块 ??? note 可以让警告变成折叠的
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+    - pymdownx.magiclink # 自动识别链接
+    - pymdownx.smartsymbols # 智能符号
+    - pymdownx.snippets # 代码段
+    - pymdownx.tasklist:
+          custom_checkbox: true # 自定义复选框
+    - attr_list
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    - pymdownx.superfences: # 代码块中支持Mermaid
+          custom_fences: # 支持 Mermaid
+              - name: mermaid
+                class: mermaid
+                format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.tabbed:
+          alternate_style: true
+          combine_header_slug: true
+    - pymdownx.tasklist:
+          custom_checkbox: true
+          clickable_checkbox: true
+    - meta # 支持Markdown文件上方自定义标题标签等
+    - tables
+
+# 下面的是需要自定义的内容，请不要修改上方的内容，上面都是在开启各种插件和功能
+
+site_name: SimpleWMS # 设置文档名称
+copyright: Copyright &copy; Python调包侠 # 左下角的版权声明
+
+nav:
+  - 主页: 
+      - 主页: index.md
+      - 使用须知: 使用须知.md
+      - 捐赠: donation.md
+  - 使用说明:
+      - 基础使用: Guide/基础使用.md
+      - 入库页面: Guide/入库页说明.md
+      - 出库页面: Guide/出库页说明.md
+      - 主页面板: Guide/主页说明.md
+      - 数据库查看页: Guide/数据库查看页说明.md
+      - 图表页: Guide/图表页说明.md
+      - 设置页: Guide/设置页说明.md
+  - 下载:
+      - 下载说明: Download/下载说明.md
+  - 部署:
+      - 直接使用: Deployment/直接使用.md
+      - Window10编译部署: Deployment/Window10编译部署.md
+      - 手动数据库备份和恢复: Deployment/手动数据库备份和恢复.md
+  - 联系我:
+      - 联系我: ContactUs/联系我.md
+      - 版本定制: ContactUs/版本定制.md
+#  - guides: how-to-guides.md
+#  - 更多:
+#      - 更多/中文.md
+#  - 接口文档:
+#      - interface/1.md
+
+plugins:
+    - mkdocstrings:
+          handlers:
+              python:
+                  paths: [src]
+    - search # 搜索插件
+    - offline # 离线本地搜索，和navigation.instant不能同时启用
+
+extra:
+    # generator: false  #删除页脚显示“使用 MkDocs 材料制造”
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/271374667
+          name: GitHub
+        - icon: fontawesome/brands/bilibili
+          link: https://space.bilibili.com/282527875
+          name: Bilibili
+        - icon: material/email
+          link: Python调包侠:<271374667@qq.com>
+          name: Email
+
