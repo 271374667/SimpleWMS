@@ -58,7 +58,7 @@ class ChartLocalServer:
         loguru.logger.debug(f"获取图表资源的路径: {self.local_dir}")
         # 获取可用端口
         while not is_port_available(self.port):
-            loguru.logger.error(f"图表线程启动失败,端口被占用 {self.port}")
+            loguru.logger.error(f"图表线程启动失败,端口被占用 {self.port},正在尝试切换端口……")
             self.port += 1
         self._start_server(handler)
 
