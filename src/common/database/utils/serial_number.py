@@ -16,5 +16,5 @@ def gen_serial_number(serial_number: int) -> str:
 
 def parser_serial_number_to_int(serial_number: str) -> int:
     if len(serial_number) != 9:
-        raise ValueError(f"序列号长度不正确，必须为9位，当前长度为{len(serial_number)}")
+        raise ValueError(f"序列号长度不正确，必须为9位，当前长度为{len(serial_number), serial_number}")
     return int(serial_number[-3:])

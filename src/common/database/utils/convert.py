@@ -18,8 +18,8 @@ class BatchConverter(Converter):
         """将批次序号转换为时间"""
         year = int(batch_serial_number[:4])
         month = int(batch_serial_number[4:6])
-        day = int(batch_serial_number[6:])
-        return datetime(year=year, month=month, day=day)
+        # 因为批次的时间是以月为单位的，所以日期部分是未知的，这里默认为1号
+        return datetime(year=year, month=month, day=1)
 
     @staticmethod
     def convert_batch_serial_number_to_batch_name(batch_serial_number: str) -> str:
@@ -58,8 +58,8 @@ class WaveConverter(Converter):
         """将波次序号转换为时间"""
         year = int(wave_serial_number[:4])
         month = int(wave_serial_number[4:6])
-        day = int(wave_serial_number[6:])
-        return datetime(year=year, month=month, day=day)
+        # 因为波次的时间是以月为单位的，所以日期部分是未知的，这里默认为1号
+        return datetime(year=year, month=month, day=1)
 
     @staticmethod
     def convert_wave_serial_number_to_wave_name(wave_serial_number: str) -> str:
