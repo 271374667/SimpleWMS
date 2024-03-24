@@ -16,7 +16,7 @@ class HomeModel:
         return self._db_controller.get_current_item_quantity()
 
     def get_current_money(self) -> int:
-        return self._db_controller.get_current_money()
+        return round(self._db_controller.get_current_money(), 2)
 
     def get_current_storage(self) -> int:
         return self._db_controller.get_current_storage()
@@ -34,7 +34,7 @@ class HomeModel:
         return self._db_controller.get_all_item_quantity()
 
     def get_all_money(self) -> int:
-        return self._db_controller.get_all_money()
+        return round(self._db_controller.get_all_money(), 2)
 
     def get_all_storage(self) -> int:
         return self._db_controller.get_all_storage()
