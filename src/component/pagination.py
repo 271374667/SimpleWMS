@@ -2,6 +2,7 @@ from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QIntValidator
 from PySide6.QtWidgets import QHBoxLayout, QWidget
 from qfluentwidgets.components import BodyLabel, LineEdit, ToggleButton, PushButton
+from qfluentwidgets import ToolTipFilter
 
 
 class Pagination(QWidget):
@@ -35,7 +36,9 @@ class Pagination(QWidget):
         self.buttons: list[ToggleButton | BodyLabel] = []
 
         self.lineEdit = LineEdit(self)
-        self.lineEdit.setFixedWidth(50)
+        self.lineEdit.setToolTip("输入页码后按回车跳转")
+        self.lineEdit.setPlaceholderText("页码")
+        self.lineEdit.setFixedWidth(100)
         # 设置只能输入数字
         self.lineEdit.setValidator(QIntValidator())
         self.lineEdit.returnPressed.connect(self._on_line_edit_return_pressed)
@@ -46,6 +49,9 @@ class Pagination(QWidget):
         self.main_layout.addWidget(self.lineEdit)
         self.main_layout.addWidget(self.confirm_button)
         self._update_buttons()
+        
+        for each in self.findChildren(QWidget):
+                    each.installEventFilter(ToolTipFilter(each, 200))
 
     def _update_buttons(self):
         for button in self.buttons:
@@ -117,9 +123,13 @@ class Pagination(QWidget):
         else:
             print("请输入有效的页码")
 
-    def set_current_page(self, page):
+    def set_current_page(self, page: int):
+        if page < 1 or page > self.total_pages:
+            raise ValueError("page must be greater than 0 and less than total_pages")
+        
         self.current_page = page
         self._update_buttons()
+        self.current_page_changed.emit(page)
 
 
 if __name__ == "__main__":
@@ -130,5 +140,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = Pagination(100)
     window.current_page_changed.connect(lambda page: print(f"当前页码为: {page}"))
+    window.set_current_page(50)
+    
     window.show()
     sys.exit(app.exec())
