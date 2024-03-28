@@ -49,7 +49,7 @@
         <x>0</x>
         <y>0</y>
         <width>948</width>
-        <height>710</height>
+        <height>735</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -302,6 +302,9 @@
          </column>
         </widget>
        </item>
+       <item>
+        <widget class="Pagination" name="widget_2" native="true"/>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -371,6 +374,12 @@
    <class>TableWidget</class>
    <extends>QTableWidget</extends>
    <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>Pagination</class>
+   <extends>QWidget</extends>
+   <header>src.component.pagination</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

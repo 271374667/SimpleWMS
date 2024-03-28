@@ -32,6 +32,7 @@ class TableHandler(QObject):
     ):
         super().__init__()
         self._table: TableWidget = table
+        self._current_page: Optional[int] = None
 
         if headers:
             self._headers: list[str] = list(headers.__annotations__.keys())

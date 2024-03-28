@@ -12,6 +12,7 @@ from qfluentwidgets.components import (
 
 from src.interface.Ui_database_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
+from src.component.pagination import Pagination
 
 
 class DatabaseView(MessageBaseView):
@@ -30,6 +31,9 @@ class DatabaseView(MessageBaseView):
 
     def get_table(self) -> TableWidget:
         return self.ui.TableWidget
+
+    def get_pagination(self) -> Pagination:
+        return self.ui.widget_2
 
     def get_custom_widget(self) -> QWidget:
         return self.ui.widget
