@@ -17,7 +17,7 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QTableWidgetItem
 from qfluentwidgets.components import TableWidget
 
-from src.dict_typing import CustomBaseDict
+from src.core.dict_typing import CustomBaseDict
 
 
 class TableHandler(QObject):

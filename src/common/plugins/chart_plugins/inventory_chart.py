@@ -11,7 +11,7 @@ from src.common.database.controller.chart_plugin_controller import ChartPluginCo
 from src.common.plugins.chart_plugins.chart.chart_base import NoContentHTML
 from src.common.plugins.chart_plugins.chart.pie_chart import PieChart
 from src.common.plugins.plugin_base import Chart, ChartSet
-from src.enums import TimeFilterEnum
+from src.core.enums import TimeFilterEnum
 
 
 class BrandChart1(Chart):

@@ -4,8 +4,8 @@ from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
 )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.dict_typing import BasicSearchDict, BasicSearchParameterDict
-from src.enums import BasicSearchCombboxOperationEnum
+from src.core.dict_typing import BasicSearchDict, BasicSearchParameterDict
+from src.core.enums import BasicSearchCombboxOperationEnum
 from src.view.component_view.basic_search_plugin_component_view import (
     BasicSearchPluginComponentView,
 )

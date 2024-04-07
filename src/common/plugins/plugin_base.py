@@ -4,7 +4,7 @@ import loguru
 from PySide6.QtWidgets import QWidget
 from typing_extensions import Self
 
-from src.dict_typing import CustomBaseDict
+from src.core.dict_typing import CustomBaseDict
 
 
 class PluginBase:

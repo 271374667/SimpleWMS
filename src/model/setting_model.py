@@ -9,7 +9,7 @@ from PySide6.QtCore import Signal
 from src.common.database.controller.setting_controller import SettingController
 from src.common.database.utils import convert
 from src.config import cfg
-from src.dict_typing import AllInventoryDict
+from src.core.dict_typing import AllInventoryDict
 
 
 class SettingModel:

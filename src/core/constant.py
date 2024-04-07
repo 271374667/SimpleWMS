@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # Path to the root of the project
-ROOT_DIR = Path(__file__).parent.parent.resolve()
+ROOT_DIR = Path(__file__).parent.parent.parent.resolve()
 
 SRC_DIR = ROOT_DIR / "src"
 BACKUP_DIR = ROOT_DIR / "backup"

@@ -9,7 +9,7 @@ import pandas as pd
 from src.common.database.controller.storage_controller import StorageController
 from src.common.database.utils import convert
 from src.config import cfg
-from src.dict_typing import ReStorageDict, StorageDict
+from src.core.dict_typing import ReStorageDict, StorageDict
 
 
 class StorageModel:

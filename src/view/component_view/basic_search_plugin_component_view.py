@@ -10,7 +10,7 @@ from qfluentwidgets.components import (
     SwitchButton,
 )
 
-from src.enums import BasicSearchCombboxOperationEnum
+from src.core.enums import BasicSearchCombboxOperationEnum
 from src.interface.Ui_basic_search_plugin_component import Ui_Form
 
 

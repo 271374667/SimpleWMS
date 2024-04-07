@@ -12,7 +12,7 @@ from qfluentwidgets import (
     qconfig,
 )
 
-from src.constant import (
+from src.core.constant import (
     BACKUP_DIR,
     BOLD_FONT,
     CONFIG_FILE,

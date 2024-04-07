@@ -9,7 +9,7 @@ from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
 )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.dict_typing import ReturnTimesDict
+from src.core.dict_typing import ReturnTimesDict
 
 
 class CustomWidget(QWidget):

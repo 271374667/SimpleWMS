@@ -1,7 +1,7 @@
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 
-from src.constant import ASSETS_DIR, QRC_FILE, QRC_PY_FILE, SRC_DIR
+from src.core.constant import ASSETS_DIR, QRC_FILE, QRC_PY_FILE, SRC_DIR
 
 UI_DIR = ASSETS_DIR / "ui"
 PY_DIR = SRC_DIR / "interface"

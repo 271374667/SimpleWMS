@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from sqlalchemy.orm import Query
 
 from src.common.database.entity import model
-from src.enums import TimeFilterEnum
+from src.core.enums import TimeFilterEnum
 
 
 class GroupByFilter(Query):

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import func
 from sqlalchemy.orm import Query
 
-from src import dict_typing
+from src.core import dict_typing
 from src.common.database.entity import model
 from src.common.database.query_filter import AttrFilter, TimeFilter, TimeFilterEnum
 from src.common.database.service.get_attribute_service import GetAttributeService

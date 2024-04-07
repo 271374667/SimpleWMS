@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPixmap
 from PySide6.QtWidgets import QApplication, QSplashScreen
 
-from src.constant import SPLASH_IMAGE_PATH
+from src.core.constant import SPLASH_IMAGE_PATH
 from src.utils.singleton import Singleton
 
 

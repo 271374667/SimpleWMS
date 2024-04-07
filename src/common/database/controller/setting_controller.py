@@ -5,7 +5,7 @@ from src.common.database.service.add_model_service import AddModelService
 from src.common.database.service.clear_service import ClearService
 from src.common.database.service.get_model_service import GetModelService
 from src.common.database.utils import convert
-from src.dict_typing import AllInventoryDict
+from src.core.dict_typing import AllInventoryDict
 from PySide6.QtCore import QObject, Signal
 
 

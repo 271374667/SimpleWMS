@@ -2,7 +2,7 @@ from datetime import datetime
 
 from typing_extensions import NotRequired, Required, TypedDict
 
-from src.enums import BasicSearchCombboxOperationEnum
+from src.core.enums import BasicSearchCombboxOperationEnum
 
 
 class CustomBaseDict(TypedDict):

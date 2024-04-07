@@ -7,13 +7,13 @@ from src.common.database.service.get_attribute_service import (
     GetModelService,
     )
 from src.common.database.utils import convert
-from src.dict_typing import (
+from src.core.dict_typing import (
     BasicSearchDict,
     BasicSearchParameterDict,
     ReturnTimesDict,
     UnsalableDict,
     )
-from src.enums import BasicSearchCombboxOperationEnum
+from src.core.enums import BasicSearchCombboxOperationEnum
 
 
 class DatabasePluginController:

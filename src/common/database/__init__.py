@@ -3,7 +3,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Session as SType, sessionmaker
 
-from src.constant import DATABASE_FILE
+from src.core.constant import DATABASE_FILE
 
 engine = create_engine(f"sqlite+pysqlite:///{DATABASE_FILE}")
 sessionmaker = sessionmaker(bind=engine, autoflush=True)

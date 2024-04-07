@@ -11,7 +11,7 @@ from src.common.database.controller.retrieval_controller import (
     RetrievalData,
 )
 from src.config import cfg
-from src.dict_typing import RetrievalDict
+from src.core.dict_typing import RetrievalDict
 
 
 class RetrievalModel:

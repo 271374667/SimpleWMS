@@ -1,4 +1,4 @@
-from src import dict_typing
+from src.core import dict_typing
 from src.common.database.controller.home_controller import HomeController
 
 

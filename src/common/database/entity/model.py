@@ -11,7 +11,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 from src.common.database import engine
-from src.constant import DATABASE_FILE
+from src.core.constant import DATABASE_FILE
 
 
 class Base(DeclarativeBase):

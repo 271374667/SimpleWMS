@@ -1,7 +1,7 @@
 import loguru
 
 from src.common.database.utils.convert import WaveConverter
-from src.dict_typing import RetrievalDict
+from src.core.dict_typing import RetrievalDict
 from src.model.retrieval_model import RetrievalModel
 from src.table_handler import TableHandler
 from src.utils.run_in_thread import RunInThread

@@ -1,4 +1,4 @@
-from src.dict_typing import (
+from src.core.dict_typing import (
     BatchCardDict,
     ItemQuantityCardDict,
     MoneyCardDict,

@@ -14,7 +14,7 @@ from pathlib import Path
 import loguru
 from pyecharts.globals import CurrentConfig
 
-from src.constant import PYECHART_ASSETS
+from src.core.constant import PYECHART_ASSETS
 
 
 def is_port_available(port: int) -> bool:

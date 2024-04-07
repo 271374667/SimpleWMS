@@ -3,7 +3,7 @@ import datetime
 import loguru
 
 from src.config import cfg
-from src.constant import LOG_FILE
+from src.core.constant import LOG_FILE
 
 
 class LogInitialize:
