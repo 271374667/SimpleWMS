@@ -67,7 +67,7 @@ class WaveConverter(Converter):
         batch_number = int(wave_serial_number[-3:])
         return BatchConverter.convert_batch_serial_number_to_datetime(
             wave_serial_number
-        ).strftime(f"%Y年%m月第{batch_number:03d}批")
+        ).strftime(f"%Y年%m月第{batch_number:03d}波")
 
     @staticmethod
     def convert_wave_name_to_wave_serial_number(wave_name: str) -> str:

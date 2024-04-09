@@ -20,9 +20,7 @@ class RetrievalModel:
 
     def get_inventory_by_ean13(self, ean13: str) -> Optional[RetrievalData]:
         result = self._db_controller.get_inventory_by_ean13(ean13)
-        if result is None:
-            return None
-        return result
+        return None if result is None else result
 
     def is_inventory_sold(self, ean13: str) -> bool:
         return self._db_controller.is_inventory_sold(ean13)
@@ -72,7 +70,8 @@ class RetrievalModel:
         )
         save_dir = Path(cfg.get(cfg.retrieval_path))
         EXCEL_FILE = (
-            save_dir / f'出库信息{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
+            save_dir
+            / f'出库信息{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.xlsx'
         )
         df.to_excel(EXCEL_FILE, index=False)
         loguru.logger.debug(f"导出数据到Excel文件:{EXCEL_FILE}")
