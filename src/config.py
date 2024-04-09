@@ -24,7 +24,7 @@ from src.core.constant import (
     STORAGE_DIR,
 )
 
-__version__ = "0.0.8"
+__version__ = "0.0.9"
 
 
 class Font(Enum):
@@ -39,6 +39,9 @@ class Config(QConfig):
     # General
     email_account = ConfigItem("General", "邮箱", "", None)
     email_secret_key = ConfigItem("General", "密码", "", None)
+    max_table_rows = RangeConfigItem(
+        "General", "表格最大行数", 50, RangeValidator(20, 500)
+    )
 
     # 日志
     log_rotation_days = RangeConfigItem(

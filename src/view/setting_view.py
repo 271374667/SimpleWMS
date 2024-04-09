@@ -9,13 +9,13 @@ from qfluentwidgets import (
     PushSettingCard,
     RangeSettingCard,
     SettingCardGroup,
-)
+    )
 from qfluentwidgets.components import (
     ExpandLayout,
     LargeTitleLabel,
     SmoothScrollArea,
     ToolTipFilter,
-)
+    )
 
 from src.config import cfg
 from src.view.message_base_view import MessageBaseView
@@ -138,6 +138,14 @@ class SettingView(MessageBaseView):
             self.storage_group,
         )
 
+        self.max_table_rows_card = RangeSettingCard(
+            cfg.max_table_rows,
+            Icon(FluentIcon.UNIT),
+            "表格最大行数",
+            "设置表格最大行数,默认为50",
+            self.general_group,
+        )
+
     def _set_up_tooltip(self) -> None:
         """设置卡片的提示"""
         self.log_rotation_days_card.setToolTip(
@@ -161,6 +169,10 @@ class SettingView(MessageBaseView):
             "导入指定的xlsx文件,请注意只能导入由本软件导出的xlsx文件,否则无法导入"
         )
 
+        self.max_table_rows_card.setToolTip(
+            "设置表格最大行数,显示的行数越多,占用的内存越大,默认为50行"
+        )
+
     def _set_up_layout(self) -> None:
         """设置布局"""
         self.smooth_scroll_area.setWidget(self.scroll_widget)
@@ -176,6 +188,7 @@ class SettingView(MessageBaseView):
         self.general_group.addSettingCard(self.email_account_card)
         self.general_group.addSettingCard(self.log_rotation_days_card)
         self.general_group.addSettingCard(self.log_retention_days_card)
+        self.general_group.addSettingCard(self.max_table_rows_card)
 
         self.appearance_group.addSettingCard(self.font_card)
 
