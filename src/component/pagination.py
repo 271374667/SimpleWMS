@@ -51,9 +51,8 @@ class Pagination(QWidget):
         self.confirm_button.clicked.connect(self._on_line_edit_return_pressed)
 
         # 当total_pages为None或者小于1时，隐藏分页组件
-        if not total_pages or total_pages < 1:
+        if not total_pages or total_pages <= 1:
             self.hide()
-            self.setVisible(False)
             self.lineEdit.hide()
             self.confirm_button.hide()
 
@@ -158,6 +157,9 @@ class Pagination(QWidget):
         start_page = max(1, start_page)
         end_page = min(self.total_pages, end_page)
 
+        if end_page == 1:
+            return
+
         if start_page > 1:
             self._add_button(1)
             if start_page >= 2:
@@ -227,9 +229,9 @@ if __name__ == "__main__":
     window = Pagination(total_pages=1)
     window.current_page_changed.connect(lambda page: print(f"当前页码为: {page}"))
     print(window.get_total_pages())
-    window.set_total_pages(10)
+    # window.set_total_pages(10)
     # window.set_current_page(50)
-    # window.set_total_pages(100)
+    window.set_total_pages(100)
 
     window.show()
     sys.exit(app.exec())
