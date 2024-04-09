@@ -67,7 +67,7 @@ class MVCTableModel(QAbstractTableModel):
                 return value
             elif isinstance(value, str):
                 return len(value), value
-            elif isinstance(value, datetime) or isinstance(value, date):
+            elif isinstance(value, (datetime, date)):
                 return value.toordinal()
             else:
                 return value
@@ -93,8 +93,7 @@ class MVCTableView(TableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
     def set_header(self, headers: list[str]):
-        model = self.model()
-        if model:
+        if model := self.model():
             model.set_header(headers)
 
     def set_model(self, model):
@@ -132,6 +131,12 @@ class MVCTableController(QWidget):
     def _set_headers(self, headers: List[str]) -> None:
         self._model.set_header(headers)
         self._view.set_header(headers)
+
+    def __getitem__(self, item):
+        return self._model[item]
+
+    def __setitem__(self, key, value):
+        self._model[key] = value
 
 
 if __name__ == "__main__":

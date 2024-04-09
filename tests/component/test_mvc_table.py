@@ -92,6 +92,37 @@ class TestMVCTableController(unittest.TestCase):
         self.controller.clear()
         self.assertEqual(self.controller.get_model().rowCount(), 0)
 
+    def test_slice_data(self):
+        self.controller.add_row(TestData("data1", "data2"))
+        self.controller.add_row(TestData("data3", "data4"))
+        self.controller.add_row(TestData("data5", "data6"))
+        self.controller.add_row(TestData("data7", "data8"))
+        self.controller.add_row(TestData("data9", "data10"))
+
+        self.assertEqual(self.controller.get_model()[0], TestData("data1", "data2"))
+
+        self.assertEqual(
+            self.controller.get_model()[1:3],
+            [TestData("data3", "data4"), TestData("data5", "data6")],
+        )
+
+        self.assertEqual(
+            self.controller.get_model()[1:3][0], TestData("data3", "data4")
+        )
+
+        self.assertEqual(
+            self.controller.get_model()[1:3][1], TestData("data5", "data6")
+        )
+
+        self.assertEqual(
+            self.controller.get_model()[1:3][:2],
+            [TestData("data3", "data4"), TestData("data5", "data6")],
+        )
+
+        self.assertEqual(
+            self.controller.get_model()[1:3][:2][0], TestData("data3", "data4")
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
