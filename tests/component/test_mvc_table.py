@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from PySide6.QtCore import Qt
 
-from src.component.mvc_table import MVCTableController, MVCTableModel, MVCTableView
+from src.component.mvc_table import MVCTable, MVCTableModel, MVCTableView
 
 
 @dataclass
@@ -75,7 +75,7 @@ class TestMVCTableView(unittest.TestCase):
 
 class TestMVCTableController(unittest.TestCase):
     def setUp(self):
-        self.controller = MVCTableController()
+        self.controller = MVCTable()
 
     def test_set_dataclass(self):
         self.controller.set_dataclass(TestData)

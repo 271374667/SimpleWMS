@@ -15,7 +15,7 @@ class Pagination(QWidget):
     def __init__(
         self,
         parent=None,
-        total_pages: Optional[int] = 1,
+        total_pages: int = 1,
         max_button_number: int = 10,
         left_button_number: int = 4,
         right_button_number: int = 4,
@@ -91,7 +91,6 @@ class Pagination(QWidget):
         self._update_page(page)
 
     def set_total_pages(self, total_pages: int) -> None:
-        loguru.logger.debug(total_pages)
         if total_pages <= 1:
             self.hide()
             self.setVisible(False)
