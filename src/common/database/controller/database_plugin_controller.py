@@ -10,10 +10,13 @@ from src.common.database.utils import convert
 from src.core.dict_typing import (
     BasicSearchParameterDict,
     ReturnTimesDict,
-    UnsalableDict,
     )
 from src.core.enums import BasicSearchCombboxOperationEnum
-from src.core.wms_dataclass import BasicSearchDataclass, BasicSearchParameterDataclass
+from src.core.wms_dataclass import (
+    BasicSearchDataclass,
+    BasicSearchParameterDataclass,
+    UnsalableDataclass,
+    )
 
 
 class DatabasePluginController:
@@ -21,18 +24,18 @@ class DatabasePluginController:
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
 
-    def get_unsalable_data(self) -> List[UnsalableDict]:
+    def get_unsalable_data(self) -> List[UnsalableDataclass]:
         """获取滞销数据
         Returns:
-            list[Tuple]: 滞销数据
-                [(物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)]
+            list[UnsalableDataclass]: 滞销数据
+                [UnsalableDataclass(物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)]
         """
         total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name()
         unsold_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name()
         today = datetime.now()
 
         # 根据未销售的数据进行计算
-        unsold_data = []
+        unsold_data: list[UnsalableDataclass] = []
         for unsold in unsold_data_after_group:
             for total in total_data_after_group:
                 if (
@@ -43,17 +46,16 @@ class DatabasePluginController:
                     # 获取在仓库中停留的天数
                     stay_days = (today.date() - total[3].date()).days
                     unsold_data.append(
-                        {
-                            "name": unsold[0],
-                            "brand": unsold[1],
-                            "batch_serial_number": unsold[2],
-                            "storage_time_from_today": stay_days,
-                            "storage_count": unsold[4],
-                            "total_count": total[4],
-                            "storage_rate": round((unsold[4] / total[4]), 6) * 100,
-                        }
+                        UnsalableDataclass(
+                            商品名称=unsold[0],
+                            品牌名称=unsold[1],
+                            批次编号=unsold[2],
+                            入库天数=stay_days,
+                            库存量=unsold[4],
+                            总数=total[4],
+                            存货率=round((unsold[4] / total[4]), 6) * 100,
+                        )
                     )
-                    continue
         return unsold_data
 
     # 脱销的逻辑一样，这里直接偷懒
@@ -209,8 +211,6 @@ class DatabasePluginController:
 
 
 if __name__ == "__main__":
-    from pprint import pprint
-
     d = DatabasePluginController()
     # 测试一下get_basic_search_data
     parameter: BasicSearchParameterDict = {
@@ -228,8 +228,6 @@ if __name__ == "__main__":
         # 'hide_has_return_item': False
     }
     # result = d.get_basic_search_data(parameter)
-    pprint(result)
-    pprint(len(result))
     #
     # session = get_session()
     #

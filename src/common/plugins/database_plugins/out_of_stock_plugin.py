@@ -6,6 +6,7 @@ from src.common.database.controller.database_plugin_controller import (
 )
 from src.common.plugins.plugin_base import DatabasePluginBase
 from src.core.dict_typing import OutOfStockDict
+from src.core.wms_dataclass import OutOfStockDataclass
 
 
 class OutOfStockWidget(QWidget):
@@ -123,20 +124,11 @@ class OutOfStockPlugin(DatabasePluginBase):
     """
 
     plugin_name: str = "脱销商品"
-    table_show_headers = [
-        "商品名称",
-        "品牌",
-        "批次",
-        "存放天数",
-        "库存量",
-        "总量",
-        "存货率%",
-    ]
-    table_headers = OutOfStockDict
     has_custom_widget: bool = True
     has_initialize: bool = True
+    table_dataclass = OutOfStockDataclass
 
-    def get_data(self) -> list[OutOfStockDict]:
+    def get_data(self) -> list[OutOfStockDataclass]:
         outofstock_data = self._database_plugin_controller.get_out_of_stock_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
         level_1_value = self._custom_widget.first_state_value_spin_box.value()
@@ -144,14 +136,14 @@ class OutOfStockPlugin(DatabasePluginBase):
         level_2_value = self._custom_widget.second_state_value_spin_box.value()
 
         # 这里是对数据进行筛选
-        result = []
-        # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
+        result: list[OutOfStockDataclass] = []
+
         for each in outofstock_data:
-            level_1_condition = (each["storage_time_from_today"] <= level_1_day) and (
-                each["storage_rate"] <= level_1_value
+            level_1_condition = (each.入库天数 <= level_1_day) and (
+                each.库存量 <= level_1_value
             )
-            level_2_condition = (each["storage_time_from_today"] <= level_2_day) and (
-                each["storage_rate"] <= level_2_value
+            level_2_condition = (each.入库天数 <= level_2_day) and (
+                each.存货率 <= level_2_value
             )
             if level_1_condition or level_2_condition:
                 result.append(each)

@@ -3,16 +3,14 @@ from qfluentwidgets import BodyLabel, SpinBox, ToolTipFilter
 
 from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
-)
+    )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.core.dict_typing import UnsalableDict
+from src.core.wms_dataclass import UnsalableDataclass
 
 
 class UnsalableWidget(QWidget):
     def __init__(self):
         super().__init__()
-
-        # self.main_layout = FlowLayout(needAni=True, parent=self, isTight=True)
         self.main_layout = QVBoxLayout()
 
         # 设置第一阶段
@@ -160,20 +158,11 @@ class UnsalablePlugin(DatabasePluginBase):
     """
 
     plugin_name: str = "滞销商品"
-    table_show_headers = [
-        "商品名称",
-        "品牌",
-        "批次",
-        "存放天数",
-        "库存量",
-        "总量",
-        "存货率%",
-    ]
-    table_headers = UnsalableDict
+    table_dataclass = UnsalableDataclass
     has_custom_widget: bool = True
     has_initialize: bool = True
 
-    def get_data(self) -> list[UnsalableDict]:
+    def get_data(self) -> list[UnsalableDataclass]:
         unsalable_data = self._database_plugin_controller.get_unsalable_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
         level_1_value = self._custom_widget.first_state_value_spin_box.value()
@@ -182,18 +171,18 @@ class UnsalablePlugin(DatabasePluginBase):
         level_3_day = self._custom_widget.third_stage_day_spin_box.value()
 
         # 这里是对数据进行筛选
-        result = []
-        # each = (物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)
+        result: list[UnsalableDataclass] = []
+
         for each in unsalable_data:
             level_1_condition = (
-                (each["storage_time_from_today"] >= level_1_day)
-                and (each["storage_time_from_today"] < level_2_day)
-                and (each["storage_rate"] >= level_1_value)
+                (each.入库天数 >= level_1_day)
+                and (each.入库天数 < level_2_day)
+                and (each.存货率 >= level_1_value)
             )
-            level_2_condition = (each["storage_time_from_today"] >= level_2_day) and (
-                each["storage_rate"] >= level_2_value
+            level_2_condition = (each.入库天数 >= level_2_day) and (
+                each.存货率 >= level_2_value
             )
-            level_3_condition = each["storage_time_from_today"] >= level_3_day
+            level_3_condition = each.入库天数 >= level_3_day
             if level_1_condition or level_2_condition or level_3_condition:
                 result.append(each)
         return result

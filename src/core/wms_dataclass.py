@@ -49,3 +49,20 @@ class BasicSearchParameterDataclass(DataclassBase):
     storage_days_operation: Optional[BasicSearchCombboxOperationEnum] = None
     hide_sold_item: Optional[bool] = None
     hide_has_return_item: Optional[bool] = None
+
+
+@dataclass(slots=True, frozen=True)
+class UnsalableDataclass(DataclassBase):
+    """滞销"""
+
+    商品名称: str
+    品牌名称: str
+    批次编号: str
+    入库天数: int
+    库存量: int
+    总数: int
+    存货率: float
+
+
+# 脱销,直接偷懒
+OutOfStockDataclass = UnsalableDataclass
