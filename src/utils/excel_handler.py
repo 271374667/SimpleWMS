@@ -1,6 +1,6 @@
 from dataclasses import dataclass, fields
 from pathlib import Path
-from typing import Dict, Optional, Sequence, Type
+from typing import Dict, Optional, Sequence, Type, Union
 
 import openpyxl
 from openpyxl.worksheet.worksheet import Worksheet
@@ -41,7 +41,8 @@ class ExcelHandler:
     def set_data(self, data: Sequence[dataclass]) -> None:
         self._data = data
 
-    def export2excel(self, output_path: Path) -> None:
+    def export2excel(self, output_path: Union[Path, str]) -> None:
+
         wb = openpyxl.Workbook()
         ws: Worksheet = wb.active
         ws.append(self._header)

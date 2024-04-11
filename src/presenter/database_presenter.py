@@ -9,6 +9,7 @@ from src.core.wms_dataclass import DataclassBase
 from src.model.database_model import DatabaseModel
 from src.utils.run_in_thread import RunInThread
 from src.view.database_view import DatabaseView
+from src.utils.excel_handler import ExcelHandler
 
 
 class DatabasePresenter:
@@ -16,6 +17,7 @@ class DatabasePresenter:
         self._view = DatabaseView()
         self._model = DatabaseModel()
         self._database_plugin_manager = DatabasePluginManager()
+        self._excel_handler = ExcelHandler()
         loguru.logger.debug(
             f"当前启用插件:{self._database_plugin_manager.get_all_plugins()}"
         )
@@ -65,8 +67,7 @@ class DatabasePresenter:
 
         # 设置表格
         self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
-        # self._table_handler.set_show_headers(current_plugin.table_show_headers)
-        # self._table_handler.set_headers(current_plugin.table_headers)
+        self._excel_handler.set_dataclass(current_plugin.table_dataclass)
 
     def _plugin_changed(self) -> None:
         ui = self.get_view()
@@ -95,8 +96,7 @@ class DatabasePresenter:
 
         # 设置表格
         self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
-        # self._table_handler.set_show_headers(current_plugin.table_show_headers)
-        # self._table_handler.set_headers(current_plugin.table_headers)
+        self._excel_handler.set_dataclass(current_plugin.table_dataclass)
 
     def _submit(self):
         self.get_view().get_table().clear()
@@ -128,11 +128,6 @@ class DatabasePresenter:
         self.run_in_thread.set_finished_func(finish)
         self.run_in_thread.start()
 
-        # self.get_view().get_table().set_data(current_plugin.get_data())
-        # self.get_view().get_table().get_table().scrollToTop()
-        # self._table_handler.set_data(current_plugin.get_data())
-        # self._table_handler.scroll_to_row(0)
-
     def _reflesh(self) -> None:
         self.get_view().show_success_infobar(
             "刷新成功", "所有的数据已经重新从数据库获取", 3000
@@ -142,26 +137,27 @@ class DatabasePresenter:
     def _export_table(self) -> None:
         self._run_in_thread = RunInThread()
 
-        file_path = QFileDialog.getSaveFileName(
+        file_path, _ = QFileDialog.getSaveFileName(
             self.get_view(), "保存文件", "", "Excel Files (*.xlsx)"
         )
         if not file_path:
             return
 
-        loguru.logger.debug(f"当前选择的文件路径为{file_path[0]},类型为{file_path[1]}")
+        loguru.logger.debug(f"当前选择的文件路径为{file_path}")
         self.get_view().show_state_tooltip(
-            "正在导出数据...", f"正在导出数据到{file_path[0]}"
+            "正在导出数据...", f"正在导出数据到{file_path}"
         )
 
-        # def run():
-        # self._table_handler.export_data(Path(file_path[0]))
+        def run():
+            self._excel_handler.set_data(self.get_view().get_table().get_all_data())
+            self._excel_handler.export2excel(file_path)
 
         def finish() -> None:
             self.get_view().finish_state_tooltip(
                 "成功", f"数据已经成功导出到{file_path[0]}"
             )
 
-        # self._run_in_thread.set_start_func(run)
+        self._run_in_thread.set_start_func(run)
         self._run_in_thread.set_finished_func(finish)
         self._run_in_thread.start()
 

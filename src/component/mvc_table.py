@@ -29,6 +29,7 @@ class MVCTableModel(QAbstractTableModel):
         return self._all_data
 
     def get_data(self) -> list[dataclass]:
+        """返回当前显示的本页数据"""
         return self._show_data
 
     def get_all_data_row_count(self) -> int:
@@ -165,7 +166,6 @@ class MVCTable(QWidget):
 
     def set_data(self, data: list[dataclass]) -> None:
         self.get_view().model().beginResetModel()
-        self.get_model().clear()
         self.get_model()._all_data = data
         self.get_model()._show_data = data
         self.get_view().model().endResetModel()
@@ -173,6 +173,12 @@ class MVCTable(QWidget):
 
     def get_error_message_signal(self) -> Signal:
         return self.error_message
+
+    def get_current_page_data(self) -> list[dataclass]:
+        return self.get_model().get_data()
+
+    def get_all_data(self) -> list[dataclass]:
+        return self.get_model().get_all_data()
 
     def add_row(self, row: dataclass) -> None:
         self.get_view().model().beginResetModel()

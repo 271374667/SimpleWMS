@@ -88,6 +88,12 @@ class MVCTableWithPagination(QWidget):
     def get_table_error_message_signal(self) -> Signal:
         return self._table.get_error_message_signal()
 
+    def get_current_page_data(self) -> list[dataclass]:
+        return self._table.get_current_page_data()
+
+    def get_all_data(self) -> list[dataclass]:
+        return self._table.get_all_data()
+
     def add_row(self, row: dataclass) -> None:
         self._table.add_row(row)
         self._pagination.set_total_pages(self._table.total_page)

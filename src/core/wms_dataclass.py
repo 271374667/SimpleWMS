@@ -15,7 +15,7 @@ class DataclassBase(ABC):
     pass
 
 
-@dataclass
+@dataclass(slots=True, frozen=True)
 class BasicSearchDataclass(DataclassBase):
     """基本查询"""
 
@@ -27,12 +27,12 @@ class BasicSearchDataclass(DataclassBase):
     入库时间: datetime
     入库天数: int
     退货次数: int
+    是否售出: bool
     波次编号: Optional[str] = "无波次"
     出库时间: Optional[datetime] = None
-    是否售出: Optional[bool] = None  # 将 int 转换成 "是" 或者 "否"
 
 
-@dataclass
+@dataclass(slots=True, frozen=True)
 class BasicSearchParameterDataclass(DataclassBase):
     """基本查询参数"""
 
