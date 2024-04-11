@@ -6,13 +6,12 @@ from qfluentwidgets.components import (
     ComboBox,
     PrimaryPushButton,
     StrongBodyLabel,
-    TableWidget,
     ToolTipFilter,
-)
+    )
 
+from src.component.mvc_table_with_pagination import MVCTableWithPagination
 from src.interface.Ui_database_page import Ui_Form
 from src.view.message_base_view import MessageBaseView
-from src.component.pagination import Pagination
 
 
 class DatabaseView(MessageBaseView):
@@ -29,10 +28,7 @@ class DatabaseView(MessageBaseView):
     def get_plugin_select_comboBox(self) -> ComboBox:
         return self.ui.ComboBox
 
-    def get_table(self) -> TableWidget:
-        return self.ui.TableWidget
-
-    def get_pagination(self) -> Pagination:
+    def get_table(self) -> MVCTableWithPagination:
         return self.ui.widget_2
 
     def get_custom_widget(self) -> QWidget:

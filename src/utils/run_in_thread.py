@@ -40,7 +40,7 @@ class WorkThread(QObject):
             func_return = self.func(*self.args, **self.kwargs)
         else:
             func_return = self.func()
-        loguru.logger.debug(f"线程函数执行完毕, 返回值为{func_return}")
+        # loguru.logger.debug(f"线程函数执行完毕, 返回值为{func_return}")
         self.result.emit(func_return)
         self.finished_signal.emit()
 

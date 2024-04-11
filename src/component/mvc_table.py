@@ -163,6 +163,14 @@ class MVCTable(QWidget):
         header = [field.name for field in dataclass.__dataclass_fields__.values()]
         self._set_headers(header)
 
+    def set_data(self, data: list[dataclass]) -> None:
+        self.get_view().model().beginResetModel()
+        self.get_model().clear()
+        self.get_model()._all_data = data
+        self.get_model()._show_data = data
+        self.get_view().model().endResetModel()
+        self.update_table()
+
     def get_error_message_signal(self) -> Signal:
         return self.error_message
 

@@ -49,7 +49,7 @@
         <x>0</x>
         <y>0</y>
         <width>948</width>
-        <height>735</height>
+        <height>710</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -197,7 +197,7 @@
         </widget>
        </item>
        <item>
-        <widget class="TableWidget" name="TableWidget">
+        <widget class="MVCTableWithPagination" name="widget_2" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -210,100 +210,7 @@
            <height>400</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777209</height>
-          </size>
-         </property>
-         <property name="tabletTracking">
-          <bool>false</bool>
-         </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
-         </property>
-         <property name="showGrid">
-          <bool>false</bool>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="rowCount">
-          <number>20</number>
-         </property>
-         <property name="selectRightClickedRow">
-          <bool>false</bool>
-         </property>
-         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <column>
-          <property name="text">
-           <string>名称</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>品牌</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>价格</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>批次</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>EAN13码</string>
-          </property>
-         </column>
         </widget>
-       </item>
-       <item>
-        <widget class="Pagination" name="widget_2" native="true"/>
        </item>
       </layout>
      </widget>
@@ -371,14 +278,9 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>TableWidget</class>
-   <extends>QTableWidget</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>Pagination</class>
+   <class>MVCTableWithPagination</class>
    <extends>QWidget</extends>
-   <header>src.component.pagination</header>
+   <header>src.component.mvc_table_with_pagination</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

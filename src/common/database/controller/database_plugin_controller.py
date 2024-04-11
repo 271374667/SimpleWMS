@@ -8,13 +8,12 @@ from src.common.database.service.get_attribute_service import (
     )
 from src.common.database.utils import convert
 from src.core.dict_typing import (
-    BasicSearchDict,
     BasicSearchParameterDict,
     ReturnTimesDict,
     UnsalableDict,
     )
 from src.core.enums import BasicSearchCombboxOperationEnum
-from src.core.wms_dataclass import BasicSearchParameterDataclass, BasicSearchDataclass
+from src.core.wms_dataclass import BasicSearchDataclass, BasicSearchParameterDataclass
 
 
 class DatabasePluginController:
@@ -106,22 +105,26 @@ class DatabasePluginController:
 
         if parameter.ean13:
             all_data = all_data.filter(
-                model.Inventory.id == convert.EAN13Converter.convert_ean13_to_id(parameter.ean13)
+                model.Inventory.id
+                == convert.EAN13Converter.convert_ean13_to_id(parameter.ean13)
             )
 
         if parameter.name:
-            all_data = all_data.filter(model.Inventory.item_name.like(f"%{parameter.name}%"))
+            all_data = all_data.filter(
+                model.Inventory.item_name.like(f"%{parameter.name}%")
+            )
 
         if parameter.brand:
             all_data = all_data.filter(model.Inventory.brand == parameter.brand)
 
-        # 根据价格搜索
-        if parameter.has_price:
-            if parameter.price_operation == BasicSearchCombboxOperationEnum.Equal:
+        if parameter.price_operation == BasicSearchCombboxOperationEnum.Equal:
+            if parameter.has_price:
                 all_data = all_data.filter(model.Inventory.price == parameter.price)
-            elif parameter.price_operation == BasicSearchCombboxOperationEnum.Greater:
+        elif parameter.price_operation == BasicSearchCombboxOperationEnum.Greater:
+            if parameter.has_price:
                 all_data = all_data.filter(model.Inventory.price > parameter.price)
-            elif parameter.price_operation == BasicSearchCombboxOperationEnum.Less:
+        elif parameter.price_operation == BasicSearchCombboxOperationEnum.Less:
+            if parameter.has_price:
                 all_data = all_data.filter(model.Inventory.price < parameter.price)
 
         if parameter.batch_serial_number:
@@ -137,10 +140,10 @@ class DatabasePluginController:
         # 根据存库天数搜索
         has_storage_days = parameter.has_storage_days
         storage_days = parameter.storage_days
-        storage_days_operation = parameter.storage_days_operation
         # 这里的逻辑比较复杂,因为create_time这个属性没有办法调用他的date(),所以只能提前获取今天的时间然后做比较
         if has_storage_days:
             today = datetime.now()
+            storage_days_operation = parameter.storage_days_operation
             if storage_days_operation == BasicSearchCombboxOperationEnum.Equal:
                 storage_days += (
                     1  # 一个bug,如果没有等于号实际上搜索结果为目标结果前一天
@@ -186,22 +189,22 @@ class DatabasePluginController:
         result: list[BasicSearchDataclass] = []
         today = datetime.now()
 
-        for each in all_data:
-            result.append(
-                BasicSearchDataclass(
-                    name=str(each[0].item_name),
-                    brand=str(each[0].brand),
-                    price=each[0].price,
-                    batch_serial_number=str(each[1].batch_serial_number),
-                    storage_time=each[1].created_time,
-                    storage_time_from_today=(today - each[1].created_time).days,
-                    return_times=each[0].return_times,
-                    wave_serial_number=str(each[2].wave_serial_number if each[2] else ""),
-                    retrieval_time=each[2].created_time if each[2] else None,
-                    is_sold=bool(each[0].is_sold),
-                    ean13=convert.EAN13Converter.convert_id_to_ean13(each[0].id),
-                )
+        result.extend(
+            BasicSearchDataclass(
+                Ean13码=convert.EAN13Converter.convert_id_to_ean13(each[0].id),
+                商品名称=str(each[0].item_name),
+                品牌名称=str(each[0].brand),
+                价格=each[0].price,
+                批次编号=str(each[1].batch_serial_number),
+                入库时间=each[1].created_time,
+                入库天数=(today - each[1].created_time).days,
+                退货次数=each[0].return_times,
+                波次编号=str(each[2].wave_serial_number if each[2] else ""),
+                出库时间=each[2].created_time if each[2] else None,
+                是否售出=bool(each[0].is_sold),
             )
+            for each in all_data
+        )
         return result
 
 
@@ -224,7 +227,7 @@ if __name__ == "__main__":
         # 'hide_sold_item': False,
         # 'hide_has_return_item': False
     }
-    result = d.get_basic_search_data(parameter)
+    # result = d.get_basic_search_data(parameter)
     pprint(result)
     pprint(len(result))
     #

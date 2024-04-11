@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Optional
 
 import loguru
@@ -6,8 +5,8 @@ from PySide6.QtWidgets import QApplication, QFileDialog, QVBoxLayout
 
 from src.common.plugins.plugin_base import DatabasePluginBase
 from src.common.plugins.plugin_manager import DatabasePluginManager
+from src.core.wms_dataclass import DataclassBase
 from src.model.database_model import DatabaseModel
-from src.table_handler import TableHandler
 from src.utils.run_in_thread import RunInThread
 from src.view.database_view import DatabaseView
 
@@ -17,7 +16,6 @@ class DatabasePresenter:
         self._view = DatabaseView()
         self._model = DatabaseModel()
         self._database_plugin_manager = DatabasePluginManager()
-        self._table_handler = TableHandler(self._view.get_table())
         loguru.logger.debug(
             f"当前启用插件:{self._database_plugin_manager.get_all_plugins()}"
         )
@@ -66,8 +64,9 @@ class DatabasePresenter:
         custom_widget.setLayout(inner_layout)
 
         # 设置表格
-        self._table_handler.set_show_headers(current_plugin.table_show_headers)
-        self._table_handler.set_headers(current_plugin.table_headers)
+        self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
+        # self._table_handler.set_show_headers(current_plugin.table_show_headers)
+        # self._table_handler.set_headers(current_plugin.table_headers)
 
     def _plugin_changed(self) -> None:
         ui = self.get_view()
@@ -95,11 +94,12 @@ class DatabasePresenter:
         inner_layout.addWidget(current_plugin.get_custom_widget())
 
         # 设置表格
-        self._table_handler.set_show_headers(current_plugin.table_show_headers)
-        self._table_handler.set_headers(current_plugin.table_headers)
+        self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
+        # self._table_handler.set_show_headers(current_plugin.table_show_headers)
+        # self._table_handler.set_headers(current_plugin.table_headers)
 
     def _submit(self):
-        self._table_handler.clear()
+        self.get_view().get_table().clear()
         current_plugin: Optional[DatabasePluginBase] = (
             self._database_plugin_manager.get_plugin_by_name(
                 self._view.get_plugin_select_comboBox().currentText()
@@ -112,8 +112,26 @@ class DatabasePresenter:
                 10,
             )
             return
-        self._table_handler.set_data(current_plugin.get_data())
-        self._table_handler.scroll_to_row(0)
+
+        self.get_view().show_state_tooltip("正在获取数据...", "正在从数据库获取数据")
+        self.run_in_thread = RunInThread()
+
+        def run() -> list[DataclassBase]:
+            return current_plugin.get_data()
+
+        def finish(data: list[DataclassBase]) -> None:
+            self.get_view().get_table().set_data(data)
+            self.get_view().get_table().get_table().scrollToTop()
+            self.get_view().finish_state_tooltip("成功", "数据获取成功")
+
+        self.run_in_thread.set_start_func(run)
+        self.run_in_thread.set_finished_func(finish)
+        self.run_in_thread.start()
+
+        # self.get_view().get_table().set_data(current_plugin.get_data())
+        # self.get_view().get_table().get_table().scrollToTop()
+        # self._table_handler.set_data(current_plugin.get_data())
+        # self._table_handler.scroll_to_row(0)
 
     def _reflesh(self) -> None:
         self.get_view().show_success_infobar(
@@ -135,15 +153,15 @@ class DatabasePresenter:
             "正在导出数据...", f"正在导出数据到{file_path[0]}"
         )
 
-        def run():
-            self._table_handler.export_data(Path(file_path[0]))
+        # def run():
+        # self._table_handler.export_data(Path(file_path[0]))
 
         def finish() -> None:
             self.get_view().finish_state_tooltip(
                 "成功", f"数据已经成功导出到{file_path[0]}"
             )
 
-        self._run_in_thread.set_start_func(run)
+        # self._run_in_thread.set_start_func(run)
         self._run_in_thread.set_finished_func(finish)
         self._run_in_thread.start()
 

@@ -15,14 +15,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QSizePolicy, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 from qfluentwidgets import (BodyLabel, CardWidget, ComboBox, IconWidget,
     LargeTitleLabel, PrimaryPushButton, PushButton, SimpleCardWidget,
-    SmoothScrollArea, StrongBodyLabel, TableWidget, VerticalSeparator)
-from src.component.pagination import Pagination
+    SmoothScrollArea, StrongBodyLabel, VerticalSeparator)
+from src.component.mvc_table_with_pagination import MVCTableWithPagination
 import resource_rc
 
 class Ui_Form(object):
@@ -42,7 +41,7 @@ class Ui_Form(object):
         self.SmoothScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 735))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 948, 710))
         self.scrollAreaWidgetContents.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);")
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setSpacing(15)
@@ -135,49 +134,14 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.PrimaryPushButton)
 
-        self.TableWidget = TableWidget(self.scrollAreaWidgetContents)
-        if (self.TableWidget.columnCount() < 5):
-            self.TableWidget.setColumnCount(5)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
-        if (self.TableWidget.rowCount() < 20):
-            self.TableWidget.setRowCount(20)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.TableWidget.setVerticalHeaderItem(0, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.TableWidget.setVerticalHeaderItem(1, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.TableWidget.setVerticalHeaderItem(2, __qtablewidgetitem7)
-        self.TableWidget.setObjectName(u"TableWidget")
+        self.widget_2 = MVCTableWithPagination(self.scrollAreaWidgetContents)
+        self.widget_2.setObjectName(u"widget_2")
         sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.TableWidget.sizePolicy().hasHeightForWidth())
-        self.TableWidget.setSizePolicy(sizePolicy3)
-        self.TableWidget.setMinimumSize(QSize(0, 400))
-        self.TableWidget.setMaximumSize(QSize(16777215, 16777209))
-        self.TableWidget.setTabletTracking(False)
-        self.TableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.TableWidget.setEditTriggers(QAbstractItemView.DoubleClicked|QAbstractItemView.SelectedClicked)
-        self.TableWidget.setShowGrid(False)
-        self.TableWidget.setSortingEnabled(True)
-        self.TableWidget.setRowCount(20)
-        self.TableWidget.setSelectRightClickedRow(False)
-        self.TableWidget.horizontalHeader().setProperty("showSortIndicator", True)
-        self.TableWidget.horizontalHeader().setStretchLastSection(True)
-
-        self.verticalLayout_2.addWidget(self.TableWidget)
-
-        self.widget_2 = Pagination(self.scrollAreaWidgetContents)
-        self.widget_2.setObjectName(u"widget_2")
+        sizePolicy3.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
+        self.widget_2.setSizePolicy(sizePolicy3)
+        self.widget_2.setMinimumSize(QSize(0, 400))
 
         self.verticalLayout_2.addWidget(self.widget_2)
 
@@ -199,21 +163,5 @@ class Ui_Form(object):
         self.ComboBox.setText(QCoreApplication.translate("Form", u"\u8bf7\u9009\u62e9\u4e00\u4e2a\u6a21\u5f0f\u6765\u83b7\u53d6\u6570\u636e", None))
         self.StrongBodyLabel.setText(QCoreApplication.translate("Form", u"\u5f53\u524d\u914d\u7f6e:\u5f53\u524d\u6ca1\u6709\u9009\u62e9\u4efb\u4f55\u6a21\u5f0f", None))
         self.PrimaryPushButton.setText(QCoreApplication.translate("Form", u"\u5f00\u59cb\u67e5\u627e", None))
-        ___qtablewidgetitem = self.TableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"\u540d\u79f0", None));
-        ___qtablewidgetitem1 = self.TableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"\u54c1\u724c", None));
-        ___qtablewidgetitem2 = self.TableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"\u4ef7\u683c", None));
-        ___qtablewidgetitem3 = self.TableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"\u6279\u6b21", None));
-        ___qtablewidgetitem4 = self.TableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"EAN13\u7801", None));
-        ___qtablewidgetitem5 = self.TableWidget.verticalHeaderItem(0)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"1", None));
-        ___qtablewidgetitem6 = self.TableWidget.verticalHeaderItem(1)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"2", None));
-        ___qtablewidgetitem7 = self.TableWidget.verticalHeaderItem(2)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"3", None));
     # retranslateUi
 

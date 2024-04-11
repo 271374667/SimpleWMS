@@ -4,7 +4,7 @@ import loguru
 from PySide6.QtWidgets import QWidget
 from typing_extensions import Self
 
-from src.core.dict_typing import CustomBaseDict
+from src.core.wms_dataclass import DataclassBase
 
 
 class PluginBase:
@@ -27,8 +27,7 @@ class DatabasePluginBase(PluginBase):
     plugin_name: str = "DatabasePluginBase"
     has_custom_widget: bool = True
     has_initialize: bool = True
-    table_show_headers: list[str] = []
-    table_headers: CustomBaseDict
+    table_dataclass: DataclassBase
 
     def __init__(self):
         super().__init__()
@@ -38,7 +37,7 @@ class DatabasePluginBase(PluginBase):
         if self.has_custom_widget:
             self._connect_signals()
 
-    def get_data(self) -> list[CustomBaseDict]:
+    def get_data(self) -> list[DataclassBase]:
         """从数据库中获取数据,以供表格显示"""
         raise NotImplementedError("需要实现这个方法")
 

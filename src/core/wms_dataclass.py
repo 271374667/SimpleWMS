@@ -1,3 +1,8 @@
+"""WMS 数据类,负责存储 WMS 模块的数据类.
+
+因为需要在表格里面显示表头,所以字段都是中文
+"""
+
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
@@ -14,17 +19,17 @@ class DataclassBase(ABC):
 class BasicSearchDataclass(DataclassBase):
     """基本查询"""
 
-    ean13: str
-    name: str
-    brand: str
-    price: float
-    batch_serial_number: str
-    storage_time: datetime
-    storage_time_from_today: int
-    return_times: int
-    wave_serial_number: Optional[str] = "无波次"
-    retrieval_time: Optional[datetime] = None
-    is_sold: Optional[bool] = None  # 将 int 转换成 "是" 或者 "否"
+    Ean13码: str
+    商品名称: str
+    品牌名称: str
+    价格: float
+    批次编号: str
+    入库时间: datetime
+    入库天数: int
+    退货次数: int
+    波次编号: Optional[str] = "无波次"
+    出库时间: Optional[datetime] = None
+    是否售出: Optional[bool] = None  # 将 int 转换成 "是" 或者 "否"
 
 
 @dataclass

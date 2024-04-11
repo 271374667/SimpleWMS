@@ -30,6 +30,7 @@ from dataclasses import dataclass
 
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
+from qfluentwidgets import TableView
 
 from src.component.mvc_table import MVCTable
 from src.component.pagination import Pagination
@@ -46,6 +47,7 @@ class MVCTableWithPagination(QWidget):
 
     Methods:
         set_dataclass(custom_dataclass: dataclass): 设置数据类。
+        get_table(): 获取表格。
         get_pagination_error_message_signal(): 获取分页错误信息信号。
         get_table_error_message_signal(): 获取表格错误信息信号。
         add_row(row: dataclass): 添加数据行。
@@ -61,8 +63,8 @@ class MVCTableWithPagination(QWidget):
         6. 通过get_table_error_message_signal方法获取表格错误信息信号
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
         self._main_layout = QVBoxLayout()
         self._table: MVCTable = MVCTable()
         self._pagination: Pagination = Pagination()
@@ -76,6 +78,9 @@ class MVCTableWithPagination(QWidget):
 
     def set_dataclass(self, custom_dataclass: dataclass) -> None:
         self._table.set_dataclass(custom_dataclass)
+
+    def get_table(self) -> TableView:
+        return self._table.get_view()
 
     def get_pagination_error_message_signal(self) -> Signal:
         return self._pagination.get_error_message_signal()
@@ -92,6 +97,10 @@ class MVCTableWithPagination(QWidget):
 
     def set_per_page_count(self, per_page_count: int) -> None:
         self._table.per_page_count = per_page_count
+
+    def set_data(self, data: list[dataclass]) -> None:
+        self._table.set_data(data)
+        self._pagination.set_total_pages(self._table.total_page)
 
     def _set_current_page(self, current_page: int):
         self._table.current_page = current_page

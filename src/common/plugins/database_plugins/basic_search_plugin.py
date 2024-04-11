@@ -2,35 +2,22 @@ from PySide6.QtWidgets import QWidget
 
 from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
-)
+    )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.core.dict_typing import BasicSearchDict, BasicSearchParameterDict
 from src.core.enums import BasicSearchCombboxOperationEnum
+from src.core.wms_dataclass import BasicSearchDataclass, BasicSearchParameterDataclass
 from src.view.component_view.basic_search_plugin_component_view import (
     BasicSearchPluginComponentView,
-)
+    )
 
 
 class BasicSearchPlugin(DatabasePluginBase):
     plugin_name: str = "基础搜索"
     has_custom_widget: bool = True
     has_initialize: bool = True
-    table_headers = BasicSearchDict
-    table_show_headers: list[str] = [
-        "商品名称",
-        "品牌",
-        "价格",
-        "批次编号",
-        "批次入库时间",
-        "存库天数",
-        "退货次数",
-        "波次编号",
-        "出库时间",
-        "是否售出",
-        "EAN13",
-    ]
+    table_dataclass = BasicSearchDataclass
 
-    def get_data(self) -> list[BasicSearchDict]:
+    def get_data(self) -> list[BasicSearchDataclass]:
         ean13 = self.custom_widget.get_ean13_le().text()
         name = self.custom_widget.get_name_le().text()
         brand = self.custom_widget.get_brand_le().text()
@@ -53,21 +40,21 @@ class BasicSearchPlugin(DatabasePluginBase):
             self.custom_widget.get_hide_had_returns_item_cb().isChecked()
         )
 
-        para: BasicSearchParameterDict = {
-            "ean13": ean13,
-            "name": name,
-            "brand": brand,
-            "has_price": price_enable,
-            "price": price,
-            "price_operation": price_operation,
-            "batch_serial_number": batch,
-            "wave_serial_number": wave,
-            "has_storage_days": storage_days_enable,
-            "storage_days": storage_days,
-            "storage_days_operation": storage_days_operation,
-            "hide_sold_item": hide_sold_item,
-            "hide_has_return_item": hide_has_return_item,
-        }
+        para: BasicSearchParameterDataclass = BasicSearchParameterDataclass(
+            ean13=ean13,
+            name=name,
+            brand=brand,
+            has_price=price_enable,
+            price=price,
+            price_operation=price_operation,
+            batch_serial_number=batch,
+            wave_serial_number=wave,
+            has_storage_days=storage_days_enable,
+            storage_days=storage_days,
+            storage_days_operation=storage_days_operation,
+            hide_sold_item=hide_sold_item,
+            hide_has_return_item=hide_has_return_item,
+        )
 
         return self._database_plugin_controller.get_basic_search_data(para)
 
