@@ -64,5 +64,26 @@ class UnsalableDataclass(DataclassBase):
     存货率: float
 
 
-# 脱销,直接偷懒
-OutOfStockDataclass = UnsalableDataclass
+@dataclass(slots=True, frozen=True)
+class OutOfStockDataclass(DataclassBase):
+    """脱销"""
+
+    商品名称: str
+    品牌名称: str
+    批次编号: str
+    入库天数: int
+    库存量: int
+    总数: int
+    存货率: float
+
+
+@dataclass(slots=True, frozen=True)
+class ReturnTimesDataclass(DataclassBase):
+    """退货次数"""
+
+    商品名称: str
+    品牌名称: str
+    批次编号: str
+    入库时间: datetime
+    退货次数: int
+    Ean13码: str

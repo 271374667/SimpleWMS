@@ -9,12 +9,13 @@ from src.common.database.service.get_attribute_service import (
 from src.common.database.utils import convert
 from src.core.dict_typing import (
     BasicSearchParameterDict,
-    ReturnTimesDict,
     )
 from src.core.enums import BasicSearchCombboxOperationEnum
 from src.core.wms_dataclass import (
     BasicSearchDataclass,
     BasicSearchParameterDataclass,
+    OutOfStockDataclass,
+    ReturnTimesDataclass,
     UnsalableDataclass,
     )
 
@@ -58,10 +59,42 @@ class DatabasePluginController:
                     )
         return unsold_data
 
-    # 脱销的逻辑一样，这里直接偷懒
-    get_out_of_stock_data = get_unsalable_data
+    def get_out_of_stock_data(self) -> List[OutOfStockDataclass]:
+        """获取脱销数据
+        因为脱销和滞销的计算逻辑是一样的,所以这里直接调用滞销的方法
+        Returns:
+            list[UnsalableDataclass]: 脱销数据
+                [UnsalableDataclass(物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)]
+        """
+        total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name()
+        out_of_stock_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name()
+        today = datetime.now()
 
-    def get_return_data(self) -> list[ReturnTimesDict]:
+        # 根据未销售的数据进行计算
+        out_of_stock_data: list[OutOfStockDataclass] = []
+        for out_of_stock in out_of_stock_data_after_group:
+            for total in total_data_after_group:
+                if (
+                    out_of_stock[0] == total[0]
+                    and out_of_stock[1] == total[1]
+                    and out_of_stock[2] == total[2]
+                ):
+                    # 获取在仓库中停留的天数
+                    stay_days = (today.date() - total[3].date()).days
+                    out_of_stock_data.append(
+                        OutOfStockDataclass(
+                            商品名称=out_of_stock[0],
+                            品牌名称=out_of_stock[1],
+                            批次编号=out_of_stock[2],
+                            入库天数=stay_days,
+                            库存量=out_of_stock[4],
+                            总数=total[4],
+                            存货率=round((out_of_stock[4] / total[4]), 6) * 100,
+                        )
+                    )
+        return out_of_stock_data
+
+    def get_return_data(self) -> list[ReturnTimesDataclass]:
         """获取退货数据"""
         # 获取所有数据
         # ['id', '商品名称', '品牌', '批次号', '入库时间', '退货次数', '退货率']
@@ -82,17 +115,18 @@ class DatabasePluginController:
             return []
 
         # 将上面的数据转换成下面的数据['商品名称', '品牌', '批次号', '入库时间', '退货次数', 'EAN13']
-        return_data = []
-        for row in data:
-            each_row: ReturnTimesDict = {
-                "name": row[1],
-                "brand": row[2],
-                "batch_serial_number": row[3],
-                "storage_time": row[4],
-                "return_times": row[5],
-                "ean13": convert.EAN13Converter.convert_id_to_ean13(row[3]),
-            }
-            return_data.append(each_row)
+        return_data: list[ReturnTimesDataclass] = []
+        return_data.extend(
+            ReturnTimesDataclass(
+                商品名称=row[1],
+                品牌名称=row[2],
+                批次编号=row[3],
+                入库时间=row[4],
+                退货次数=row[5],
+                Ean13码=convert.EAN13Converter.convert_id_to_ean13(row[3]),
+            )
+            for row in data
+        )
         return return_data
 
     def get_basic_search_data(

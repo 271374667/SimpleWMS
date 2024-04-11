@@ -7,9 +7,9 @@ from qfluentwidgets.components import BodyLabel, CalendarPicker, PushButton
 
 from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
-)
+    )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.core.dict_typing import ReturnTimesDict
+from src.core.wms_dataclass import ReturnTimesDataclass
 
 
 class CustomWidget(QWidget):
@@ -70,17 +70,9 @@ class ReturnTimesPlugin(DatabasePluginBase):
     plugin_name: str = "查看退货"
     has_custom_widget: bool = True
     has_initialize: bool = True
-    table_show_headers: list[str] = [
-        "商品名称",
-        "品牌",
-        "批次号",
-        "入库时间",
-        "退货次数",
-        "EAN13",
-    ]
-    table_headers = ReturnTimesDict
+    table_dataclass = ReturnTimesDataclass
 
-    def get_data(self) -> list[ReturnTimesDict]:
+    def get_data(self) -> list[ReturnTimesDataclass]:
         data = self._database_plugin_controller.get_return_data()
         # 根据时间进行筛选
         start_time = self._custom_widget.start_calendar_picker.getDate()
@@ -95,12 +87,7 @@ class ReturnTimesPlugin(DatabasePluginBase):
         if start_time >= end_time:
             start_time, end_time = end_time, start_time
 
-        data = [
-            i
-            for i in data
-            if (start_time <= i["storage_time"].date())
-            and (i["storage_time"].date() <= end_time)
-        ]
+        data = filter(lambda i: start_time <= i.入库时间.date() <= end_time, data)
         return data
 
     def get_description(self) -> str:

@@ -95,6 +95,7 @@ class DatabasePresenter:
         inner_layout.addWidget(current_plugin.get_custom_widget())
 
         # 设置表格
+        self.get_view().get_table().clear()
         self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
         self._excel_handler.set_dataclass(current_plugin.table_dataclass)
 
