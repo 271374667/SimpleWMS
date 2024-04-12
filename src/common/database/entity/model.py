@@ -28,7 +28,7 @@ class Batch(Base):
     # wave_serial_number 是批次号，每个批次号对应一个批次，批次号是唯一的
     # 比如2024年1月的第一批货物，批次号就是202401001
     # 后面的 001 是批次号的序号，每个批次号的序号都是从 001 开始递增的,最大为 999
-    batch_serial_number: Mapped[str] = mapped_column(String(9), nullable=False)
+    batch_serial_number: Mapped[str] = mapped_column(String(9), nullable=False, index=True)
     batch_name: Mapped[str] = mapped_column(String(16), nullable=False)
     created_time: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=datetime.now
@@ -44,7 +44,7 @@ class Wave(Base):
     # wave_number 是波次号，每个波次号对应一个波次，波次号是唯一的
     # 比如2024年1月1日的第一波货物，波次号就是20240101001
     # 后面的 001 是波次号的序号，每个波次号的序号都是从 001 开始递增的,最大为 999
-    wave_serial_number: Mapped[str] = mapped_column(String(9), nullable=False)
+    wave_serial_number: Mapped[str] = mapped_column(String(9), nullable=False, index=True)
     wave_name: Mapped[str] = mapped_column(String(16), nullable=False)
     created_time: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=datetime.now
@@ -59,7 +59,7 @@ class Inventory(Base):
 
     item_name: Mapped[str] = mapped_column(String(16), nullable=False)
     price: Mapped[float] = mapped_column(Float, nullable=False)
-    brand: Mapped[str] = mapped_column(String(16), nullable=False)
+    brand: Mapped[str] = mapped_column(String(16), nullable=False, index=True)
     is_sold: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     return_times: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     batch_id: Mapped[int] = mapped_column(
