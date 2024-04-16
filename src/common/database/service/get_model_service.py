@@ -37,4 +37,7 @@ if __name__ == "__main__":
 
     g = GetModelService()
     a = g.get_all_batch()
-    pprint(a.filter(model.Batch.created_time <= date.today()).all())
+    result1 = a.filter(model.Batch.created_time <= date.today()).all()
+    result2 = a.filter(model.Batch.created_time <= date.today()).order_by(model.Batch.id.desc()).all()
+    # pprint(a.filter(model.Batch.created_time <= date.today()).all())
+    print(result2 == result1)

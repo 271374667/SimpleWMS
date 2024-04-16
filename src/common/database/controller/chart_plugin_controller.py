@@ -10,11 +10,11 @@ from src.common.database.query_filter import (
     GroupByFilter,
     TimeFilter,
     TimeFilterEnum,
-)
+    )
 from src.common.database.service.get_attribute_service import (
     GetAttributeService,
     GetModelService,
-)
+    )
 
 
 class ChartPluginController:

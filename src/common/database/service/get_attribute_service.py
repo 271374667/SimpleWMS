@@ -1,6 +1,6 @@
 from datetime import date
 from datetime import datetime
-from typing import Tuple
+from typing import Optional, Tuple
 
 import loguru
 from sqlalchemy import func
@@ -140,7 +140,7 @@ class GetAttributeService:
         )
 
     def get_unsold_inventory_and_count_group_by_batch_brand_name(
-        self,
+        self, limit: Optional[int] = None, offset: Optional[int] = None
     ) -> list[Tuple[str, str, str, datetime, int, int]]:
         """获取未售出的商品数量"""
         return (
@@ -159,11 +159,13 @@ class GetAttributeService:
                 model.Inventory.brand,
                 model.Inventory.item_name,
             )
+            .limit(limit)
+            .offset(offset)
             .all()
         )
 
     def get_all_inventory_and_count_group_by_batch_brand_name(
-        self,
+        self, limit: Optional[int] = None, offset: Optional[int] = None
     ) -> list[tuple[str, str, str, datetime, int, int]]:
         """获取所有的商品数量"""
         return (
@@ -181,6 +183,8 @@ class GetAttributeService:
                 model.Inventory.brand,
                 model.Inventory.item_name,
             )
+            .limit(limit)
+            .offset(offset)
             .all()
         )
 

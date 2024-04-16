@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import List
+from typing import List, Optional
 
 from src.common.database.entity import model
 from src.common.database.service.get_attribute_service import (
@@ -25,14 +25,20 @@ class DatabasePluginController:
         self._get_attribute_service = GetAttributeService()
         self._get_model_service = GetModelService()
 
-    def get_unsalable_data(self) -> List[UnsalableDataclass]:
+    def get_unsalable_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> List[UnsalableDataclass]:
         """获取滞销数据
         Returns:
             list[UnsalableDataclass]: 滞销数据
                 [UnsalableDataclass(物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)]
         """
-        total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name()
-        unsold_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name()
+        total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name(
+            limit=limit, offset=offset
+        )
+        unsold_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name(
+            limit=limit, offset=offset
+        )
         today = datetime.now()
 
         # 根据未销售的数据进行计算
@@ -59,15 +65,21 @@ class DatabasePluginController:
                     )
         return unsold_data
 
-    def get_out_of_stock_data(self) -> List[OutOfStockDataclass]:
+    def get_out_of_stock_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> List[OutOfStockDataclass]:
         """获取脱销数据
         因为脱销和滞销的计算逻辑是一样的,所以这里直接调用滞销的方法
         Returns:
             list[UnsalableDataclass]: 脱销数据
                 [UnsalableDataclass(物品名称, 品牌, 批次, 在仓库中停留的天数, 存货数量, 总共进货, 存货率)]
         """
-        total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name()
-        out_of_stock_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name()
+        total_data_after_group = self._get_attribute_service.get_all_inventory_and_count_group_by_batch_brand_name(
+            limit=limit, offset=offset
+        )
+        out_of_stock_data_after_group = self._get_attribute_service.get_unsold_inventory_and_count_group_by_batch_brand_name(
+            limit=limit, offset=offset
+        )
         today = datetime.now()
 
         # 根据未销售的数据进行计算
@@ -94,7 +106,9 @@ class DatabasePluginController:
                     )
         return out_of_stock_data
 
-    def get_return_data(self) -> list[ReturnTimesDataclass]:
+    def get_return_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> list[ReturnTimesDataclass]:
         """获取退货数据"""
         # 获取所有数据
         # ['id', '商品名称', '品牌', '批次号', '入库时间', '退货次数', '退货率']
@@ -110,6 +124,7 @@ class DatabasePluginController:
         query = query.join(model.Batch, model.Inventory.batch_id == model.Batch.id)
         query = query.order_by(model.Inventory.return_times.desc())
         query = query.filter(model.Inventory.return_times > 0)
+        query = query.limit(limit).offset(offset)
         data = query.all()
         if not data:
             return []
@@ -130,7 +145,10 @@ class DatabasePluginController:
         return return_data
 
     def get_basic_search_data(
-        self, parameter: BasicSearchParameterDataclass
+        self,
+        parameter: BasicSearchParameterDataclass,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
     ) -> List[BasicSearchDataclass]:
         """获取基础搜索数据"""
         # 获取所有数据
@@ -220,7 +238,7 @@ class DatabasePluginController:
             all_data = all_data.filter(model.Inventory.return_times == 0)
 
         # 获取所有数据
-        all_data = all_data.all()
+        all_data = all_data.limit(limit).offset(offset).all()
 
         result: list[BasicSearchDataclass] = []
         today = datetime.now()
