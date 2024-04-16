@@ -1,7 +1,7 @@
 import math
 from dataclasses import dataclass
 from datetime import date, datetime
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, Signal
 from PySide6.QtWidgets import QHeaderView, QVBoxLayout, QWidget
@@ -94,6 +94,7 @@ class MVCTableModel(QAbstractTableModel):
 
         def sort_key(item):
             value = getattr(item, self._headers[column])
+
             if isinstance(value, int):
                 return value
             elif isinstance(value, str):
@@ -122,6 +123,8 @@ class MVCTableModel(QAbstractTableModel):
 
 
 class MVCTableView(TableView):
+    columnSortChanged = Signal(str, Qt.SortOrder)  # 被点击的列名和排序方式
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.horizontalHeader().setSortIndicatorShown(True)
@@ -135,6 +138,12 @@ class MVCTableView(TableView):
     def set_model(self, model):
         self.setModel(model)
 
+    def sortByColumn(self, logicalIndex, order):
+        self.model().sort(logicalIndex, order)
+        self.columnSortChanged.emit(
+            self.model().headerData(logicalIndex, Qt.Orientation.Horizontal), order
+        )
+
 
 class MVCTable(QWidget):
     error_message = Signal(str)
@@ -144,6 +153,7 @@ class MVCTable(QWidget):
         self._total_page: int = 1
         self._per_page_count: int = 10
         self._current_page: int = 1
+        self._sort_column_value: Optional[Tuple[str, Qt.SortOrder]] = None
 
         self._view: MVCTableView = MVCTableView(parent=self)
         self._model: MVCTableModel = MVCTableModel()
@@ -152,6 +162,9 @@ class MVCTable(QWidget):
         self._main_layout = QVBoxLayout()
         self._main_layout.addWidget(self._view)
         self.setLayout(self._main_layout)
+
+        # 信号连接
+        self._view.columnSortChanged.connect(self._column_sort_changed)
 
     def get_view(self) -> MVCTableView:
         return self._view
@@ -173,6 +186,10 @@ class MVCTable(QWidget):
 
     def get_error_message_signal(self) -> Signal:
         return self.error_message
+
+    def get_sort_column_value(self) -> Optional[Tuple[str, Qt.SortOrder]]:
+        """获取上一次点击的排序的列名和排序方式, 如果没有则返回None"""
+        return self._sort_column_value
 
     def get_current_page_data(self) -> list[dataclass]:
         return self.get_model().get_data()
@@ -237,6 +254,9 @@ class MVCTable(QWidget):
         model_item_num: int = self.get_model().get_all_data_row_count()
         # 页码 = 总数 / 每页数量 (向上取整)
         return math.ceil(model_item_num / self.per_page_count)
+
+    def _column_sort_changed(self, column_name: str, order: Qt.SortOrder) -> None:
+        self._sort_column_value = (column_name, order)
 
     def _set_headers(self, headers: List[str]) -> None:
         self._model.set_header(headers)
