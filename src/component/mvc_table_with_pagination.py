@@ -52,6 +52,7 @@ class MVCTableWithPagination(QWidget):
         get_table_error_message_signal(): 获取表格错误信息信号。
         add_row(row: dataclass): 添加数据行。
         clear(): 清空表格。
+        set_total_pages(total_pages: int): 设置总页数。
         set_per_page_count(per_page_count: int): 设置每页显示的数量。
 
     Notes:
@@ -101,6 +102,10 @@ class MVCTableWithPagination(QWidget):
     def clear(self) -> None:
         self._table.clear()
 
+    def set_total_pages(self, total_pages: int) -> None:
+        self._pagination.set_total_pages(total_pages)
+        self._table.current_page = 1
+
     def set_per_page_count(self, per_page_count: int) -> None:
         self._table.per_page_count = per_page_count
 
@@ -120,5 +125,6 @@ class MVCTableWithPagination(QWidget):
 if __name__ == "__main__":
     app = QApplication([])
     window = MVCTableWithPagination()
+    window.set_total_pages(100)
     window.show()
     app.exec()

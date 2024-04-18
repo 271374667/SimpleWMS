@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>596</width>
-    <height>459</height>
+    <width>589</width>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -232,6 +232,36 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="BodyLabel" name="BodyLabel_8">
+          <property name="text">
+           <string>根据字段排序:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ComboBox" name="ComboBox_3"/>
+        </item>
+        <item>
+         <widget class="ComboBox" name="ComboBox_4"/>
+        </item>
+        <item>
+         <widget class="SwitchButton" name="SwitchButton_4">
+          <property name="toolTip">
+           <string>开启该选项才能搜索存放时间</string>
+          </property>
+          <property name="onText">
+           <string>启用</string>
+          </property>
+          <property name="offText">
+           <string>禁用</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="PushButton" name="PushButton">
         <property name="toolTip">
          <string>该按钮会重置所有的搜索条件</string>
@@ -327,7 +357,6 @@
   <tabstop>LineEdit_4</tabstop>
   <tabstop>ComboBox_2</tabstop>
   <tabstop>SpinBox</tabstop>
-  <tabstop>PushButton</tabstop>
   <tabstop>CheckBox</tabstop>
   <tabstop>CheckBox_2</tabstop>
  </tabstops>

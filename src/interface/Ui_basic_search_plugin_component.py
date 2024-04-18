@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(596, 459)
+        Form.resize(589, 475)
         Form.setStyleSheet(u"")
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -160,6 +160,31 @@ class Ui_Form(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_6)
 
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.BodyLabel_8 = BodyLabel(self.groupBox)
+        self.BodyLabel_8.setObjectName(u"BodyLabel_8")
+
+        self.horizontalLayout_9.addWidget(self.BodyLabel_8)
+
+        self.ComboBox_3 = ComboBox(self.groupBox)
+        self.ComboBox_3.setObjectName(u"ComboBox_3")
+
+        self.horizontalLayout_9.addWidget(self.ComboBox_3)
+
+        self.ComboBox_4 = ComboBox(self.groupBox)
+        self.ComboBox_4.setObjectName(u"ComboBox_4")
+
+        self.horizontalLayout_9.addWidget(self.ComboBox_4)
+
+        self.SwitchButton_4 = SwitchButton(self.groupBox)
+        self.SwitchButton_4.setObjectName(u"SwitchButton_4")
+
+        self.horizontalLayout_9.addWidget(self.SwitchButton_4)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_9)
+
         self.PushButton = PushButton(self.groupBox)
         self.PushButton.setObjectName(u"PushButton")
 
@@ -200,8 +225,7 @@ class Ui_Form(object):
         QWidget.setTabOrder(self.LineEdit_2, self.LineEdit_4)
         QWidget.setTabOrder(self.LineEdit_4, self.ComboBox_2)
         QWidget.setTabOrder(self.ComboBox_2, self.SpinBox)
-        QWidget.setTabOrder(self.SpinBox, self.PushButton)
-        QWidget.setTabOrder(self.PushButton, self.CheckBox)
+        QWidget.setTabOrder(self.SpinBox, self.CheckBox)
         QWidget.setTabOrder(self.CheckBox, self.CheckBox_2)
 
         self.retranslateUi(Form)
@@ -264,6 +288,12 @@ class Ui_Form(object):
 #endif // QT_CONFIG(tooltip)
         self.SwitchButton_2.setOnText(QCoreApplication.translate("Form", u"\u542f\u7528", None))
         self.SwitchButton_2.setOffText(QCoreApplication.translate("Form", u"\u7981\u7528", None))
+        self.BodyLabel_8.setText(QCoreApplication.translate("Form", u"\u6839\u636e\u5b57\u6bb5\u6392\u5e8f:", None))
+#if QT_CONFIG(tooltip)
+        self.SwitchButton_4.setToolTip(QCoreApplication.translate("Form", u"\u5f00\u542f\u8be5\u9009\u9879\u624d\u80fd\u641c\u7d22\u5b58\u653e\u65f6\u95f4", None))
+#endif // QT_CONFIG(tooltip)
+        self.SwitchButton_4.setOnText(QCoreApplication.translate("Form", u"\u542f\u7528", None))
+        self.SwitchButton_4.setOffText(QCoreApplication.translate("Form", u"\u7981\u7528", None))
 #if QT_CONFIG(tooltip)
         self.PushButton.setToolTip(QCoreApplication.translate("Form", u"\u8be5\u6309\u94ae\u4f1a\u91cd\u7f6e\u6240\u6709\u7684\u641c\u7d22\u6761\u4ef6", None))
 #endif // QT_CONFIG(tooltip)

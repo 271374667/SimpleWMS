@@ -8,7 +8,7 @@ from qfluentwidgets.components import (
     PushButton,
     SpinBox,
     SwitchButton,
-)
+    )
 
 from src.core.enums import BasicSearchCombboxOperationEnum
 from src.interface.Ui_basic_search_plugin_component import Ui_Form
@@ -73,6 +73,15 @@ class BasicSearchPluginComponentView(QWidget):
 
     def get_hide_had_returns_item_cb(self) -> CheckBox:
         return self.ui.CheckBox_2
+
+    def get_sort_column_cb(self) -> ComboBox:
+        return self.ui.ComboBox_3
+
+    def get_sort_order_cb(self) -> ComboBox:
+        return self.ui.ComboBox_4
+
+    def get_sort_enable_sb(self) -> SwitchButton:
+        return self.ui.SwitchButton_4
 
     def retype_btn_clicked(self) -> None:
         self.get_price_sb().setValue(0)

@@ -197,6 +197,9 @@ class MVCTable(QWidget):
     def get_all_data(self) -> list[dataclass]:
         return self.get_model().get_all_data()
 
+    def set_per_page_count(self, per_page_count: int) -> None:
+        self.per_page_count = per_page_count
+
     def add_row(self, row: dataclass) -> None:
         self.get_view().model().beginResetModel()
         self.get_model().add_row(row)
@@ -247,7 +250,7 @@ class MVCTable(QWidget):
 
     @property
     def total_page(self) -> int:
-        """总页数
+        """总页数(计算属性)
 
         该方法会根据model的item数量和每页数量计算总页数
         """
