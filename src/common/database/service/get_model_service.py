@@ -37,7 +37,9 @@ if __name__ == "__main__":
 
     g = GetModelService()
     a = g.get_all_batch()
-    result1 = a.filter(model.Batch.created_time <= date.today()).all()
-    result2 = a.filter(model.Batch.created_time <= date.today()).order_by(model.Batch.id.desc()).all()
+    # 字符串排序
+    print(a.order_by('batch_serial_number').all())
+    # result1 = a.filter(model.Batch.created_time <= date.today()).all()
+    # result2 = a.filter(model.Batch.created_time <= date.today()).order_by(model.Batch.id.desc()).all()
     # pprint(a.filter(model.Batch.created_time <= date.today()).all())
-    print(result2 == result1)
+    # print(result2 == result1)

@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 from typing import List, Optional
 
+from PySide6.QtCore import Qt
+from sqlalchemy.sql import sqltypes
+
 from src.common.database.entity import model
 from src.common.database.service.get_attribute_service import (
     GetAttributeService,
@@ -229,6 +232,16 @@ class DatabasePluginController:
                     model.Batch.created_time > today - timedelta(days=storage_days)
                 )
 
+        # 是否排序
+        if parameter.has_sort:
+            # 默认情况下传递的是字符串,需要转换成sqlalchemy的列类型
+            sort_order_model = self._get_sort_column(parameter.sort_by)
+
+            if parameter.sort_order == Qt.SortOrder.AscendingOrder:
+                all_data = all_data.order_by(sort_order_model)
+            elif parameter.sort_order == Qt.SortOrder.DescendingOrder:
+                all_data = all_data.order_by(sort_order_model.desc())
+
         # 根据是否隐藏售出
         if parameter.hide_sold_item:
             all_data = all_data.filter(model.Inventory.is_sold == 0)
@@ -260,6 +273,22 @@ class DatabasePluginController:
             for each in all_data
         )
         return result
+
+    def _get_sort_column(self, sort_by: str) -> sqltypes:
+        """将字符串转换成sqlalchemy的列类型"""
+        str2model_dict = {
+            "商品名称": model.Inventory.item_name,
+            "品牌名称": model.Inventory.brand,
+            "价格": model.Inventory.price,
+            "批次编号": model.Batch.batch_serial_number,
+            "入库时间": model.Batch.created_time,
+            "入库天数": model.Batch.created_time,
+            "退货次数": model.Inventory.return_times,
+            "波次编号": model.Wave.wave_serial_number,
+            "出库时间": model.Wave.created_time,
+            "是否售出": model.Inventory.is_sold,
+        }
+        return str2model_dict.get(sort_by)
 
 
 if __name__ == "__main__":

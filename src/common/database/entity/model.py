@@ -78,3 +78,6 @@ class Inventory(Base):
 if not DATABASE_FILE.exists():
     Base.metadata.create_all(engine)
     loguru.logger.success(f"数据库不存在,创建数据库: {DATABASE_FILE}")
+
+if __name__ == '__main__':
+    m = Batch(batch_serial_number='202401001', batch_name='2024年1月第一批')

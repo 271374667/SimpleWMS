@@ -13,3 +13,4 @@ class TimeFilterEnum(Enum):
     FiftenDays = auto()
     Month = auto()
     All = auto()
+

@@ -8,6 +8,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
+from PySide6.QtCore import Qt
+from sqlalchemy.sql import sqltypes
+
 from src.core.enums import BasicSearchCombboxOperationEnum
 
 
@@ -49,6 +52,9 @@ class BasicSearchParameterDataclass(DataclassBase):
     storage_days_operation: Optional[BasicSearchCombboxOperationEnum] = None
     hide_sold_item: Optional[bool] = None
     hide_has_return_item: Optional[bool] = None
+    sort_by: Optional[str] = None
+    sort_order: Optional[Qt.SortOrder] = None
+    has_sort: Optional[bool] = None
 
 
 @dataclass(slots=True, frozen=True)

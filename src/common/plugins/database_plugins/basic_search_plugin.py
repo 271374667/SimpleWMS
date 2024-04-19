@@ -39,6 +39,9 @@ class BasicSearchPlugin(DatabasePluginBase):
         hide_has_return_item = (
             self.custom_widget.get_hide_had_returns_item_cb().isChecked()
         )
+        sort_by = self.custom_widget.get_sort_column_cb().currentText()
+        sort_order = self.custom_widget.get_sort_order_cb().currentText()
+        sort_enable = self.custom_widget.get_sort_enable_sb().isChecked()
 
         para: BasicSearchParameterDataclass = BasicSearchParameterDataclass(
             ean13=ean13,
@@ -54,6 +57,9 @@ class BasicSearchPlugin(DatabasePluginBase):
             storage_days_operation=storage_days_operation,
             hide_sold_item=hide_sold_item,
             hide_has_return_item=hide_has_return_item,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            has_sort=sort_enable,
         )
 
         return self._database_plugin_controller.get_basic_search_data(para)
