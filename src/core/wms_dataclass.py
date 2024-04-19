@@ -53,7 +53,7 @@ class BasicSearchParameterDataclass(DataclassBase):
     hide_sold_item: Optional[bool] = None
     hide_has_return_item: Optional[bool] = None
     sort_by: Optional[str] = None
-    sort_order: Optional[Qt.SortOrder] = None
+    sort_order: Optional[str] = None
     has_sort: Optional[bool] = None
 
 

@@ -235,12 +235,14 @@ class DatabasePluginController:
         # 是否排序
         if parameter.has_sort:
             # 默认情况下传递的是字符串,需要转换成sqlalchemy的列类型
-            sort_order_model = self._get_sort_column(parameter.sort_by)
+            sort_column_model = self._get_sort_column(parameter.sort_by)
+            # Qt传入的是[升序, 降序]字符串,需要转换成Qt的枚举类型
+            sort_order_qt = self._get_sort_order(parameter.sort_order)
 
-            if parameter.sort_order == Qt.SortOrder.AscendingOrder:
-                all_data = all_data.order_by(sort_order_model)
-            elif parameter.sort_order == Qt.SortOrder.DescendingOrder:
-                all_data = all_data.order_by(sort_order_model.desc())
+            if sort_order_qt == Qt.SortOrder.AscendingOrder:
+                all_data = all_data.order_by(sort_column_model)
+            elif sort_order_qt == Qt.SortOrder.DescendingOrder:
+                all_data = all_data.order_by(sort_column_model.desc())
 
         # 根据是否隐藏售出
         if parameter.hide_sold_item:
@@ -289,6 +291,14 @@ class DatabasePluginController:
             "是否售出": model.Inventory.is_sold,
         }
         return str2model_dict.get(sort_by)
+
+    def _get_sort_order(self, sort_order: str) -> Qt.SortOrder:
+        """将字符串转换成sqlalchemy的列类型"""
+        str2model_dict = {
+            "升序": Qt.SortOrder.AscendingOrder,
+            "降序": Qt.SortOrder.DescendingOrder,
+        }
+        return str2model_dict.get(sort_order)
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ from qfluentwidgets.components import (
     )
 
 from src.core.enums import BasicSearchCombboxOperationEnum
+from src.core.wms_dataclass import BasicSearchDataclass
 from src.interface.Ui_basic_search_plugin_component import Ui_Form
 
 
@@ -22,6 +23,10 @@ class BasicSearchPluginComponentView(QWidget):
         self.ui.setupUi(self)
 
         operation = ["等于", "大于", "小于"]
+
+        # 将dataclasses添加到排序里面
+        self.get_sort_column_cb().addItems(BasicSearchDataclass.__annotations__.keys())
+        self.get_sort_order_cb().addItems(["升序", "降序"])
 
         for each in BasicSearchCombboxOperationEnum:
             self.get_price_operation_cb().addItem(operation[each.value])
@@ -90,6 +95,9 @@ class BasicSearchPluginComponentView(QWidget):
         self.get_storage_days_operation_cb().setCurrentIndex(0)
         self.get_price_enable_sb().setChecked(False)
         self.get_storage_days_enable_sb().setChecked(False)
+        self.get_sort_column_cb().setCurrentIndex(0)
+        self.get_sort_order_cb().setCurrentIndex(0)
+        self.get_sort_enable_sb().setChecked(False)
 
 
 if __name__ == "__main__":
