@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple
 
 import loguru
 from PySide6.QtWidgets import QWidget
@@ -37,7 +37,9 @@ class DatabasePluginBase(PluginBase):
         if self.has_custom_widget:
             self._connect_signals()
 
-    def get_data(self) -> list[DataclassBase]:
+    def get_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> Tuple[list[DataclassBase], int]:
         """从数据库中获取数据,以供表格显示"""
         raise NotImplementedError("需要实现这个方法")
 

@@ -1,3 +1,5 @@
+from typing import Optional, Tuple
+
 from PySide6.QtWidgets import QWidget
 
 from src.common.database.controller.database_plugin_controller import (
@@ -17,7 +19,9 @@ class BasicSearchPlugin(DatabasePluginBase):
     has_initialize: bool = True
     table_dataclass = BasicSearchDataclass
 
-    def get_data(self) -> list[BasicSearchDataclass]:
+    def get_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> Tuple[list[BasicSearchDataclass], int]:
         ean13 = self.custom_widget.get_ean13_le().text()
         name = self.custom_widget.get_name_le().text()
         brand = self.custom_widget.get_brand_le().text()
@@ -62,7 +66,12 @@ class BasicSearchPlugin(DatabasePluginBase):
             has_sort=sort_enable,
         )
 
-        return self._database_plugin_controller.get_basic_search_data(para)
+        # 获取总页数
+        total = self._database_plugin_controller.get_basic_search_total(para)
+
+        return self._database_plugin_controller.get_basic_search_data(
+            para, limit=limit, offset=offset
+        )
 
     def get_description(self) -> str:
         return (

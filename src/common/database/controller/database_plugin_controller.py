@@ -156,24 +156,55 @@ class DatabasePluginController:
         """获取基础搜索数据"""
         # 获取所有数据
         # ['商品名称', '品牌', '批次号', '入库时间', '存库天数', '退货次数', '波次编号', '出库时间', '是否售出', 'EAN13']
+        all_data = self._modify_query_based_on_conditions(parameter, limit, offset)
+
+        result: list[BasicSearchDataclass] = []
+        today = datetime.now()
+
+        result.extend(
+            BasicSearchDataclass(
+                Ean13码=convert.EAN13Converter.convert_id_to_ean13(each[0].id),
+                商品名称=str(each[0].item_name),
+                品牌名称=str(each[0].brand),
+                价格=each[0].price,
+                批次编号=str(each[1].batch_serial_number),
+                入库时间=each[1].created_time,
+                入库天数=(today - each[1].created_time).days,
+                退货次数=each[0].return_times,
+                波次编号=str(each[2].wave_serial_number if each[2] else ""),
+                出库时间=each[2].created_time if each[2] else None,
+                是否售出=bool(each[0].is_sold),
+            )
+            for each in all_data
+        )
+        return result
+
+    def get_basic_search_total(self, parameter: BasicSearchParameterDataclass) -> int:
+        """获取基础搜索的总数"""
+        query = self._modify_query_based_on_conditions(parameter)
+        return query.count()
+
+    def _modify_query_based_on_conditions(
+        self,
+        parameter: BasicSearchParameterDataclass,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+    ):
+        """根据条件修改查询"""
         all_data = (
             self._get_model_service.get_all_data()
         )  # [model.Inventory, model.Batch, model.Wave]
-
         if parameter.ean13:
             all_data = all_data.filter(
                 model.Inventory.id
                 == convert.EAN13Converter.convert_ean13_to_id(parameter.ean13)
             )
-
         if parameter.name:
             all_data = all_data.filter(
                 model.Inventory.item_name.like(f"%{parameter.name}%")
             )
-
         if parameter.brand:
             all_data = all_data.filter(model.Inventory.brand == parameter.brand)
-
         if parameter.price_operation == BasicSearchCombboxOperationEnum.Equal:
             if parameter.has_price:
                 all_data = all_data.filter(model.Inventory.price == parameter.price)
@@ -183,17 +214,14 @@ class DatabasePluginController:
         elif parameter.price_operation == BasicSearchCombboxOperationEnum.Less:
             if parameter.has_price:
                 all_data = all_data.filter(model.Inventory.price < parameter.price)
-
         if parameter.batch_serial_number:
             all_data = all_data.filter(
                 model.Inventory.batch_id == model.Batch.id
             ).filter(model.Batch.batch_serial_number == parameter.batch_serial_number)
-
         if parameter.wave_serial_number:
             all_data = all_data.filter(model.Inventory.wave_id == model.Wave.id).filter(
                 model.Wave.wave_serial_number == parameter.wave_serial_number
             )
-
         # 根据存库天数搜索
         has_storage_days = parameter.has_storage_days
         storage_days = parameter.storage_days
@@ -231,7 +259,6 @@ class DatabasePluginController:
                 ).filter(
                     model.Batch.created_time > today - timedelta(days=storage_days)
                 )
-
         # 是否排序
         if parameter.has_sort:
             # 默认情况下传递的是字符串,需要转换成sqlalchemy的列类型
@@ -243,38 +270,15 @@ class DatabasePluginController:
                 all_data = all_data.order_by(sort_column_model)
             elif sort_order_qt == Qt.SortOrder.DescendingOrder:
                 all_data = all_data.order_by(sort_column_model.desc())
-
         # 根据是否隐藏售出
         if parameter.hide_sold_item:
             all_data = all_data.filter(model.Inventory.is_sold == 0)
-
         # 是否隐藏有退货的
         if parameter.hide_has_return_item:
             all_data = all_data.filter(model.Inventory.return_times == 0)
-
         # 获取所有数据
         all_data = all_data.limit(limit).offset(offset).all()
-
-        result: list[BasicSearchDataclass] = []
-        today = datetime.now()
-
-        result.extend(
-            BasicSearchDataclass(
-                Ean13码=convert.EAN13Converter.convert_id_to_ean13(each[0].id),
-                商品名称=str(each[0].item_name),
-                品牌名称=str(each[0].brand),
-                价格=each[0].price,
-                批次编号=str(each[1].batch_serial_number),
-                入库时间=each[1].created_time,
-                入库天数=(today - each[1].created_time).days,
-                退货次数=each[0].return_times,
-                波次编号=str(each[2].wave_serial_number if each[2] else ""),
-                出库时间=each[2].created_time if each[2] else None,
-                是否售出=bool(each[0].is_sold),
-            )
-            for each in all_data
-        )
-        return result
+        return all_data
 
     def _get_sort_column(self, sort_by: str) -> sqltypes:
         """将字符串转换成sqlalchemy的列类型"""
