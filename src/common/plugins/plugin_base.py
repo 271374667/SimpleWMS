@@ -4,6 +4,7 @@ import loguru
 from PySide6.QtWidgets import QWidget
 from typing_extensions import Self
 
+from src.config import cfg
 from src.core.wms_dataclass import DataclassBase
 
 
@@ -28,6 +29,10 @@ class DatabasePluginBase(PluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_dataclass: DataclassBase
+    # 用于控制分页
+    total_pages: int = 1
+    current_page: int = 1
+    per_page_count: int = cfg.get(cfg.max_table_rows)
 
     def __init__(self):
         super().__init__()
@@ -37,9 +42,14 @@ class DatabasePluginBase(PluginBase):
         if self.has_custom_widget:
             self._connect_signals()
 
+    @classmethod
+    def set_current_page(cls, current_page: int) -> None:
+        """设置当前页"""
+        cls.current_page = current_page
+
     def get_data(
         self, limit: Optional[int] = None, offset: Optional[int] = None
-    ) -> Tuple[list[DataclassBase], int]:
+    ) -> list[DataclassBase]:
         """从数据库中获取数据,以供表格显示"""
         raise NotImplementedError("需要实现这个方法")
 

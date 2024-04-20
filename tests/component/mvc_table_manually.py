@@ -34,26 +34,8 @@ class MyWindow(QWidget):
 
         # 绑定分页控件和表格
         current_page_signal = self.pagination.get_current_page_signal()
-        current_page_signal.connect(self.set_current_page)
-        self.pagination.set_total_pages(self.table.total_page)
-        self.add_data_button.clicked.connect(self.add_data)
-        self.table.per_page_count = 2
 
         # 添加数据
-
-    def set_current_page(self, current_page: int):
-        self.table.current_page = current_page
-
-    def add_data(self):
-        self.table.add_row(
-            Person(
-                name=self.faker.name(),
-                age=self.faker.random_int(min=0, max=100),
-                birthday=self.faker.date_time_this_century(),
-            )
-        )
-        print(f"total_page: {self.table.total_page}")
-        self.pagination.set_total_pages(self.table.total_page)
 
 
 if __name__ == "__main__":

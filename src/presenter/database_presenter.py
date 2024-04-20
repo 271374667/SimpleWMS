@@ -2,14 +2,14 @@ from typing import Optional
 
 import loguru
 from PySide6.QtWidgets import QApplication, QFileDialog, QVBoxLayout
+from qfluentwidgets.components import ComboBox
 
 from src.common.plugins.plugin_base import DatabasePluginBase
 from src.common.plugins.plugin_manager import DatabasePluginManager
-from src.core.wms_dataclass import DataclassBase
 from src.model.database_model import DatabaseModel
+from src.utils.excel_handler import ExcelHandler
 from src.utils.run_in_thread import RunInThread
 from src.view.database_view import DatabaseView
-from src.utils.excel_handler import ExcelHandler
 
 
 class DatabasePresenter:
@@ -48,9 +48,7 @@ class DatabasePresenter:
 
         ui = self.get_view()
         combox_box = ui.get_plugin_select_comboBox()
-        current_plugin: Optional[DatabasePluginBase] = (
-            self._database_plugin_manager.get_plugin_by_name(combox_box.currentText())
-        )
+        current_plugin = self._get_current_plugin(combox_box)
         if not current_plugin:
             self.get_view().show_error_infobar(
                 "插件初始化失败", f"插件{combox_box.currentText()}初始化失败", 10
@@ -66,15 +64,12 @@ class DatabasePresenter:
         custom_widget.setLayout(inner_layout)
 
         # 设置表格
-        self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
-        self._excel_handler.set_dataclass(current_plugin.table_dataclass)
+        self._init_table(current_plugin)
 
     def _plugin_changed(self) -> None:
         ui = self.get_view()
         combox_box = ui.get_plugin_select_comboBox()
-        current_plugin: Optional[DatabasePluginBase] = (
-            self._database_plugin_manager.get_plugin_by_name(combox_box.currentText())
-        )
+        current_plugin = self._get_current_plugin(combox_box)
         if not current_plugin:
             self.get_view().show_error_infobar(
                 "插件初始化失败", f"插件{combox_box.currentText()}初始化失败", 10
@@ -94,17 +89,28 @@ class DatabasePresenter:
         inner_layout = custom_widget.layout()
         inner_layout.addWidget(current_plugin.get_custom_widget())
 
+        self._init_table(current_plugin)
+
+    def _get_current_plugin(self, combox_box: ComboBox):
+        """根据下拉框的值获取当前的插件"""
+        current_plugin: Optional[DatabasePluginBase] = (
+            self._database_plugin_manager.get_plugin_by_name(combox_box.currentText())
+        )
+        return current_plugin
+
+    def _init_table(self, current_plugin: DatabasePluginBase):
         # 设置表格
-        self.get_view().get_table().clear()
-        self.get_view().get_table().set_dataclass(current_plugin.table_dataclass)
+        table = self.get_view().get_table()
+        table.clear()
+        table.set_dataclass(current_plugin.table_dataclass)
+        current_page_changed_signal = table.get_pagination_current_page_signal()
+        current_page_changed_signal.connect(current_plugin.set_current_page)
+        current_page_changed_signal.connect(self._submit)
         self._excel_handler.set_dataclass(current_plugin.table_dataclass)
 
     def _submit(self):
-        self.get_view().get_table().clear()
-        current_plugin: Optional[DatabasePluginBase] = (
-            self._database_plugin_manager.get_plugin_by_name(
-                self._view.get_plugin_select_comboBox().currentText()
-            )
+        current_plugin = self._get_current_plugin(
+            self._view.get_plugin_select_comboBox()
         )
         if not current_plugin:
             self.get_view().show_error_infobar(
@@ -114,20 +120,15 @@ class DatabasePresenter:
             )
             return
 
-        self.get_view().show_state_tooltip("正在获取数据...", "正在从数据库获取数据")
-        self.run_in_thread = RunInThread()
+        limit = current_plugin.per_page_count
+        offset = (current_plugin.current_page - 1) * limit
 
-        def run() -> list[DataclassBase]:
-            return current_plugin.get_data()
+        data = current_plugin.get_data(limit=limit, offset=offset)
 
-        def finish(data: list[DataclassBase]) -> None:
-            self.get_view().get_table().set_data(data)
-            self.get_view().get_table().get_table().scrollToTop()
-            self.get_view().finish_state_tooltip("成功", "数据获取成功")
-
-        self.run_in_thread.set_start_func(run)
-        self.run_in_thread.set_finished_func(finish)
-        self.run_in_thread.start()
+        # 设置分页器分页
+        self.get_view().get_table().set_total_pages(current_plugin.total_pages)
+        self.get_view().get_table().set_data(data)
+        self.get_view().get_table().get_table().scrollToTop()
 
     def _reflesh(self) -> None:
         self.get_view().show_success_infobar(
@@ -150,7 +151,7 @@ class DatabasePresenter:
         )
 
         def run():
-            self._excel_handler.set_data(self.get_view().get_table().get_all_data())
+            self._excel_handler.set_data(self.get_view().get_table().get_data())
             self._excel_handler.export2excel(file_path)
 
         def finish() -> None:

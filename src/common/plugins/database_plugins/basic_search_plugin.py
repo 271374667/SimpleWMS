@@ -1,4 +1,5 @@
-from typing import Optional, Tuple
+import math
+from typing import Optional
 
 from PySide6.QtWidgets import QWidget
 
@@ -6,6 +7,7 @@ from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
     )
 from src.common.plugins.plugin_base import DatabasePluginBase
+from src.config import cfg
 from src.core.enums import BasicSearchCombboxOperationEnum
 from src.core.wms_dataclass import BasicSearchDataclass, BasicSearchParameterDataclass
 from src.view.component_view.basic_search_plugin_component_view import (
@@ -18,10 +20,24 @@ class BasicSearchPlugin(DatabasePluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_dataclass = BasicSearchDataclass
+    # 用于控制分页
+    total_pages: int = 1
+    current_page: int = 1
+    per_page_count: int = cfg.get(cfg.max_table_rows)
 
     def get_data(
         self, limit: Optional[int] = None, offset: Optional[int] = None
-    ) -> Tuple[list[BasicSearchDataclass], int]:
+    ) -> list[BasicSearchDataclass]:
+        """从数据库中获取数据,以供表格显示
+
+        Args:
+            limit: Optional[int]: 限制返回的数据条数
+            offset: Optional[int]: 偏移量
+
+        Returns:
+            list[BasicSearchDataclass]: 返回数据
+
+        """
         ean13 = self.custom_widget.get_ean13_le().text()
         name = self.custom_widget.get_name_le().text()
         brand = self.custom_widget.get_brand_le().text()
@@ -66,8 +82,9 @@ class BasicSearchPlugin(DatabasePluginBase):
             has_sort=sort_enable,
         )
 
-        # 获取总页数
-        total = self._database_plugin_controller.get_basic_search_total(para)
+        # 一共获取多少条数据
+        record_count = self._database_plugin_controller.get_basic_search_total(para)
+        self.total_pages = math.ceil(record_count / self.per_page_count)
 
         return self._database_plugin_controller.get_basic_search_data(
             para, limit=limit, offset=offset
@@ -82,6 +99,11 @@ class BasicSearchPlugin(DatabasePluginBase):
     def get_custom_widget(self) -> QWidget:
         self.custom_widget = BasicSearchPluginComponentView()
         return self.custom_widget
+
+    @classmethod
+    def set_current_page(cls, current_page: int) -> None:
+        """设置当前页"""
+        cls.current_page = current_page
 
     def _initialize(self) -> None:
         self.custom_widget = BasicSearchPluginComponentView()

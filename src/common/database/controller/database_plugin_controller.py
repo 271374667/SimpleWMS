@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from PySide6.QtCore import Qt
+from sqlalchemy.orm import Query
 from sqlalchemy.sql import sqltypes
 
 from src.common.database.entity import model
@@ -156,12 +157,13 @@ class DatabasePluginController:
         """获取基础搜索数据"""
         # 获取所有数据
         # ['商品名称', '品牌', '批次号', '入库时间', '存库天数', '退货次数', '波次编号', '出库时间', '是否售出', 'EAN13']
-        all_data = self._modify_query_based_on_conditions(parameter, limit, offset)
+        all_data = self._modify_query_based_on_conditions(
+            parameter, limit, offset
+        ).all()
 
-        result: list[BasicSearchDataclass] = []
         today = datetime.now()
 
-        result.extend(
+        return [
             BasicSearchDataclass(
                 Ean13码=convert.EAN13Converter.convert_id_to_ean13(each[0].id),
                 商品名称=str(each[0].item_name),
@@ -176,8 +178,7 @@ class DatabasePluginController:
                 是否售出=bool(each[0].is_sold),
             )
             for each in all_data
-        )
-        return result
+        ]
 
     def get_basic_search_total(self, parameter: BasicSearchParameterDataclass) -> int:
         """获取基础搜索的总数"""
@@ -189,7 +190,7 @@ class DatabasePluginController:
         parameter: BasicSearchParameterDataclass,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
-    ):
+    ) -> Query[Tuple[model.Inventory, model.Batch, model.Wave]]:
         """根据条件修改查询"""
         all_data = (
             self._get_model_service.get_all_data()
@@ -277,7 +278,7 @@ class DatabasePluginController:
         if parameter.hide_has_return_item:
             all_data = all_data.filter(model.Inventory.return_times == 0)
         # 获取所有数据
-        all_data = all_data.limit(limit).offset(offset).all()
+        all_data = all_data.limit(limit).offset(offset)
         return all_data
 
     def _get_sort_column(self, sort_by: str) -> sqltypes:

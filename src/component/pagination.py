@@ -1,5 +1,5 @@
-from typing import Optional, Union
-
+from typing import Union
+from functools import partial
 import loguru
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QIntValidator
@@ -178,7 +178,7 @@ class Pagination(QWidget):
 
     def _add_button(self, page):
         button = ToggleButton(str(page), self)
-        button.clicked.connect(lambda: self._on_button_clicked(button))
+        button.clicked.connect(partial(self._on_button_clicked, page))
         self.button_layout.addWidget(button)
         self.buttons.append(button)
         if page == self.current_page:
@@ -192,11 +192,14 @@ class Pagination(QWidget):
         self.button_layout.addWidget(label)
         self.buttons.append(label)
 
-    def _on_button_clicked(self, button: ToggleButton):
-        page = int(button.text())
+    def _on_button_clicked(self, page: int):
         if page == self.current_page:
             loguru.logger.debug(f"已经是第{page}页")
-            button.setChecked(True)
+            # Find the button by page and set it checked
+            for button in self.buttons:
+                if button.text() == str(page):
+                    button.setChecked(True)
+                    break
         else:
             self._update_page(page)
 
@@ -223,6 +226,8 @@ if __name__ == "__main__":
     import sys
 
     from PySide6.QtWidgets import QApplication
+
+    # TODO: 这个视图有内存泄漏,未来需要修复,目前推测是分页按钮没能及时回收
 
     app = QApplication(sys.argv)
     window = Pagination(total_pages=1)

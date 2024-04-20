@@ -18,7 +18,6 @@ Usage:
     >>> table = MVCTableWithPagination()
     >>> table.set_dataclass(Person)
     >>> table.add_row(Person(name="张三", age=18, birthday=datetime.now()))
-    >>> table.set_per_page_count(10)
 Notes:
     如果你想要运行这个模块，你需要安装下列模块
     "PySide6-Fluent-Widgets[full]>=1.5.3"
@@ -74,9 +73,6 @@ class MVCTableWithPagination(QWidget):
         self._main_layout.addWidget(self._pagination)
         self.setLayout(self._main_layout)
 
-        self._pagination.set_total_pages(self._table.total_page)
-        self._connect_signal()
-
     def set_dataclass(self, custom_dataclass: dataclass) -> None:
         self._table.set_dataclass(custom_dataclass)
 
@@ -86,45 +82,46 @@ class MVCTableWithPagination(QWidget):
     def get_pagination_error_message_signal(self) -> Signal:
         return self._pagination.get_error_message_signal()
 
+    def get_pagination_current_page_signal(self) -> Signal:
+        return self._pagination.get_current_page_signal()
+
     def get_table_error_message_signal(self) -> Signal:
         return self._table.get_error_message_signal()
 
     def get_current_page_data(self) -> list[dataclass]:
         return self._table.get_current_page_data()
 
-    def get_all_data(self) -> list[dataclass]:
-        return self._table.get_all_data()
+    def get_data(self) -> list[dataclass]:
+        return self._table.get_data()
 
     def add_row(self, row: dataclass) -> None:
         self._table.add_row(row)
-        self._pagination.set_total_pages(self._table.total_page)
 
     def clear(self) -> None:
         self._table.clear()
 
     def set_total_pages(self, total_pages: int) -> None:
         self._pagination.set_total_pages(total_pages)
-        self._table.current_page = 1
-
-    def set_per_page_count(self, per_page_count: int) -> None:
-        self._table.per_page_count = per_page_count
 
     def set_data(self, data: list[dataclass]) -> None:
         self._table.set_data(data)
-        self._pagination.set_total_pages(self._table.total_page)
-
-    def _set_current_page(self, current_page: int):
-        self._table.current_page = current_page
-
-    def _connect_signal(self) -> None:
-        # 绑定分页控件和表格
-        current_page_signal = self._pagination.get_current_page_signal()
-        current_page_signal.connect(self._set_current_page)
 
 
 if __name__ == "__main__":
+
+    @dataclass
+    class User:
+        name: str
+        age: int
+
+    u1 = User(name="张三", age=18)
+    u2 = User(name="李四", age=19)
+
     app = QApplication([])
     window = MVCTableWithPagination()
+    window.set_dataclass(User)
+    window.add_row(u1)
+    window.add_row(u2)
     window.set_total_pages(100)
     window.show()
     app.exec()
