@@ -1,5 +1,7 @@
-from typing import Union
+import gc
 from functools import partial
+from typing import Union
+
 import loguru
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QIntValidator
@@ -134,9 +136,16 @@ class Pagination(QWidget):
 
     def _update_buttons(self):
         for button in self.buttons:
+            # 断开所有的信号连接
             self.button_layout.removeWidget(button)
+            # 删除布局中的组件后，还需确保调用deleteLater来通知Qt删除相关的部件，这是处理现有的内存泄漏问题的关键步骤。
             button.deleteLater()
+
+            # 清除buttons列表，移除对被删除按钮的引用
         self.buttons.clear()
+
+        # 强制执行垃圾收集，尽管这不是必需的，但可以在这里作为额外步骤确保相关内存被及时释放。
+        gc.collect()
 
         start_page = max(1, self.current_page - self.left_button_number)
         end_page = min(self.total_pages, self.current_page + self.right_button_number)
@@ -176,9 +185,10 @@ class Pagination(QWidget):
                 self._add_label("...")
             self._add_button(self.total_pages)
 
-    def _add_button(self, page):
+    def _add_button(self, page: int):
         button = ToggleButton(str(page), self)
         button.clicked.connect(partial(self._on_button_clicked, page))
+        # button.clicked.connect(lambda checked: self._on_button_clicked(checked))
         self.button_layout.addWidget(button)
         self.buttons.append(button)
         if page == self.current_page:

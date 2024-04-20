@@ -91,6 +91,9 @@ class DatabasePresenter:
 
         self._init_table(current_plugin)
 
+        # 清空分页器
+        self.get_view().get_table().set_total_pages(1)
+
     def _get_current_plugin(self, combox_box: ComboBox):
         """根据下拉框的值获取当前的插件"""
         current_plugin: Optional[DatabasePluginBase] = (

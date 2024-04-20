@@ -1,11 +1,13 @@
+from typing import Optional
+
 from PySide6.QtWidgets import QGroupBox, QHBoxLayout, QVBoxLayout, QWidget
 from qfluentwidgets import BodyLabel, SpinBox, ToolTipFilter
 
 from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
-)
+    )
 from src.common.plugins.plugin_base import DatabasePluginBase
-from src.core.dict_typing import OutOfStockDict
+from src.config import cfg
 from src.core.wms_dataclass import OutOfStockDataclass
 
 
@@ -127,8 +129,14 @@ class OutOfStockPlugin(DatabasePluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_dataclass = OutOfStockDataclass
+    # 用于控制分页
+    total_pages: int = 1
+    current_page: int = 1
+    per_page_count: int = cfg.get(cfg.max_table_rows)
 
-    def get_data(self) -> list[OutOfStockDataclass]:
+    def get_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> list[OutOfStockDataclass]:
         outofstock_data = self._database_plugin_controller.get_out_of_stock_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
         level_1_value = self._custom_widget.first_state_value_spin_box.value()

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from PySide6.QtWidgets import QGroupBox, QHBoxLayout, QVBoxLayout, QWidget
 from qfluentwidgets import BodyLabel, SpinBox, ToolTipFilter
 
@@ -5,6 +7,7 @@ from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
     )
 from src.common.plugins.plugin_base import DatabasePluginBase
+from src.config import cfg
 from src.core.wms_dataclass import UnsalableDataclass
 
 
@@ -161,8 +164,14 @@ class UnsalablePlugin(DatabasePluginBase):
     table_dataclass = UnsalableDataclass
     has_custom_widget: bool = True
     has_initialize: bool = True
+    # 用于控制分页
+    total_pages: int = 1
+    current_page: int = 1
+    per_page_count: int = cfg.get(cfg.max_table_rows)
 
-    def get_data(self) -> list[UnsalableDataclass]:
+    def get_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> list[UnsalableDataclass]:
         unsalable_data = self._database_plugin_controller.get_unsalable_data()
         level_1_day = self._custom_widget.first_stage_day_spin_box.value()
         level_1_value = self._custom_widget.first_state_value_spin_box.value()

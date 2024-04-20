@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from PySide6.QtCore import QDate
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QVBoxLayout, QWidget
@@ -9,6 +10,7 @@ from src.common.database.controller.database_plugin_controller import (
     DatabasePluginController,
     )
 from src.common.plugins.plugin_base import DatabasePluginBase
+from src.config import cfg
 from src.core.wms_dataclass import ReturnTimesDataclass
 
 
@@ -71,8 +73,14 @@ class ReturnTimesPlugin(DatabasePluginBase):
     has_custom_widget: bool = True
     has_initialize: bool = True
     table_dataclass = ReturnTimesDataclass
+    # 用于控制分页
+    total_pages: int = 1
+    current_page: int = 1
+    per_page_count: int = cfg.get(cfg.max_table_rows)
 
-    def get_data(self) -> list[ReturnTimesDataclass]:
+    def get_data(
+        self, limit: Optional[int] = None, offset: Optional[int] = None
+    ) -> list[ReturnTimesDataclass]:
         data = self._database_plugin_controller.get_return_data()
         # 根据时间进行筛选
         start_time = self._custom_widget.start_calendar_picker.getDate()
