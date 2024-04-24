@@ -11,9 +11,6 @@ from src.common.database.service.get_attribute_service import (
     GetModelService,
     )
 from src.common.database.utils import convert
-from src.core.dict_typing import (
-    BasicSearchParameterDict,
-    )
 from src.core.enums import BasicSearchCombboxOperationEnum
 from src.core.wms_dataclass import (
     BasicSearchDataclass,
@@ -309,20 +306,7 @@ class DatabasePluginController:
 if __name__ == "__main__":
     d = DatabasePluginController()
     # 测试一下get_basic_search_data
-    parameter: BasicSearchParameterDict = {
-        "name": "毛衣",
-        # 'brand': 'Nike',
-        # 'has_price': True,
-        # 'price': 300,
-        # 'price_operation': BasicSearchCombboxOperationEnum.Greater,
-        # 'batch_serial_number': 'test',
-        # 'wave_serial_number': 'test',
-        # 'has_storage_days': True,
-        # 'storage_days': 16,
-        # 'storage_days_operation': BasicSearchCombboxOperationEnum.Greater,
-        # 'hide_sold_item': False,
-        # 'hide_has_return_item': False
-    }
+
     # result = d.get_basic_search_data(parameter)
     #
     # session = get_session()
