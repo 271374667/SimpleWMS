@@ -34,15 +34,25 @@ class LoginModel:
             None,
         )
 
-    def _password_hash(self, password: str) -> str:
-        """Hash the password"""
-        return hashlib.md5(password.encode()).hexdigest()
+    def get_all_users(self) -> list[Account]:
+        return self._accounts
 
     def check_password(self, username: str, password: str) -> bool:
         account = self.get_user(username)
         if account is None:
             return False
         return account.password == self._password_hash(password)
+
+    def delete_user(self, username: str) -> None:
+        self._accounts = [
+            account for account in self._accounts if account.username != username
+        ]
+        self._account_dict.pop(username)
+        self._save_account()
+
+    def _password_hash(self, password: str) -> str:
+        """Hash the password"""
+        return hashlib.md5(password.encode()).hexdigest()
 
     def _save_account(self):
         with open(ACCOUNT_FILE, "w") as f:

@@ -4,6 +4,7 @@ import loguru
 from PySide6.QtWidgets import QFileDialog
 
 from src.component.email_setting_component import EmailSettingComponent
+from src.component.user_manager_component import UserManagerComponent
 from src.model.setting_model import SettingModel
 from src.utils.run_in_thread import RunInThread
 from src.view.setting_view import SettingView
@@ -13,6 +14,7 @@ class SettingPresenter:
     def __init__(self):
         self._view = SettingView()
         self._model = SettingModel()
+        self._user_manager_component = UserManagerComponent()
         self._connect_singal()
 
     def get_view(self) -> SettingView:
@@ -157,6 +159,8 @@ class SettingPresenter:
         )
         ui.export_database_card.clicked.connect(self._export_database_card_clicked)
         ui.import_database_card.clicked.connect(self._import_database_card_clicked)
+
+        ui.user_manager_card.clicked.connect(self._user_manager_component.show)
 
         # 绑定一下进度条信号
         self.get_model().get_progress_signal().connect(ui.get_progress_bar().setVal)

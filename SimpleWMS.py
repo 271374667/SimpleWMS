@@ -2,6 +2,7 @@ import loguru
 from PySide6.QtWidgets import QApplication
 
 from src.component.pyinstaller_splashwindow import SplashWindow
+from src.core.constant import ACCOUNT_FILE
 from src.core.enums import AccountPermissionEnum
 from src.presenter.login_presenter import LoginPresenter
 from src.presenter.main_presenter import MainPresenter
@@ -33,10 +34,14 @@ def main():
     SplashWindow.close_splash()
 
     app = QApplication([])
-    login_presenter = LoginPresenter()
-    login_presenter.user_permission_signal.connect(start)
-    login_view = login_presenter.get_view()
-    login_view.show()
+    if not ACCOUNT_FILE.exists():
+        loguru.logger.warning("没有账户文件,将直接进入管理员模式!")
+        start(AccountPermissionEnum.Admin.value)
+    else:
+        login_presenter = LoginPresenter()
+        login_presenter.user_permission_signal.connect(start)
+        login_view = login_presenter.get_view()
+        login_view.show()
     app.exec()
 
 

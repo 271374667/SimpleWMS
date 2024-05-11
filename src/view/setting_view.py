@@ -146,6 +146,14 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.user_manager_card = PushSettingCard(
+            "用户管理",
+            Icon(FluentIcon.PEOPLE),
+            "用户管理",
+            "管理用户",
+            self.general_group,
+        )
+
     def _set_up_tooltip(self) -> None:
         """设置卡片的提示"""
         self.log_rotation_days_card.setToolTip(
@@ -173,6 +181,8 @@ class SettingView(MessageBaseView):
             "设置表格最大行数,显示的行数越多,占用的内存越大,默认为50行"
         )
 
+        self.user_manager_card.setToolTip("管理用户")
+
     def _set_up_layout(self) -> None:
         """设置布局"""
         self.smooth_scroll_area.setWidget(self.scroll_widget)
@@ -189,6 +199,7 @@ class SettingView(MessageBaseView):
         self.general_group.addSettingCard(self.log_rotation_days_card)
         self.general_group.addSettingCard(self.log_retention_days_card)
         self.general_group.addSettingCard(self.max_table_rows_card)
+        self.general_group.addSettingCard(self.user_manager_card)
 
         self.appearance_group.addSettingCard(self.font_card)
 
