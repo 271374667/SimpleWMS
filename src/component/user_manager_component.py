@@ -58,6 +58,11 @@ class UserManagerComponent:
             self._view.show_error_infobar("请选择一个用户!")
             return
 
+        # 如果当前用户是最后一个用户，不能删除
+        if len(self._login_model.get_all_users()) == 1:
+            self._view.show_error_infobar("当前用户是最后一个用户，不能删除!")
+            return
+
         if (
             self.get_view().show_mask_dialog(
                 "确定删除用户吗?", "请你仔细确认是否删除该用户"
