@@ -13,7 +13,7 @@ from src.view import (
     )
 
 
-class MainView(FluentWindow):
+class ViewerView(FluentWindow):
     def __init__(
         self,
         home_view: home_view.HomeView,

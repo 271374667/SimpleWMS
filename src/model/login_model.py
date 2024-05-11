@@ -19,7 +19,7 @@ class LoginModel:
         self,
         username: str,
         password: str,
-        permission: AccountPermissionEnum = AccountPermissionEnum.User,
+        permission: AccountPermissionEnum = AccountPermissionEnum.Admin,
     ) -> None:
         account = Account(
             username, self._password_hash(password), permissions=permission

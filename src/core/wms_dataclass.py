@@ -99,7 +99,7 @@ class ReturnTimesDataclass(DataclassBase):
 class Account:
     username: str = ""
     password: str = ""
-    permissions: AccountPermissionEnum = AccountPermissionEnum.User
+    permissions: AccountPermissionEnum = AccountPermissionEnum.Viewer
 
     def to_dict(self):
         return {

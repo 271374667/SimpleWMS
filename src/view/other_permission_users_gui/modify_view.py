@@ -11,7 +11,7 @@ from src.view import (
     )
 
 
-class MainView(FluentWindow):
+class ModifyView(FluentWindow):
     def __init__(
         self,
         storage_view: storage_view.StorageView,

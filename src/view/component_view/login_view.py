@@ -7,11 +7,12 @@ from qfluentwidgets.components import (
     PrimaryPushButton,
     TitleLabel,
     )
+from qframelesswindow import FramelessWindow
 
 from src.view.message_base_view import MessageBaseView
 
 
-class LoginView(MessageBaseView):
+class LoginView(FramelessWindow, MessageBaseView):
     login_signal = Signal(str, str)
 
     def __init__(self):

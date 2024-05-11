@@ -17,5 +17,5 @@ class TimeFilterEnum(Enum):
 
 class AccountPermissionEnum(Enum):
     Admin = 0
-    User = auto()
-    Guest = auto()
+    Viewer = auto()
+    Worker = auto()
