@@ -35,11 +35,11 @@ class UserManagerComponent:
         permission = self._view.get_permission_comboBox().currentIndex()
 
         if username == "" or password == "":
-            self._view.show_error_infobar("用户名和密码不能为空!")
+            self._view.show_error_infobar("错误", "用户名和密码不能为空!")
             return
 
         if self._login_model.get_user(username) is not None:
-            self._view.show_error_infobar("用户名已存在!")
+            self._view.show_error_infobar("错误", "用户名已存在!")
             return
 
         self._login_model.add_user(
@@ -55,12 +55,12 @@ class UserManagerComponent:
         table = self._view.get_table()
         selected_row = table.selectedItems()
         if not selected_row:
-            self._view.show_error_infobar("请选择一个用户!")
+            self._view.show_error_infobar("错误", "请选择一个用户!")
             return
 
         # 如果当前用户是最后一个用户，不能删除
         if len(self._login_model.get_all_users()) == 1:
-            self._view.show_error_infobar("当前用户是最后一个用户，不能删除!")
+            self._view.show_error_infobar("错误", "当前用户是最后一个用户，不能删除!")
             return
 
         if (
@@ -104,4 +104,5 @@ if __name__ == "__main__":
 
     app = QApplication([])
     component = UserManagerComponent()
+    component.show()
     app.exec()

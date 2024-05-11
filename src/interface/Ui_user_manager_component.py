@@ -66,7 +66,7 @@ class Ui_Form(object):
         self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.TableWidget.setObjectName(u"TableWidget")
         self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.TableWidget.setSelectionMode(QAbstractItemView.NoSelection)
+        self.TableWidget.setSelectionMode(QAbstractItemView.SingleSelection)
         self.TableWidget.setShowGrid(False)
         self.TableWidget.setSortingEnabled(True)
         self.TableWidget.horizontalHeader().setStretchLastSection(True)
