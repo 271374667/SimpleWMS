@@ -1,18 +1,28 @@
+from typing import Optional
+
+from PySide6.QtCore import QObject
+
+from src.core.enums import AccountPermissionEnum
 from src.model.main_model import MainModel
 from src.presenter import (
     chart_presenter,
     database_presenter,
     home_presenter,
+    login_presenter,
     retrieval_presenter,
     setting_presenter,
     storage_presenter,
-)
+    )
 from src.view.main_view import MainView
 from src.view.splash_view import SplashView
 
 
-class MainPresenter:
+class MainPresenter(QObject):
     def __init__(self):
+        super().__init__()
+        self._is_login: bool = False
+        self._current_account_permission: Optional[AccountPermissionEnum] = None
+
         self._splash_view = SplashView()
 
         self._splash_view.show_message("正在加载出库模块...(1/8)")
@@ -29,6 +39,13 @@ class MainPresenter:
         self._chart_presenter = chart_presenter.ChartPresenter()
 
         self._splash_view.show_message("正在加载主窗口...(7/8)")
+
+        self._login_presenter = login_presenter.LoginPresenter()
+        self._login_presenter.login_status_signal.connect(self._login)
+        self._login_presenter.get_view().show()
+        while not self._is_login:
+            QApplication.processEvents()
+
         self._view = MainView(
             home_view=self._home_presenter.get_view(),
             storage_view=self._storage_presenter.get_view(),
@@ -47,6 +64,23 @@ class MainPresenter:
 
     def get_model(self) -> MainModel:
         return self._model
+
+    def _login(self, is_success: bool) -> bool:
+        self._is_login = is_success
+        return is_success
+
+    def _show_main_window(self, permission: AccountPermissionEnum) -> None:
+        self._view.show()
+        self._current_account_permission = permission
+        self._view.set_permission(permission)
+
+        if permission == AccountPermissionEnum.Admin:
+            self._view.show_admin_tab()
+        else:
+            self._view.hide_admin_tab()
+
+        self._splash_view.finish(self._view)
+        self._splash_view.deleteLater()
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ from typing import Optional
 from PySide6.QtCore import Qt
 from sqlalchemy.sql import sqltypes
 
-from src.core.enums import BasicSearchCombboxOperationEnum
+from src.core.enums import AccountPermissionEnum, BasicSearchCombboxOperationEnum
 
 
 class DataclassBase(ABC):
@@ -93,3 +93,21 @@ class ReturnTimesDataclass(DataclassBase):
     入库时间: datetime
     退货次数: int
     Ean13码: str
+
+
+@dataclass(frozen=True, slots=True)
+class Account:
+    username: str = ""
+    password: str = ""
+    permissions: AccountPermissionEnum = AccountPermissionEnum.User
+
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "password": self.password,
+            "permissions": self.permissions.value,
+        }
+
+    @classmethod
+    def from_dict(cls, account_dict):
+        return cls(**account_dict)

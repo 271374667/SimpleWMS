@@ -14,3 +14,8 @@ class TimeFilterEnum(Enum):
     Month = auto()
     All = auto()
 
+
+class AccountPermissionEnum(Enum):
+    Admin = 0
+    User = auto()
+    Guest = auto()

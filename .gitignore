@@ -189,3 +189,4 @@ log
 /database*.db
 /.python-version
 /Pipfile
+*.json
